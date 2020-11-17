@@ -35,20 +35,20 @@ As show in the following figure, Image Tool has two tab pages:
 * Download: used as image download server to transmit images to AmebaPro through UART  
 * Generate: concat separate images and generate a final image  
 
-<img src="photo/image_tool_1.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
-<img src="photo/hardware_setting.png" alt="test image size" height="60%" width="60% style="text-align: center""><br> 
-<img src="photo/FT232_connection.png" alt="test image size" height="60%" width="60% style="text-align: center""><br>
+<img align="center" src="photo/image_tool_1.png" alt="test image size" height="60%" width="60%"><br> 
+<img align="center" src="photo/hardware_setting.png" alt="test image size" height="60%" width="60%"><br> 
+<img align="center" src="photo/FT232_connection.png" alt="test image size" height="60%" width="60%"><br>
  
 Image tool use UART to transmit image to AmebaPro board. Before performing image download function, AmebaPro need to enter UART_DOWNLOAD mode first. Please follow below steps to get AmebaPro into UART_DOWNLOAD mode:  
 
-<img src="photo/download_mode.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
+<img align="center" src="photo/download_mode.png" alt="test image size" height="60%" width="60%"><br> 
 
 Step1: Connect LOGUART with FT pin by jumper cap.  
 Step2: Connect USB->UART to PC by using micro-USB wire.  
 Step3: Switch “1” to ON from SW7(2V0、2V1) or Switch “2” to ON from SW7(1V0)  
 Step4: Push reset button.  
 
-<img src="photo/flash_download.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
+<img align="center" src="photo/flash_download.png" alt="test image size" height="60%" width="60%"><br> 
 
 To download image through Image Tool, device need to enter UART_DOWNLOAD mode first.  
 Steps to download flash are as following:  
