@@ -1,0 +1,177 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol __ICFEDIT_intvec_start__ = 0x00000000;
+
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_DTCM_ROM_BSS_start__         = 0x20000000;
+define symbol __ICFEDIT_region_DTCM_ROM_BSS_end__           = 0x200004FF;
+define symbol __ICFEDIT_region_DTCM_RAM_start__         = 0x20000500;
+define symbol __ICFEDIT_region_DTCM_RAM_end__           = 0x20000FFF;
+
+define symbol __ICFEDIT_region_VECTORS_start__         	= 0x20200000;
+define symbol __ICFEDIT_region_VECTORS_end__           	= 0x202000FF;
+
+define symbol __ICFEDIT_region_SIGN_start__         	= 0x20200600;
+define symbol __ICFEDIT_region_SIGN_end__           	= 0x2020060F;
+
+define symbol __ICFEDIT_region_FUNTAB_start__         	= 0x20200610;
+define symbol __ICFEDIT_region_FUNTAB_end__           	= 0x202007FF;
+
+define symbol __ICFEDIT_region_RAM_start__         		= 0x20200800;
+define symbol __ICFEDIT_region_RAM_end__           		= 0x2020BFFF;
+
+/*-Sizes-*/
+define symbol __ICFEDIT_size_cstack__   = 0x800;
+define symbol __ICFEDIT_size_heap__     = 0x1000;
+/**** End of ICF editor section. ###ICF###*/
+
+
+define memory mem with size = 4G;
+define region DTCM_ROM_BSS_region   		= mem:[from __ICFEDIT_region_DTCM_ROM_BSS_start__   to __ICFEDIT_region_DTCM_ROM_BSS_end__];
+define region DTCM_RAM_region   			= mem:[from __ICFEDIT_region_DTCM_RAM_start__   	to __ICFEDIT_region_DTCM_RAM_end__];
+define region RAM_region					= mem:[from __ICFEDIT_region_RAM_start__   			to __ICFEDIT_region_RAM_end__];
+define region FUNTAB_region					= mem:[from __ICFEDIT_region_FUNTAB_start__   		to __ICFEDIT_region_FUNTAB_end__];
+define region SIGN_region					= mem:[from __ICFEDIT_region_SIGN_start__   		to __ICFEDIT_region_SIGN_end__];
+define region VECTORS_region				= mem:[from __ICFEDIT_region_VECTORS_start__   		to __ICFEDIT_region_VECTORS_end__];
+
+
+//initialize by copy { readwrite };
+//initialize by copy with packing = none { section __DLIB_PERTHREAD }; // Required in a multi-threaded application
+
+//do not initialize  { section * };
+do not initialize { readwrite };
+
+
+/****************************************
+ * BD RAM Section config                *
+ ****************************************/
+
+keep { section .ram_vector_table };
+define block RAM_VECTOR with fixed order
+{
+    section .ram_vector_table
+};
+place at start of VECTORS_region 
+{
+    block RAM_VECTOR
+};
+
+keep { section .start.ram.sign* };
+define block RAM_SIGN with fixed order
+{
+    section .start.ram.sign*
+};
+place at start of SIGN_region
+{
+    block RAM_SIGN
+};
+
+keep { section .start.ram.data* };
+define block RAM_FUNTAB with fixed order
+{
+    section .start.ram.data*
+};
+place at start of FUNTAB_region
+{
+    block RAM_FUNTAB
+};
+
+
+define block RAM_DATA with fixed order
+{
+    section vtable, 
+    section .data*,
+    //section *data
+};
+
+
+define block RAM_TEXT with fixed order
+{
+    section .text*,
+    //section *text
+};
+
+define block SHT$$PREINIT_ARRAY { preinit_array };
+define block SHT$$INIT_ARRAY { init_array };
+define block CPP_INIT with alignment = 8, fixed order 
+{        
+    block SHT$$PREINIT_ARRAY,
+    block SHT$$INIT_ARRAY 
+};
+
+define block RAM_RODATA with fixed order
+{
+    section .rodata*,
+    block CPP_INIT,
+    //section *rodata
+};
+define block SYS_RAM_BSS with fixed order
+{
+    section .sys.bss*
+};
+define block RAM_BSS with fixed order
+{
+    //block SYS_RAM_BSS,
+    section .bss*,
+    section COMMON,
+    //section *bss
+};
+
+define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
+keep {section .heap*};
+keep {block HEAP};
+define block RAM_HEAP with fixed order
+{
+    section .heap*,
+    block HEAP
+};
+    
+place at start of RAM_region 
+{
+    block RAM_TEXT,
+    block RAM_RODATA,
+    readonly,
+    block RAM_DATA,
+    readwrite,
+    //block SYS_RAM_BSS,
+    block RAM_BSS,
+    block RAM_HEAP
+};									
+
+
+keep { section .rom_temp.bss* };
+define block ROM_TEMP_BSS with fixed order
+{
+    section .rom_temp.bss*
+};
+
+keep { section .stack* };
+define block CSTACK    with alignment = 8
+{
+    section .stack*
+};
+
+place at start of DTCM_ROM_BSS_region
+{
+    block ROM_TEMP_BSS
+};
+
+place at start of DTCM_RAM_region
+{
+	block SYS_RAM_BSS
+};
+
+define block RAM_STACK with fixed order
+{
+    block CSTACK
+};
+place at end of DTCM_RAM_region
+{
+    block RAM_STACK
+};
+
+include "../../../component/soc/realtek/8195b/misc/bsp/ROM/romsym_8195bl_iar.so";
+
+//define exported symbol Reset_Handler = 0x10000001;

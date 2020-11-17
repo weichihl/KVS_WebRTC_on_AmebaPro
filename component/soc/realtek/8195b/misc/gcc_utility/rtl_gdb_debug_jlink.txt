@@ -1,0 +1,34 @@
+# GDB script debug
+
+#===============================================================================
+#set GDB connection 
+set remotetimeout 100000
+target remote :2331
+
+#===============================================================================
+#Message display setting
+#disable all messages
+
+#===============================================================================
+set {int}0x50000828=0
+set {int}0x40002800=0x41010001
+monitor sleep 20
+monitor reset 3
+monitor halt
+monitor sleep 20
+
+#===============================================================================
+
+
+#===============================================================================
+#Load flash download file
+source debug.gdb
+
+hbreak main
+continue
+clear main
+
+
+
+
+

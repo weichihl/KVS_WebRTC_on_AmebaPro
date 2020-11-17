@@ -1,0 +1,26 @@
+../../../component/common/file_system/fatfs/r0.10c/src/option/ccsbcs.o: \
+ ../../../component/common/file_system/fatfs/r0.10c/src/option/ccsbcs.c \
+ ../../../component/common/file_system/fatfs/r0.10c/include/../include/ff.h \
+ ../../../component/common/file_system/fatfs/r0.10c/include/../include/integer.h \
+ ../../../component/common/file_system/fatfs/r0.10c/include/../include/ffconf.h \
+ ../../../component/os/freertos/freertos_service.h \
+ ../../../component/common/api/platform/dlist.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/FreeRTOS.h \
+ ../inc/FreeRTOSConfig.h \
+ ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/include/basic_types.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/projdefs.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/portable.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/deprecated_definitions.h \
+ ../../../component/os/freertos/freertos_v10.0.0/portable/GCC/ARM_RTL8195B/portmacro.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/mpu_wrappers.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/task.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/list.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/event_groups.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/timers.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/task.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/semphr.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/queue.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/queue.h \
+ ../../../component/os/freertos/freertos_v10.0.0/include/timers.h \
+ ../../../component/common/api/platform/platform_stdlib.h \
+ ../../../component/common/api/platform/platform_stdlib_rtl8195bhp.h

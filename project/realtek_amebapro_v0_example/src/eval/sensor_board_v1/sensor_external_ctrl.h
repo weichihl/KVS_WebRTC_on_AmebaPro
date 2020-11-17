@@ -1,0 +1,4 @@
+#ifndef _SENSOR_EXTERNAL_CTRL_H_
+#define _SENSOR_EXTERNAL_CTRL_H_
+
+#endif

@@ -1,0 +1,41 @@
+{
+  "IsLib": "N",
+  "OutLib": "rtl8195blp_hal.a",
+
+  "TargetDep": [
+    "rtl8195b-lp"
+  ],
+  
+  "ChipVersionDep": [
+    "Cut-A",
+    "Cut-B",
+    "Cut-C",
+    "Cut-D"
+  ],
+
+  "BuildModeDep": [
+    "Ram",
+    "All"
+  ],
+
+
+  "extraIncludes": [
+    ""
+  ],
+
+  "extraCCFlags": [
+  ],
+  
+  "excludePath": [
+    "test"
+  ],
+
+  "excludeSource": [
+  ],
+
+  "ARMCC-v5": {
+    "CCFlags": [
+      "--gnu"
+	]
+  }
+}

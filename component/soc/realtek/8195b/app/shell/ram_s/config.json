@@ -1,0 +1,35 @@
+{
+  "IsLib": "N",
+  "OutLib": "shell.a",
+
+  "DisableOnNoSecure": "Y",
+  
+  "BuildModeDep": [
+    "Ram",
+    "All"
+  ],
+
+  "extraIncludes": [
+  ],
+
+  "extraCCFlags": [
+  ],
+  
+  "excludePath": [
+  ],
+
+  "excludeSource": [
+  ],
+
+  "rtl8195b-hp": {
+    "SecureDep": [
+   	  "Secure"
+    ]
+  },
+
+  "ARMCC-v5": {
+    "CCFlags": [
+      "--gnu"
+	]
+  }  
+}

@@ -1,0 +1,39 @@
+{
+  "IsLib": "N",
+
+  "BuildModeDep": [
+    "Ram",
+    "All"
+  ],
+
+  "TargetDep": [
+    "rtl8195b-hp"
+  ],
+
+  "extraIncludes": [
+  ],
+
+  "extraCCFlags": [
+  ],
+  
+  "excludePath": [
+  ],
+
+  "excludeSource": [
+  ],
+
+
+  "rtl8195b-hp": {
+    "SecureDep": [
+      "NonSecure",
+      "Ignore"
+    ]    
+  },
+  
+  "ARMCC-v5": {
+    "CCFlags": [
+      "--gnu"
+	]
+  }
+
+}

@@ -1,0 +1,42 @@
+{
+  "IsLib": "N",
+  "OutLib": "rtl8195bh_hal_ram.a",
+
+  "DisableOnNoSecure": "N",
+
+  "TargetDep": [
+    "rtl8195b-hp"
+  ],
+
+  "SecureDep": [
+  	"Secure",
+    "NonSecure",
+    "Ignore"
+  ],
+  
+  "ChipVersionDep": [
+    "Cut-A",
+    "Cut-B",
+    "Cut-C",
+    "Cut-D"
+  ],
+
+  "BuildModeDep": [
+    "Ram",
+    "Boot",
+    "All"
+  ],
+
+
+  "extraIncludes": [
+  ],
+
+  "extraCCFlags": [
+  ],
+  
+  "excludePath": [
+  ],
+
+  "excludeSource": [
+  ]
+}

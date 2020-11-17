@@ -1,0 +1,181 @@
+{
+  "IsLib": "N",
+  "OutLib": "rtx.a",
+
+  "TargetDep": [
+    "rtl8195b-lp"
+  ],
+  
+  "ChipVersionDep": [
+    "Cut-A",
+    "Cut-B",
+    "Cut-C",
+    "Cut-D"
+  ],
+
+  "BuildModeDep": [
+    "Rom",
+    "All"
+  ],
+
+  "localIncludePath": [
+    "../INC"
+  ],
+
+  "extraIncludes": [
+  ],
+
+  "extraCCFlags": [
+    "-D__CMSIS_RTOS",
+    "-DIFX_XMC4XXX"
+  ],
+  
+  "excludePath": [
+    "LIB"
+  ],
+
+  "excludeSource": [
+  ],
+
+  "rtl8195b-lp": {
+    "excludePath": [
+      "rtl8195bhp"
+    ],
+
+    "excludeSource": [
+      "HAL_CM3.S",
+      "HAL_CM4.S"
+    ],
+
+    "CCFlags": [
+  	  "-D__CORTEX_M0",
+  	  "-DROM_REGION=1"
+	]
+  },
+
+  "rtl8195b-hp": {
+    "excludePath": [
+      "rtl8195blp"
+    ],
+
+    "excludeSource": [
+      "HAL_CM3.S",
+      "HAL_CM0.S"
+    ],
+
+    "CCFlags": [
+  	  "-D__CORTEX_M4",
+  	  "-D__FPU_PRESENT"
+	]
+  },
+    
+  "ASDK": {
+    "CCFlags": [
+	],
+
+    "excludePath": [
+      "IAR",
+      "ARM"
+    ],
+
+    "excludeSource": [
+    ],
+
+    "rtl8195b-lp": {
+      "excludeSource": [
+        "HAL_CM3.S",
+        "HAL_CM4.S"
+      ]
+    },
+
+    "rtl8195b-hp": {
+      "excludeSource": [
+        "HAL_CM0.S",
+        "HAL_CM3.S"
+      ]
+    }
+  },
+  
+  "ARMCC-v5": {
+    "CCFlags": [
+      "--gnu"
+	],
+
+    "excludePath": [
+      "IAR",
+      "GCC"
+    ],
+
+    "excludeSource": [
+    ],
+
+    "rtl8195b-lp": {
+      "excludeSource": [
+        "HAL_CM3.c",
+        "HAL_CM4.c"
+      ]
+    },
+
+    "rtl8195b-hp": {
+      "excludeSource": [
+        "HAL_CM0.c",
+        "HAL_CM3.c"
+      ]
+    }
+  },
+
+  "ARMCC-v6": {
+    "CCFlags": [
+	],
+
+    "excludePath": [
+      "IAR",
+      "GCC"
+    ],
+
+    "excludeSource": [
+    ],
+
+    "rtl8195b-lp": {
+      "excludeSource": [
+        "HAL_CM3.S",
+        "HAL_CM4.S"
+      ]
+    },
+
+    "rtl8195b-hp": {
+      "excludeSource": [
+        "HAL_CM0.c",
+        "HAL_CM4.c",
+        "HAL_CM3.c"
+      ]
+    }
+  },
+
+  "GCC-ARM": {
+    "CCFlags": [
+	],
+
+    "excludePath": [
+      "IAR",
+      "ARM"
+    ],
+
+    "excludeSource": [
+    ],
+
+    "rtl8195b-lp": {
+      "excludeSource": [
+        "HAL_CM3.S",
+        "HAL_CM4.S"
+      ]
+    },
+
+    "rtl8195b-hp": {
+      "excludeSource": [
+        "HAL_CM0.S",
+        "HAL_CM3.S"
+      ]
+    }
+  }  
+}

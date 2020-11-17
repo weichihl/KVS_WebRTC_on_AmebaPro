@@ -1,0 +1,37 @@
+SECTIONS 
+{
+	hal_int_vector_stubs = 0x2e800;
+	hal_syson_stubs = 0x2e860;
+	hal_gtimer_stubs = 0x2e8c0;
+	hal_pwm_stubs = 0x2e9a0;
+	hal_rtc_stubs = 0x2ea70;
+	hal_chg_stubs = 0x2ead0;
+	hal_uart_stubs = 0x2eb00;
+	hal_gpio_stubs = 0x2ec30;
+	hal_cir_stubs = 0x2ece0;
+	hal_qdec_stubs = 0x2ee30;
+	hal_sgpio_stubs = 0x2ef30;
+	hal_icc_stubs = 0x2f0b0;
+	hal_efuse_stubs = 0x2f1b0;
+	Image$$_STUB_ADC$$Base = 0x2f200;
+	__rom_stubs_hal_adc = 0x2f200;
+	hal_adc_stubs = 0x2f200;
+	hal_gdma_stubs = 0x2f2c0;
+	hal_spic_stubs = 0x2f370;
+	hal_flash_stubs = 0x2f3d0;
+	Image$$_STUB_COMP$$Base = 0x2f460;
+	__rom_stubs_hal_comp = 0x2f460;
+	hal_comp_stubs = 0x2f460;
+	hal_pin_manag_stubs = 0x2f4f0;
+	Image$$_STUB_I2C$$Base = 0x2f530;
+	__rom_stubs_hal_i2c = 0x2f530;
+	hal_i2c_stubs = 0x2f530;
+	cmd_shell_stubs = 0x2f650;
+	cmsis_os_rtx_stubs = 0x2f6b0;
+	stdio_printf_stubs = 0x2f7d0;
+	strproc_stubs = 0x2f840;
+	utility_stubs = 0x2f900;
+	sys_misc_stubs = 0x2f950;
+	hal_lpi_stubs = 0x2f9b0;
+	osdep_service = 0x2f9e0;
+}

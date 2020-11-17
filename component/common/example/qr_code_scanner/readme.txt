@@ -1,0 +1,1 @@
+For how to use the example, you can refer to UM0300 Realtek AmebaPro QR Code Detection user guide.pdf

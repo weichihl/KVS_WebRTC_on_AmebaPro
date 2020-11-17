@@ -1,0 +1,33 @@
+; *************************************************************
+; *** Scatter-Loading Description File for RTL8195BLP RAM   ***
+; *************************************************************
+LR_RAM 0x20200000 0x10000  {
+  _RAM_VECTOR 0x20200000 FIXED 0x100  {  ; RW data
+	rtl8195blp_vectors.o (.ram_vector_table)
+  }
+
+  _RAM_IMG_SIGN 0x20200600 FIXED 0x10  {
+    ram_start.o (.start.ram.sign*)
+  }
+
+  _RAM_FUNC_TBL 0x20200610 FIXED 0x20  {
+    ram_start.o (.start.ram.data*)
+  }
+
+  _RAM_CODE 0x20200800 FIXED {
+   .ANY (+RO)
+  }
+
+  _DATA +0 FIXED {
+   .ANY (+RW)
+  }
+
+  _BSS +0 UNINIT FIXED {
+	RTX_Conf_CM.o(+ZI)
+   .ANY (+ZI)
+  }
+
+  _STACK 0x20000800 UNINIT 0x00000800  {
+    startup_rtl8195blp.o (STACK)
+  }
+}

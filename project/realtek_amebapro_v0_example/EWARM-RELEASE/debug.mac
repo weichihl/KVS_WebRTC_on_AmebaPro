@@ -1,0 +1,151 @@
+HSReset()
+{
+	__var t2;
+	__var tmr;
+	__var reg0; 
+	__var reg1; 
+	reg0 = __readMemory32(0x4000083c, "Memory");
+	reg1 = reg0|0x1;
+	__writeMemory32(reg1, 0x4000083c, "Memory");
+	
+	__var isp_on;
+
+	isp_on = 0;
+	t2 = __readMemory32(0x40000000, "Memory");
+	isp_on = (t2>>17)&1;	
+	
+	if(isp_on == 0){
+		
+		__writeMemory32(0, 0x4000020C, "Memory");
+				
+		__writeMemory32(0x0001001d, 0x40000008, "Memory");
+		__writeMemory32(0xfffe0003, 0x40000000, "Memory");
+	}
+	
+	__writeMemory32(0,0x40000238, "Memory");
+	__writeMemory32(0,0x4000023C, "Memory");
+	__writeMemory32(0,0x40000240, "Memory");
+	__writeMemory32(0,0x40000244, "Memory");
+	__writeMemory32(0,0x40000248, "Memory");
+	
+	__writeMemory32(0, 0x50000828, "Memory");
+	
+	__message "WDT Reset ....";
+	tmr = (1<<30)|(1<<25)|(1<<16)|(1); // 0x41010001
+	__writeMemory32(tmr, 0x40002800, "Memory");	
+	__hwReset(0);
+	reg0 = reg0 & (~1);
+	__writeMemory32(reg0, 0x4000083c, "Memory");	
+}
+
+execUserPreload()
+{
+	__var t2;
+	__message "User Preload....";
+
+}
+
+execUserSetup()
+{
+	__var t2;
+	__message "User Setup....";
+
+}
+
+execUserPreReset()
+{
+	__message "execUserPreReset...";	
+	HSReset();	
+}
+
+execUserReset()
+{
+	__var t2;
+	__message "User Reset....";
+	
+	if(__driverType("ijet")){
+		__hwJetResetWithStrategy(1, 2);
+	}
+	
+	if(__driverType("cmsisdap")){
+		__hwResetWithStrategy(0, 2);
+	}
+	
+	if(__driverType("jlink")){
+		__hwResetWithStrategy(0, 3);
+	}
+
+}
+
+execUserCoreConnect()
+{
+	__message "execUserCoreConnect...";	
+}
+
+execUserExecutionStopped()
+{
+	__var t2;
+	__var isp_on;
+	__message "User Execution Stop...";
+
+	isp_on = 0;
+	t2 = __readMemory32(0x40000000, "Memory");
+	isp_on = (t2>>17)&1;	
+
+	if(isp_on == 0){
+		t2 = __readMemory32(0x40300000+0x00000264, "Memory");
+		__writeMemory32(t2, 0x2000f000, "Memory");
+		
+		t2 = t2 & 0xf;
+		__writeMemory32(t2, 0x40300000+0x00000264, "Memory");	
+	
+	}	
+	
+	__writeMemory32(0, 0xE000ED00+0x250, "Memory");
+}
+
+DcacheCleanAndInvalidate()
+{
+	__var sets;
+	__var ways;
+	__var ccsidr;
+	__var tmp;
+	__var i;
+	__var j;
+	ccsidr = __readMemory32(0xE000ED00 + 0x80, "Memory");
+	
+	sets = (ccsidr>>13)&0x7fff;
+	ways = (ccsidr>>3)&0x3ff;
+	
+	for(i=0;i<sets;i++){
+		for(j=0;j<ways;j++){
+			tmp = ((i&0x1ff)<<5)|((j&0x3)<<30);
+			__writeMemory32(tmp, 0xE000ED00+0x274, "Memory");
+		}
+	}
+}
+
+execUserExecutionStarted()
+{
+	
+	__var t2;
+	__var isp_on;	
+	__var code_addr;
+	__message "execUserExecutionStarted...";	
+	
+	isp_on = 0;
+	t2 = __readMemory32(0x40000000, "Memory");
+	isp_on = (t2>>17)&1;
+	
+	if(isp_on == 0){			
+		t2 = __readMemory32(0x2000f000, "Memory");
+		__writeMemory32(t2, 0x40300000 + 0x00000264, "Memory");
+	}	
+	
+	DcacheCleanAndInvalidate();
+	__delay(1);
+	__writeMemory32(0, 0xE000ED00+0x250, "Memory");
+	__delay(1);
+}
+
+

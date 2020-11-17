@@ -1,0 +1,414 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+//define symbol __ICFEDIT_intvec_start__ = 0x00000000;
+
+include "amebapro_config_is.icf";
+
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_ITCM_RAM_start__         = 0x00010000;
+define symbol __ICFEDIT_region_ITCM_RAM_end__           = 0x0002FFFF;
+
+define symbol __ICFEDIT_region_VECTORS_start__         	= 0x20000000;
+define symbol __ICFEDIT_region_VECTORS_end__           	= 0x200000FF;
+
+define symbol __ICFEDIT_region_DTCM_RAM_start__         = 0x20000400;
+define symbol __ICFEDIT_region_DTCM_RAM_end__           = 0x2000FFFF;
+
+define symbol __ICFEDIT_region_FUNTAB_start__         	= 0x20100900;
+define symbol __ICFEDIT_region_FUNTAB_end__           	= 0x201009EF;
+
+define symbol __ICFEDIT_region_SIGN_start__         	= 0x201009F0;
+define symbol __ICFEDIT_region_SIGN_end__           	= 0x201009FF;
+
+if(reserveVOE==1){
+	define symbol __ICFEDIT_region_RAM_start__         		= 0x20100A00;
+	define symbol __ICFEDIT_region_RAM_end__           		= 0x20123FFF;
+
+	define symbol __ICFEDIT_region_RAM_NC_start__      		= 0x20124000;
+	define symbol __ICFEDIT_region_RAM_NC_end__        		= 0x20127FFF;
+
+	/* Following RAM(96K) is shared by CPU and Video Encoder, CPU can use it only when Video Encoder is off */
+	define symbol __ICFEDIT_region_SHARED0_start__         	= 0x20128000;
+	define symbol __ICFEDIT_region_SHARED0_end__           	= 0x2013FBFF;
+}else{
+	define symbol __ICFEDIT_region_RAM_start__         		= 0x20100A00;
+	define symbol __ICFEDIT_region_RAM_end__           		= 0x2013DBFF;
+	
+	define symbol __ICFEDIT_region_RAM_NC_start__      		= 0x2013DC00;
+	define symbol __ICFEDIT_region_RAM_NC_end__        		= 0x2013FBFF;	
+}
+
+/* 0x2013FC00 ~ 0x2013FFFF is reserved for ROM code */
+
+define symbol __ICFEDIT_region_SHARED_start__         	= 0x20140000;
+define symbol __ICFEDIT_region_SHARED_end__           	= 0x20179FFF;
+
+define symbol __ICFEDIT_region_PSRAM_RAM_start__        = 0x60000000;
+define symbol __ICFEDIT_region_PSRAM_RAM_end__          = 0x607F0000;    // 8MB
+
+define symbol __ICFEDIT_region_SDRAM_RAM_start__        = 0x70000000;   // 0x70000000 - 0x70FFFFFF, reserved for VIDEO DEMO, will chagne back to 0x70000000 in the future
+define symbol __ICFEDIT_region_SDRAM_RAM_end__          = 0x71FFFFFF;   // 32MB
+
+include "xip_fw.icf";
+
+define symbol XIP_OFFSET = 0x40140 - 0x220;
+if(linkFW==1){
+	define symbol __ICFEDIT_region_XIP_FLASH_start__		= __ICFEDIT_region_XIP_FW1_FLASH_start__+ XIP_OFFSET;   // 
+	define symbol __ICFEDIT_region_XIP_FLASH_end__			= __ICFEDIT_region_XIP_FW1_FLASH_end__;   // 
+}else if(linkFW==2){
+	define symbol __ICFEDIT_region_XIP_FLASH_start__		= __ICFEDIT_region_XIP_FW2_FLASH_start__+ XIP_OFFSET;   // 
+	define symbol __ICFEDIT_region_XIP_FLASH_end__			= __ICFEDIT_region_XIP_FW2_FLASH_end__;   // 
+}else if(linkFW==3){
+	define symbol __ICFEDIT_region_XIP_FLASH_start__		= 0x9BE00000 + 0x140;   // 
+	define symbol __ICFEDIT_region_XIP_FLASH_end__			= 0x9C000000 - 1;   // 
+}else{
+	error "no define_ota1/define_ota2 symbol";
+}
+
+/*-Sizes-*/
+/*define symbol __ICFEDIT_size_cstack__   = 0x400;*/
+/*define symbol __ICFEDIT_size_heap__     = 0x800;*/
+/**** End of ICF editor section. ###ICF###*/
+
+
+define memory mem with size = 4G;
+
+define region ITCM_RAM_region   			= mem:[from __ICFEDIT_region_ITCM_RAM_start__   	to __ICFEDIT_region_ITCM_RAM_end__];
+define region DTCM_RAM_region   			= mem:[from __ICFEDIT_region_DTCM_RAM_start__   	to __ICFEDIT_region_DTCM_RAM_end__];
+
+define region VECTORS_region				= mem:[from __ICFEDIT_region_VECTORS_start__   		to __ICFEDIT_region_VECTORS_end__];
+define region FUNTAB_region					= mem:[from __ICFEDIT_region_FUNTAB_start__   		to __ICFEDIT_region_FUNTAB_end__];
+define region SIGN_region					= mem:[from __ICFEDIT_region_SIGN_start__   		to __ICFEDIT_region_SIGN_end__];
+
+define region RAM_region					= mem:[from __ICFEDIT_region_RAM_start__   			to __ICFEDIT_region_RAM_end__];
+define region RAM_NC_region				= mem:[from __ICFEDIT_region_RAM_NC_start__   		to __ICFEDIT_region_RAM_NC_end__];
+define region SHARED_region					= mem:[from __ICFEDIT_region_SHARED_start__   		to __ICFEDIT_region_SHARED_end__];
+
+define region SDRAM_RAM_region   	        = mem:[from __ICFEDIT_region_SDRAM_RAM_start__   	to __ICFEDIT_region_SDRAM_RAM_end__];
+define region XIP_FLASH_region   	        = mem:[from __ICFEDIT_region_XIP_FLASH_start__   	to __ICFEDIT_region_XIP_FLASH_end__];
+
+if(useERAM==1){
+    define region ERAM_region   	        = mem:[from __ICFEDIT_region_SDRAM_RAM_start__   	to __ICFEDIT_region_SDRAM_RAM_end__];
+}else if(useERAM==2){
+    define region ERAM_region   	        = mem:[from __ICFEDIT_region_PSRAM_RAM_start__   	to __ICFEDIT_region_PSRAM_RAM_end__];
+}else{
+    define region ERAM_region   	        = [];
+}
+
+define exported symbol SramEnd = end(RAM_region);
+define exported symbol EramEnd = end(ERAM_region);
+
+/*define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };*/
+/*define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };*/
+
+//initialize by copy { readwrite };
+//initialize by copy with packing = none { section __DLIB_PERTHREAD }; // Required in a multi-threaded application
+
+//do not initialize  { section * };
+do not initialize { readwrite };
+
+
+/****************************************
+ * ROM Section config                   *
+ ****************************************/
+
+
+/****************************************
+ * BD RAM Section config                *
+ ****************************************/
+define block ITCM_TEXT
+{
+	// place .itcm.text here
+	section .itcm.text*,
+	section .haac.text*,
+	section .faac.text*,
+	//section .speex.text*,
+};
+
+"FIRMWARE_ITCM":
+place in ITCM_RAM_region
+{
+	block ITCM_TEXT,
+};
+
+ 
+keep { section .cinit_entry_func.data* };
+define block CINIT_ENTRY with size = 16
+{
+	section .cinit_entry_func.data*
+};
+
+keep { block CINIT_ENTRY };
+define block CINIT with fixed order
+{
+	block CINIT_ENTRY,
+	//section .text* object rt7M*.a,
+	//section .text* object m7M*.a,
+	section .cinit.text*,
+	section .cinit.rodata*,
+	section .cinit.data*,
+};
+
+define block NOINIT_BSS
+{
+	section .ram.bss.noinit*
+};
+
+define block CINIT_BSS
+{
+	section .cinit.bss*
+};
+
+"FIRMWARE_CINIT":
+place in RAM_region
+{
+	block CINIT
+};
+
+define block RAM_DATA with fixed order
+{
+    section vtable, 
+    section .data*,
+	section .itcm.data*,
+    section .sram.data*
+};
+
+define block RAM_ENTRY with fixed order
+{
+    section .ram_entry_func.text*
+};
+
+define block XIP_TEXT with fixed order
+{
+    block RAM_ENTRY,
+    section .text*,
+	section .usbd.text*,
+    section .wlan.text*,
+};
+
+define block SHT$$PREINIT_ARRAY { section .preinit_array };
+define block SHT$$INIT_ARRAY { section .init_array };
+define block __iar_tls$$INIT_ARRAY {  };
+define block CPP_INIT with alignment = 8, fixed order 
+{        
+    block SHT$$PREINIT_ARRAY,
+    block SHT$$INIT_ARRAY,
+	block __iar_tls$$INIT_ARRAY,
+	//preinit_array,
+	//init_array
+};
+
+define block XIP_RODATA with fixed order
+{
+    section .rodata*,
+	section .itcm.rodata*,
+	section .usbd.rodata*,
+    section .wlan.rodata*,
+    block CPP_INIT
+};
+
+define block RAM_NS_BSS with fixed order
+{
+    section .nonsecure.bss*
+};
+
+define block RAM_BSS with fixed order
+{
+    section .bss*,
+    section .itcm.bss*,
+    section .sram.bss*,
+    section COMMON,
+    block RAM_NS_BSS,
+    zeroinit,
+};
+
+keep { section .start.ram.data* };
+define block RAM_FUNTAB with fixed order
+{
+    section .start.ram.data*
+};
+
+
+keep { section .start.ram.sign* };
+define block RAM_SIGN
+{
+    section .start.ram.sign*
+};
+
+
+"FIRMWARE_XIP":
+place in XIP_FLASH_region 
+{
+    block XIP_TEXT,
+    block XIP_RODATA,
+    readonly,
+};
+
+
+define block SRAM_TEXT with fixed order
+{
+    section *.text* object hal_spic.o,
+	section *.text* object hal_misc.o,
+    section *.text* object hal_sys_ctrl.o,
+    section *.text* object ram_start.o,
+    section .sram.text*
+};
+
+define block SRAM_RODATA with fixed order
+{
+    section *.rodata* object hal_spic.o,
+	section *.rodata* object hal_misc.o,
+    section *.rodata* object hal_sys_ctrl.o,
+    section *.rodata* object ram_start.o,
+    section .sram.rodata*
+};
+
+define block SRAM_OBJECT
+{
+    block SRAM_TEXT,
+    block SRAM_RODATA
+};
+
+"FIRMWARE_SRAM_RO":
+place in RAM_region
+{
+    block SRAM_OBJECT,
+    block RAM_SIGN,
+};
+
+
+"FIRMWARE_SRAM_RW":
+place in RAM_region
+{
+    block RAM_FUNTAB,
+    block RAM_DATA,   
+    readwrite,
+};
+
+define block BSS with fixed order
+{
+    section .sys_restore.bss,
+    block NOINIT_BSS,
+    block CINIT_BSS,
+    block RAM_BSS,
+};
+
+"BSS":
+place in RAM_region 
+{
+    block BSS
+};									
+
+if(reserveVOE==1){
+	define block NC_DATA with fixed order 
+	{
+		section .non_cache.data*
+	};
+
+	define block NC_BSS with fixed order 
+	{
+		section .non_cache.bss*
+	};
+										
+	place at start of RAM_NC_region
+	{
+		block NC_DATA,
+		block NC_BSS
+	};
+}
+
+define block RAM_HEAP with fixed order
+{
+    section .heap*
+};
+
+place at start of DTCM_RAM_region
+{
+    block RAM_HEAP,
+};
+
+//define block RAM_STACK with fixed order
+//{
+//    section .stack*
+//};
+
+define block RAM_STACK with size = 0x4000, alignment = 8 { };
+
+place at end of DTCM_RAM_region
+{
+    block RAM_STACK
+};
+
+keep { section .ram_vector_table };
+define block RAM_VECTOR with fixed order
+{
+    section .ram_vector_table
+};
+place at start of VECTORS_region 
+{
+    block RAM_VECTOR
+};
+
+define block ERAM_TEXT with fixed order
+{
+	section .text* object rt7M*.a,
+	section .text* object m7M*.a,
+    section .sdram.text*, 
+    section .lpddr.text*,
+    section .psram.text*,
+    section .eram.text*
+};
+
+define block ERAM_RODATA with fixed order
+{
+    section .sdram.rodata*,
+    section .lpddr.rodata*,
+    section .psram.rodata*,
+    section .eram.rodata*
+};
+
+define block ERAM_DATA with fixed order
+{
+    section .sdram.data*,
+    section .lpddr.data*,
+    section .psram.data*,
+    section .usbd.data*,
+    section .eram.data*
+};
+
+define block ERAM with fixed order
+{ 
+    block ERAM_TEXT,
+    block ERAM_RODATA,
+    block ERAM_DATA
+};
+
+define block ERAM_BSS with fixed order
+{ 
+    section .sdram.bss*,
+    section .lpddr.bss*,
+    section .psram.bss*,
+    section .usbd.bss*,
+    section .eram.bss*,
+    section *.itcm.bss* object mem.o,
+    section *.itcm.bss* object memp.o
+};
+
+"FIRMWARE_ERAM":
+place in ERAM_region
+{
+    block ERAM
+};
+
+"BSS_ERAM":
+place in ERAM_region
+{
+    block ERAM_BSS
+};
+
+
+include "../../../component/soc/realtek/8195b/misc/bsp/ROM/romsym_iar_is.so";
+
+define exported symbol Reset_Handler = 0xc1;

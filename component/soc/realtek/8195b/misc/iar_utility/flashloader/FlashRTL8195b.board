@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+
+<flash_board> 
+  <pass> 
+  	<range>CODE 0x00000000 0xffffffff</range> 
+    <loader>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\iar_utility\flashloader\FlashRTL8195b.flash</loader>    
+	<abs_offset>0x98000000</abs_offset>
+  </pass> 
+</flash_board> 
