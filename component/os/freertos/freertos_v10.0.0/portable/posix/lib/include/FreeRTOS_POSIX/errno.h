@@ -61,9 +61,11 @@
 /**@{ */
 #define EPERM        1   /**< Operation not permitted. */
 #define ENOENT       2   /**< No such file or directory. */
+#define	ESRCH        3   /**< No such process */
 #define EBADF        9   /**< Bad file descriptor. */
 #define EAGAIN       11  /**< Resource unavailable, try again. */
 #define ENOMEM       12  /**< Not enough space. */
+#define EACCES       13  /**< Permission denied */
 #define EEXIST       17  /**< File exists. */
 #define EBUSY        16  /**< Device or resource busy. */
 #define EINVAL       22  /**< Invalid argument. */

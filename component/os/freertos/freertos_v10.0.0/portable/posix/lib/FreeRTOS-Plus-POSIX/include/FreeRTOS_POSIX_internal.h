@@ -62,7 +62,7 @@
     #define FREERTOS_POSIX_MUTEX_INITIALIZER \
         ( ( ( pthread_mutex_internal_t )     \
         {                                    \
-            .xIsInitialized = pdFALSE,       \
+            .xIsInitialized = ( BaseType_t )0,       \
             .xMutex = { { 0 } },             \
             .xTaskOwner = NULL,              \
             .xAttr = { .iType = 0 }          \

@@ -141,7 +141,7 @@ extern "C" {
 #endif
 
 #ifndef INCLUDE_xQueueGetMutexHolder
-	#define INCLUDE_xQueueGetMutexHolder 0
+	#define INCLUDE_xQueueGetMutexHolder 1  // 0
 #endif
 
 #ifndef INCLUDE_xSemaphoreGetMutexHolder
@@ -812,7 +812,7 @@ extern "C" {
 
 #ifndef configSUPPORT_STATIC_ALLOCATION
 	/* Defaults to 0 for backward compatibility. */
-	#define configSUPPORT_STATIC_ALLOCATION 0
+	#define configSUPPORT_STATIC_ALLOCATION 1 //0
 #endif
 
 #ifndef configSUPPORT_DYNAMIC_ALLOCATION
