@@ -16,14 +16,14 @@ Currently users can use ignore secure mode. Project_is(ignore secure) is the pro
 AmebaPro use the newest Big-Little architecture. Big CPU is 300MHz, supporting high speed function like WiFi, ISP, Encoder and Codec. Little CPU is 4MHz, supporting low power peripheral function. Big CPU supports power-save mode while little CPU is operating. Big CPU power-save mode can be awaked by event trigger. Since the big CPU will depend on the setting of small CPU, it is necessary to compile the small CPU before the big CPU.  
 
 ### Compile big CPU
-**Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_is.eww.**  
-**Step2. Confirm application_is in WorkSpace, right click application_is and choose “Rebuild All” to compile.**  
-**Step3. Make sure there is no error after compile.**  
+Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_is.eww.  
+Step2. Confirm application_is in WorkSpace, right click application_is and choose “Rebuild All” to compile.  
+Step3. Make sure there is no error after compile.  
 
 ### Conpile little CPU
-**Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_lp.eww.**  
-**Step2. Confirm application_lp in WorkSpace, right click application_lp and choose “Rebuild All” to compile.**  
-**Step3. Make sure there is no error after compile.**  
+Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_lp.eww.  
+Step2. Confirm application_lp in WorkSpace, right click application_lp and choose “Rebuild All” to compile.  
+Step3. Make sure there is no error after compile.  
 
 ### Generating image (Bin)
 After compile, the images partition.bin, boot.bin, firmware_is.bin and flash_is.bin can be seen in the EWARM-RELEASE\Debug\Exe.  
@@ -34,24 +34,31 @@ Execute ImageTool.exe from location `project\tools\AmebaPro\Image_Tool\ImageTool
 As show in the following figure, Image Tool has two tab pages:  
 * Download: used as image download server to transmit images to AmebaPro through UART  
 * Generate: concat separate images and generate a final image  
-<img src="photo/image_tool_1.png" alt="test image size" height="60%" width="60%"><br> 
-<img src="photo/hardware_setting.png" alt="test image size" height="60%" width="60%"><br> 
-<img src="photo/FT232_connection.png" alt="test image size" height="60%" width="60%"><br> 
+
+<img src="photo/image_tool_1.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
+<img src="photo/hardware_setting.png" alt="test image size" height="60%" width="60% style="text-align: center""><br> 
+<img src="photo/FT232_connection.png" alt="test image size" height="60%" width="60% style="text-align: center""><br>
+ 
 Image tool use UART to transmit image to AmebaPro board. Before performing image download function, AmebaPro need to enter UART_DOWNLOAD mode first. Please follow below steps to get AmebaPro into UART_DOWNLOAD mode:  
-<img src="photo/download_mode.png" alt="test image size" height="60%" width="60%"><br> 
-**Step1: Connect LOGUART with FT pin by jumper cap.**  
-**Step2: Connect USB->UART to PC by using micro-USB wire.**  
-**Step3: Switch “1” to ON from SW7(2V0、2V1) or Switch “2” to ON from SW7(1V0)**  
-**Step4: Push reset button.**  
-<img src="photo/flash_download.png" alt="test image size" height="60%" width="60%"><br> 
+
+<img src="photo/download_mode.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
+
+Step1: Connect LOGUART with FT pin by jumper cap.  
+Step2: Connect USB->UART to PC by using micro-USB wire.  
+Step3: Switch “1” to ON from SW7(2V0、2V1) or Switch “2” to ON from SW7(1V0)  
+Step4: Push reset button.  
+
+<img src="photo/flash_download.png" alt="test image size" height="60%" width="60%" style="text-align: center"><br> 
+
 To download image through Image Tool, device need to enter UART_DOWNLOAD mode first.  
 Steps to download flash are as following:  
-**Step1: Application will scan available UART ports. Please choose correct UART port. Please close other UART connection for the target UART port.**  
-**Step2: Choose desired baud rate between computer and AmebaPro.**  
-**Step3: Choose target flash binary image file “flash_xx.bin”**  
-**Step4: Check Mode is “1. Program flash”**  
-**Step5: Click “Download”**  
-**Step6: Progress will be shown on progress bar and result will be shown after download finish.**  
+
+Step1: Application will scan available UART ports. Please choose correct UART port. Please close other UART connection for the target UART port.  
+Step2: Choose desired baud rate between computer and AmebaPro.  
+Step3: Choose target flash binary image file “flash_xx.bin”  
+Step4: Check Mode is “1. Program flash”  
+Step5: Click “Download”  
+Step6: Progress will be shown on progress bar and result will be shown after download finish.  
 
 ## Using JTAG/SWD to debug
 JTAG/SWD is a universal standard for chip internal test. The external JTAG interface has four mandatory pins, TCK, TMS, TDI, and TDO, and an optional reset, nTRST. JTAG-DP and SW-DP also require a separate power-on reset, nPOTRST. The external SWD interface requires two pins: bidirectional SWDIO signal and a clock, SWCLK, which can be input or output from the device.  
