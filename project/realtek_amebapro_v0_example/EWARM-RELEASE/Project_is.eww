@@ -6,5 +6,8 @@
     <project>
         <path>$WS_DIR$\lib_webrtc_pic.ewp</path>
     </project>
+    <project>
+        <path>$WS_DIR$\lib_webrtc_producer_c.ewp</path>
+    </project>
     <batchBuild />
 </workspace>
