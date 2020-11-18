@@ -160,7 +160,6 @@ int mbedtls_platform_entropy_poll( void *data,
 #endif /* !MBEDTLS_NO_PLATFORM_ENTROPY */
 
 #if defined(MBEDTLS_TEST_NULL_ENTROPY)
-extern int rtw_get_random_bytes(void* dst, u32 size);
 int mbedtls_null_entropy_poll( void *data,
                     unsigned char *output, size_t len, size_t *olen )
 {
@@ -171,9 +170,7 @@ int mbedtls_null_entropy_poll( void *data,
     if( len < sizeof(unsigned char) )
         return( 0 );
 
-    rtw_get_random_bytes(output,len);
-
-    *olen = len;//sizeof(unsigned char);
+    *olen = sizeof(unsigned char);
 
     return( 0 );
 }

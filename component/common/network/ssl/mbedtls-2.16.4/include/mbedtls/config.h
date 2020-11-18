@@ -7,12 +7,10 @@
 #define RTL_HW_CRYPTO
 //#define SUPPORT_HW_SW_CRYPTO
 
-#if defined(CONFIG_BUILD_SECURE) && (CONFIG_BUILD_SECURE == 1)
-#if defined(CONFIG_PLATFORM_8710C)
+#if defined(CONFIG_PLATFORM_8710C) && defined(CONFIG_BUILD_SECURE) && (CONFIG_BUILD_SECURE == 1)
 #define MBEDTLS_BIGNUM_USE_S_ROM_API
-#endif
 #else
-//#define MBEDTLS_USE_ROM_API
+#define MBEDTLS_USE_ROM_API
 #endif
 
 #if (defined(CONFIG_MIIO)&&(CONFIG_MIIO))
