@@ -2060,10 +2060,10 @@
                             <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\lwip_ecp.c</name>
                         </file>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\magic.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\polarssl\lwip_md5.c</name>
                         </file>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\polarssl\md5.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\magic.c</name>
                         </file>
                         <file>
                             <name>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\netif\ppp\mppe.c</name>
