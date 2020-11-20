@@ -437,7 +437,8 @@
                     <state>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTClient</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\coap\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\polarssl-1.3.8\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include_</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\drivers\i2s</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\utilities</state>
@@ -2982,6 +2983,24 @@
     </group>
     <group>
         <name>lib</name>
+        <group>
+            <name>amazon</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_kvs_webrtc.a</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_webrtc_pic.a</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_webrtc_producer_c.a</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libsrtp2.a</name>
+            </file>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\fwlib\hal-rtl8195b-hp\lib\lib\hal_pmc_hs.a</name>
         </file>
@@ -3046,9 +3065,6 @@
             </excluded>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wlan.a</name>
         </file>
         <file>
@@ -3077,6 +3093,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtsv4l2.a</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libwebsockets.a</name>
         </file>
     </group>
     <group>
@@ -3403,6 +3422,9 @@
             <name>ssl</name>
             <group>
                 <name>mbedtls</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\aes.c</name>
                 </file>
@@ -3654,12 +3676,258 @@
                 </file>
             </group>
             <group>
+                <name>mbedtls_2.16.6</name>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aes.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aesni.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\arc4.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aria.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\asn1parse.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\asn1write.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\base64.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\bignum.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\blowfish.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\camellia.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ccm.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\certs.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\chacha20.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\chachapoly.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\cipher.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\cipher_wrap.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\cmac.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ctr_drbg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\debug.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\des.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\dhm.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ecdh.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ecdsa.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ecjpake.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ecp.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ecp_curves.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\entropy.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\entropy_alt.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\entropy_poll.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\error.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\gcm.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\havege.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\hkdf.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\hmac_drbg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\md.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\md2.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\md4.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\md5.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\md_wrap.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\memory_buffer_alloc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\net_sockets.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\nist_kw.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\oid.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\padlock.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pem.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pk.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pk_wrap.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pkcs11.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pkcs12.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pkcs5.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pkparse.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\pkwrite.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\platform.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\platform_util.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\poly1305.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ripemd160.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\rsa.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\rsa_internal.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\sha1.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\sha256.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\sha512.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_cache.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_ciphersuites.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_cli.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_cookie.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_srv.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_ticket.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\ssl_tls.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\threading.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\timing.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\version.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\version_features.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509_create.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509_crl.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509_crt.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509_csr.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509write_crt.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\x509write_csr.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\xtea.c</name>
+                </file>
+            </group>
+            <group>
                 <name>ssl_ram_map</name>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom\rom_ssl_ram_map.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_func_stubs\ssl_func_stubs.c</name>
+                    <excluded>
+                        <configuration>Debug</configuration>
+                    </excluded>
                 </file>
             </group>
         </group>

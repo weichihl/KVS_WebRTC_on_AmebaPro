@@ -4,6 +4,9 @@
         <path>$WS_DIR$\application_is.ewp</path>
     </project>
     <project>
+        <path>$WS_DIR$\lib_kvs_Webrtc.ewp</path>
+    </project>
+    <project>
         <path>$WS_DIR$\lib_webrtc_pic.ewp</path>
     </project>
     <project>
