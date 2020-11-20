@@ -36,7 +36,7 @@
 #define NO_SYS                          1
 #define SYS_LIGHTWEIGHT_PROT            0
 #define LWIP_NETCONN                    0
-#define LWIP_SOCKET                     0
+#define LWIP_SOCKET                     1//0
 
 /* Enable DHCP to test it, disable UDP checksum to easier inject packets */
 #define LWIP_DHCP                       1
