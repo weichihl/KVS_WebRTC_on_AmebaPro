@@ -9,5 +9,8 @@
     <project>
         <path>$WS_DIR$\lib_webrtc_producer_c.ewp</path>
     </project>
+    <project>
+        <path>$WS_DIR$\libsrtp2.ewp</path>
+    </project>
     <batchBuild />
 </workspace>
