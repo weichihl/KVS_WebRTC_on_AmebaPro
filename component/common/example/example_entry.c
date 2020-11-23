@@ -292,6 +292,10 @@
 #if CONFIG_EXAMPLE_SD_HOT_PLUG
 #include <sd_hot_plug/example_sd_hotplug.h>
 #endif
+   
+#if CONFIG_EXAMPLE_KVS
+#include <kvs_amazon/example_kvs.h>
+#endif
 
 /*
 	Preprocessor of example
@@ -700,5 +704,9 @@ example_hilink();
         
 #if CONFIG_EXAMPLE_SD_HOT_PLUG
         example_sd_hot_plug();
+#endif
+        
+#if CONFIG_EXAMPLE_KVS
+	example_kvs();
 #endif
 }

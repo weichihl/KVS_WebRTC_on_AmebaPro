@@ -527,3 +527,10 @@ int pthread_setschedparam( pthread_t thread,
 }
 
 /*-----------------------------------------------------------*/
+
+int pthread_cancel(pthread_t thread)
+{
+    return ENOSYS;
+}
+
+/*-----------------------------------------------------------*/

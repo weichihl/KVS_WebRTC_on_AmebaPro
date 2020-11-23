@@ -624,5 +624,19 @@ in lwip_opt.h for support uart adapter*/
 #define FATFS_R_10C
 // fatfs disk interface
 #define FATFS_DISK_SD 	1 // In AmebaPro C-cut QFN128, GPIOE_12 is low active to used to control SDIO power.
-#endif							1
+#endif
+#endif
+
+/* For KVS example*/
+#define CONFIG_EXAMPLE_KVS			1
+#if CONFIG_EXAMPLE_KVS
+#define CONFIG_FATFS_EN	1
+#if CONFIG_FATFS_EN
+// fatfs version
+#define FATFS_R_10C
+// fatfs disk interface
+#define FATFS_DISK_USB	0 // Not supported on AmebaPro
+#define FATFS_DISK_SD 	1 // In AmebaPro C-cut QFN128, GPIOE_12 is low active to used to control SDIO power.
+#define FATFS_DISK_FLASH 0
+#endif
 #endif
