@@ -370,7 +370,7 @@
  *            digests and ciphers instead.
  *
  */
-#define MBEDTLS_AES_ALT
+//#define MBEDTLS_AES_ALT /////// close the alternative to use full ram code
 //#define MBEDTLS_ARC4_ALT
 //#define MBEDTLS_ARIA_ALT
 //#define MBEDTLS_BLOWFISH_ALT
@@ -461,10 +461,10 @@
 //#define MBEDTLS_DES_SETKEY_ALT
 //#define MBEDTLS_DES_CRYPT_ECB_ALT
 //#define MBEDTLS_DES3_CRYPT_ECB_ALT
-#define MBEDTLS_AES_SETKEY_ENC_ALT
-#define MBEDTLS_AES_SETKEY_DEC_ALT
-#define MBEDTLS_AES_ENCRYPT_ALT
-#define MBEDTLS_AES_DECRYPT_ALT
+//#define MBEDTLS_AES_SETKEY_ENC_ALT   ///////
+//#define MBEDTLS_AES_SETKEY_DEC_ALT   ///////
+//#define MBEDTLS_AES_ENCRYPT_ALT   ///////
+//#define MBEDTLS_AES_DECRYPT_ALT   ///////
 //#define MBEDTLS_ECDH_GEN_PUBLIC_ALT
 //#define MBEDTLS_ECDH_COMPUTE_SHARED_ALT
 //#define MBEDTLS_ECDSA_VERIFY_ALT
@@ -1566,7 +1566,7 @@
  *
  * Comment this to disable support for HelloVerifyRequest.
  */
-//#define MBEDTLS_SSL_DTLS_HELLO_VERIFY
+#define MBEDTLS_SSL_DTLS_HELLO_VERIFY
 
 /**
  * \def MBEDTLS_SSL_DTLS_SRTP
@@ -2183,7 +2183,7 @@
  *
  * This module provides the CTR_DRBG AES random number generator.
  */
-//#define MBEDTLS_CTR_DRBG_C
+#define MBEDTLS_CTR_DRBG_C
 
 /**
  * \def MBEDTLS_DEBUG_C
@@ -2635,7 +2635,7 @@
  *
  * Uncomment to enable generic public key write functions.
  */
-//#define MBEDTLS_PK_WRITE_C
+#define MBEDTLS_PK_WRITE_C
 
 /**
  * \def MBEDTLS_PKCS5_C
@@ -2855,7 +2855,7 @@
  *
  * This module is required for SSL/TLS server support.
  */
-//#define MBEDTLS_SSL_SRV_C
+#define MBEDTLS_SSL_SRV_C
 
 /**
  * \def MBEDTLS_SSL_TLS_C
@@ -3001,7 +3001,7 @@
  *
  * This module is the basis for creating X.509 certificates and CSRs.
  */
-//#define MBEDTLS_X509_CREATE_C
+#define MBEDTLS_X509_CREATE_C
 
 /**
  * \def MBEDTLS_X509_CRT_WRITE_C
@@ -3014,7 +3014,7 @@
  *
  * This module is required for X.509 certificate creation.
  */
-//#define MBEDTLS_X509_CRT_WRITE_C
+#define MBEDTLS_X509_CRT_WRITE_C
 
 /**
  * \def MBEDTLS_X509_CSR_WRITE_C
