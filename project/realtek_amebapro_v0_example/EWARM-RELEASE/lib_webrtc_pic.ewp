@@ -355,6 +355,7 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\common\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\state\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\utils\include</state>

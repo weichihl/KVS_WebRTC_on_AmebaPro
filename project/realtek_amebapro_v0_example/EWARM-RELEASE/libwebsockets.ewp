@@ -356,7 +356,7 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
-                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include_</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\core</state>

@@ -1,8 +1,8 @@
-# AmebaPro
+﻿# AmebaPro
 SDK for Realtek AmebaPro chipset
 This project is going to demonstrate how to use KVS with WebRTC on AmebaPro  
 The related example code: `project\component\common\example\kvs_amazon`  
-Please refer to the readme.TXT in example directory to check the corresponding setting  
+Please refer to the readme.TXT in example directory to check the corresponding setting is ok  
 
 ## Description
 This article introduces users how to develop AmebaPro. AmebaPro is composed of one main board, one sensor board, and one daughter board with LED, light sensor, and IRLED. AmebaPro SDK provides all the example source code for the function mentioned above.  

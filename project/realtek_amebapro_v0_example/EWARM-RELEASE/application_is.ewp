@@ -4366,6 +4366,7 @@
                             <option>
                                 <name>CCIncludePath2</name>
                                 <state>$PROJ_DIR$\..\inc</state>
+                                <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                                 <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\rtl8195b-hp\include</state>
                                 <state>$PROJ_DIR$\..\..\..\component\common\drivers\sdio\realtek\sdio_host\src</state>
                                 <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-core\include</state>

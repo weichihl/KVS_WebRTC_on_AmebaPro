@@ -583,12 +583,12 @@ STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
 
     CHK(NULL != (pCertName = (PCHAR) MEMALLOC(MAX_PATH_LEN)), STATUS_NOT_ENOUGH_MEMORY);
     MEMSET(pCertName, 0x0, MAX_PATH_LEN);
-#ifdef KVSWEBRTC_HAVE_GETENV
-    pSampleConfiguration->pCaCertPath = getenv(CACERT_PATH_ENV_VAR);
-#else
-    pSampleConfiguration->pCaCertPath = NULL;
-#endif
-    //pSampleConfiguration->pCaCertPath = "./cert.pem";
+//#ifdef KVSWEBRTC_HAVE_GETENV
+//    pSampleConfiguration->pCaCertPath = getenv(CACERT_PATH_ENV_VAR);
+//#else
+//    pSampleConfiguration->pCaCertPath = NULL;
+//#endif
+    pSampleConfiguration->pCaCertPath = "D:/SDK_from_Git/AmebaPro_Amazon_WebRTC/ambpro_sdk/component/common/example/kvs_amazon/cert.pem"; //./cert.pem
 
     // if ca cert path is not set from the environment, try to use the one that cmake detected
     if (pSampleConfiguration->pCaCertPath == NULL) {

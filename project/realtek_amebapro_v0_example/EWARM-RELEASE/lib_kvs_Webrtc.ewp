@@ -362,6 +362,7 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>

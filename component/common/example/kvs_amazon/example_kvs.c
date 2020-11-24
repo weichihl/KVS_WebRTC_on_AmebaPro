@@ -171,8 +171,7 @@ CleanUp:
     return (PVOID)(ULONG_PTR) retStatus;
 }
 
-char* esp_get_ip(void)
-{
+char* esp_get_ip(void){
     return "192.168.0.102";
 }
 
