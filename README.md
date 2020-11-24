@@ -1,5 +1,5 @@
 ﻿# AmebaPro
-SDK for Realtek AmebaPro chipset
+SDK for Realtek AmebaPro chipset  
 This project is going to demonstrate how to use KVS with WebRTC on AmebaPro  
 The related example code: `project\component\common\example\kvs_amazon`  
 Please refer to the readme.TXT in example directory to check the corresponding setting is ok  
@@ -10,7 +10,7 @@ To get start, users will need to set up the software to program the board.
 IAR IDE provides the toolchain for AmebaPro. It allows users to write programs, compile and upload them to your board. Also, it supports step-by-step debug. Realtek also provides Image Tool for users to do downloading code process.  
 
 ## Requirement
-Please use IAR version 8.30  
+Please use IAR version 8.3 (There may be some compiler problems with v8.4)  
 
 ## SDK Project introduction
 Currently users can use ignore secure mode. Project_is(ignore secure) is the project without Arm TrustZone technology. This project is easier to develop and suit for firsttime developer.  
