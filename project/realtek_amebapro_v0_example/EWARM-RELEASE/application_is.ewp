@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.30.1.17146</state>
+                    <state>8.32.3.20186</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -116,7 +116,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -133,7 +133,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -156,7 +156,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -215,7 +215,7 @@
             <name>ICCARM</name>
             <archiveVersion>2</archiveVersion>
             <data>
-                <version>34</version>
+                <version>35</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -586,6 +586,10 @@
                     <name>IccRTTI2</name>
                     <state>1</state>
                 </option>
+                <option>
+                    <name>OICompilerExtraOption</name>
+                    <state>1</state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -809,7 +813,7 @@
             <name>ILINK</name>
             <archiveVersion>0</archiveVersion>
             <data>
-                <version>21</version>
+                <version>22</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -1176,6 +1180,10 @@
                     <name>IlinkTrustzoneImportLibraryOut</name>
                     <state>application_is_import_lib.o</state>
                 </option>
+                <option>
+                    <name>OILinkExtraOption</name>
+                    <state>1</state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -1226,7 +1234,7 @@
             <settings>
                 <name>ICCARM</name>
                 <data>
-                    <version>34</version>
+                    <version>35</version>
                     <wantNonLocal>0</wantNonLocal>
                     <debug>1</debug>
                     <option>
@@ -1593,7 +1601,7 @@
             <settings>
                 <name>ICCARM</name>
                 <data>
-                    <version>34</version>
+                    <version>35</version>
                     <wantNonLocal>1</wantNonLocal>
                     <debug>1</debug>
                     <option>
@@ -1902,6 +1910,10 @@
                     <option>
                         <name>IccRTTI2</name>
                         <state>0</state>
+                    </option>
+                    <option>
+                        <name>OICompilerExtraOption</name>
+                        <state>1</state>
                     </option>
                 </data>
             </settings>
@@ -2256,7 +2268,7 @@
             <settings>
                 <name>ICCARM</name>
                 <data>
-                    <version>34</version>
+                    <version>35</version>
                     <wantNonLocal>0</wantNonLocal>
                     <debug>1</debug>
                     <option>
@@ -2643,7 +2655,7 @@
             <settings>
                 <name>ICCARM</name>
                 <data>
-                    <version>34</version>
+                    <version>35</version>
                     <wantNonLocal>1</wantNonLocal>
                     <debug>1</debug>
                     <option>
@@ -2967,6 +2979,10 @@
                         <name>IccRTTI2</name>
                         <state>0</state>
                     </option>
+                    <option>
+                        <name>OICompilerExtraOption</name>
+                        <state>1</state>
+                    </option>
                 </data>
             </settings>
         </configuration>
@@ -3069,10 +3085,10 @@
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_webrtc_producer_c.a</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libsrtp2.a</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libsrtp2.a</name>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libwebsockets.a</name>
             </file>
         </group>
         <file>
@@ -3139,6 +3155,9 @@
             </excluded>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wlan.a</name>
         </file>
         <file>
@@ -3167,9 +3186,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtsv4l2.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libwebsockets.a</name>
         </file>
     </group>
     <group>
@@ -4218,7 +4234,7 @@
                     <settings>
                         <name>ICCARM</name>
                         <data>
-                            <version>34</version>
+                            <version>35</version>
                             <wantNonLocal>0</wantNonLocal>
                             <debug>1</debug>
                             <option>
