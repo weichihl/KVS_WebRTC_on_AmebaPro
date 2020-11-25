@@ -31,14 +31,14 @@ Currently users can use ignore secure mode. Project_is(ignore secure) is the pro
 ## Compile program
 AmebaPro use the newest Big-Little architecture. Big CPU is 300MHz, supporting high speed function like WiFi, ISP, Encoder and Codec. Little CPU is 4MHz, supporting low power peripheral function. Big CPU supports power-save mode while little CPU is operating. Big CPU power-save mode can be awaked by event trigger. Since the big CPU will depend on the setting of small CPU, it is necessary to compile the small CPU before the big CPU.  
 
+### Compile little CPU
+Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_lp.eww.  
+Step2. Confirm application_lp in WorkSpace, right click application_lp and choose “Rebuild All” to compile.  
+Step3. Make sure there is no error after compile.  
+
 ### Compile big CPU
 Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_is.eww.  
 Step2. Confirm application_is in WorkSpace, right click application_is and choose “Rebuild All” to compile.  
-Step3. Make sure there is no error after compile.  
-
-### Conpile little CPU
-Step1. Open SDK/project/realtek_amebapro_v0_example/EWARMRELEASE/Project_lp.eww.  
-Step2. Confirm application_lp in WorkSpace, right click application_lp and choose “Rebuild All” to compile.  
 Step3. Make sure there is no error after compile.  
 
 ### Generating image (Bin)
@@ -91,3 +91,6 @@ In platform_opts.h so that the example function in example_entry will execute. A
 Peripheral example source can help us utilize peripheral function. Peripheral example source code locates in SDK/project/realtek_amebapro_v0_example/example_sources.  
 There are main.c and readme.txt in each example file. The main.c in the example should be used to replace original main.c( in SDK/project/realtek_amebapro_v0_example/src).  
 The readme file explains how to compile and important parameter. After that, rebuild application_is project to execute the Peripheral example.  
+
+## Rebuild the library and compile the application project again  
+
