@@ -93,4 +93,16 @@ There are main.c and readme.txt in each example file. The main.c in the example 
 The readme file explains how to compile and important parameter. After that, rebuild application_is project to execute the Peripheral example.  
 
 ## Rebuild the library and compile the application project again  
+If the source codes in library are modified, the corresponding library should be rebuild.  
 
+<img align="center" src="photo/library.png" alt="test image size" height="40%" width="40%"><br> 
+
+Then, go back to application_is project and "Make" again, the updated library can then be linked.
+
+<img align="center" src="photo/library_update.png" alt="test image size" height="40%" width="40%"><br> 
+
+## Add independent and additional include directories to specific example   
+The additional include directories of KVS with WebRTC example is temporarily independent.
+You can add additional include path by right clicking `KVS_with_WebRTC` and choosing `options` --> `C/C++Compiler` --> `Preprocessor`  
+
+<img align="center" src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"><br> 
