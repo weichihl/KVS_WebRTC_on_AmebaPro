@@ -12,6 +12,19 @@ IAR IDE provides the toolchain for AmebaPro. It allows users to write programs, 
 ## Requirement
 Please use IAR version 8.3 (There may be some compiler problems with v8.4)  
 
+## Clone Project  
+To check out this repostiory:
+
+```
+git clone --recurse-submodules https://github.com/HungTseLee/ambpro_sdk.git
+```
+
+If you already have a checkout, run the following command to sync submodules:
+
+```
+git submodule update --init
+```
+
 ## SDK Project introduction
 Currently users can use ignore secure mode. Project_is(ignore secure) is the project without Arm TrustZone technology. This project is easier to develop and suit for firsttime developer.  
 
