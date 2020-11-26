@@ -4,7 +4,7 @@
   <exe>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\iar_utility\flashloader\FlashRTL8195b.out</exe>
   <flash_base>0x98000000</flash_base>
   <page>8</page>
-  <block>512 0x1000</block>
+  <block>1024 0x1000</block>
   <macro>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\iar_utility\flashloader\FlashRTL8195b.mac</macro>
   <aggregate>1</aggregate>
 </flash_device>
