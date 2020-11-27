@@ -5,6 +5,8 @@
 #include "platform_opts.h"
 #include "section_config.h"
 
+#include <lwip_netconf.h>
+
 #if CONFIG_EXAMPLE_KVS
 
 #if CONFIG_FATFS_EN
@@ -171,8 +173,14 @@ CleanUp:
     return (PVOID)(ULONG_PTR) retStatus;
 }
 
-char* esp_get_ip(void){
-    return "192.168.0.102";
+
+UCHAR wifi_ip[16];
+UCHAR* ameba_get_ip(void){
+    extern struct netif xnetif[NET_IF_NUM];
+    UCHAR *ip = LwIP_GetIP(&xnetif[0]);
+    memset(wifi_ip, 0, sizeof(wifi_ip)/sizeof(wifi_ip[0]));
+    memcpy(wifi_ip, ip, 4);
+    return wifi_ip;
 }
 
 void example_kvs_thread(void* param){
@@ -246,7 +254,7 @@ void example_kvs_thread(void* param){
         // Check if the samples are present, #YC_TBD, move to another place, or remove it.
         #if 1
         //retStatus = readFrameFromDisk(NULL, &frameSize, "/sdcard/h264SampleFrames/frame-0001.h264");
-        snprintf(path, sizeof(path), "%s%s", fatfs_sd.drv, "/h264SampleFrames/frame-001.h264");
+        snprintf(path, sizeof(path), "%s%s", fatfs_sd.drv, "/h264SampleFrames/frame-0001.h264");
         printf("The video file path: %s \n\r", path);
         retStatus = readFrameFromDisk(NULL, &frameSize, path);
         if (retStatus != STATUS_SUCCESS) {
