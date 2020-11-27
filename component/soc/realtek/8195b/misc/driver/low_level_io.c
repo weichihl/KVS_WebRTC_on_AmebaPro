@@ -216,7 +216,8 @@ long __lseek(int handle, long offset, int whence)
 		break;
 	}
 	
-	return -res;	
+	if(res < 0)	return 0;
+	return f_tell(__fatfs_fil[handle]);
 }
 
 int remove(const char * filename)
