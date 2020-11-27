@@ -177,7 +177,7 @@
  *
  * Enable this layer to allow use of alternative memory allocators.
  */
-#define MBEDTLS_PLATFORM_MEMORY
+//#define MBEDTLS_PLATFORM_MEMORY
 
 /**
  * \def MBEDTLS_PLATFORM_NO_STD_FUNCTIONS
@@ -225,7 +225,7 @@
 //#define MBEDTLS_PLATFORM_TIME_ALT
 //#define MBEDTLS_PLATFORM_FPRINTF_ALT
 //#define MBEDTLS_PLATFORM_PRINTF_ALT
-#define MBEDTLS_PLATFORM_SNPRINTF_ALT
+//#define MBEDTLS_PLATFORM_SNPRINTF_ALT
 //#define MBEDTLS_PLATFORM_NV_SEED_ALT
 //#define MBEDTLS_PLATFORM_SETUP_TEARDOWN_ALT
 
@@ -1149,7 +1149,7 @@
  *
  * Uncomment this macro to prevent loading of default entropy functions.
  */
-#define MBEDTLS_NO_DEFAULT_ENTROPY_SOURCES
+//#define MBEDTLS_NO_DEFAULT_ENTROPY_SOURCES
 
 /**
  * \def MBEDTLS_NO_PLATFORM_ENTROPY
@@ -2403,7 +2403,7 @@
  *
  * Uncomment to enable the HMAC_DRBG random number geerator.
  */
-//#define MBEDTLS_HMAC_DRBG_C
+#define MBEDTLS_HMAC_DRBG_C
 
 /**
  * \def MBEDTLS_NIST_KW_C
@@ -2699,7 +2699,7 @@
  *
  * This module enables abstraction of common (libc) functions.
  */
-#define MBEDTLS_PLATFORM_C
+//#define MBEDTLS_PLATFORM_C
 
 /**
  * \def MBEDTLS_POLY1305_C
@@ -3095,7 +3095,7 @@
 //#define MBEDTLS_PLATFORM_STD_FPRINTF      fprintf /**< Default fprintf to use, can be undefined */
 //#define MBEDTLS_PLATFORM_STD_PRINTF        printf /**< Default printf to use, can be undefined */
 /* Note: your snprintf must correctly zero-terminate the buffer! */
-#define MBEDTLS_PLATFORM_STD_SNPRINTF    snprintf /**< Default snprintf to use, can be undefined */
+//#define MBEDTLS_PLATFORM_STD_SNPRINTF    snprintf /**< Default snprintf to use, can be undefined */
 //#define MBEDTLS_PLATFORM_STD_EXIT_SUCCESS       0 /**< Default exit value to use, can be undefined */
 //#define MBEDTLS_PLATFORM_STD_EXIT_FAILURE       1 /**< Default exit value to use, can be undefined */
 //#define MBEDTLS_PLATFORM_STD_NV_SEED_READ   mbedtls_platform_std_nv_seed_read /**< Default nv_seed_read function to use, can be undefined */
