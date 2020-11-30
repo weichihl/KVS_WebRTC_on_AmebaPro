@@ -937,7 +937,7 @@
                     <state>--redirect free=__wrap_free</state>
                     <state>--redirect printf=__wrap_printf</state>
                     <state>--redirect sprintf=__wrap_sprintf</state>
-                    <state>--redirect snprintf=__wrap_snprintf</state>
+                    <state>--redirect snprintf__________=__wrap_snprintf</state>
                     <state>--redirect vsprintf=__wrap_vsprintf</state>
                     <state>--redirect vsnprintf=__wrap_vsnprintf</state>
                     <state>--redirect memcmp=__wrap_memcmp</state>
