@@ -189,6 +189,15 @@ void example_kvs_thread(void* param){
 
 	char path[64];
 
+	// Delay to wait for IP by DHCP
+	vTaskDelay(3000);
+	printf("\n\r");
+	printf("=== KVS Example sntp_init ===\n\r");
+	sntp_init();
+	
+	// Delay to wait set time
+	vTaskDelay(1000);
+        
 	printf("=== KVS Example ===\n\r");
 
 	res = fatfs_sd_init();
