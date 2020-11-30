@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.30.1.17146</state>
+                    <state>8.32.3.20186</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -116,7 +116,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -133,7 +133,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -156,7 +156,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -215,7 +215,7 @@
             <name>ICCARM</name>
             <archiveVersion>2</archiveVersion>
             <data>
-                <version>34</version>
+                <version>35</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -317,6 +317,7 @@
                 <option>
                     <name>IExtraOptions</name>
                     <state>--cmse</state>
+                    <state>--enum_is_int</state>
                     <state>--no_path_in_file_macros</state>
                 </option>
                 <option>
@@ -363,16 +364,8 @@
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\IAR\ARM_RTL8195B</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api\platform</state>
-                    <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\rtl8195b-hp\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-c\src\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\client\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\common\include</state>
@@ -382,21 +375,29 @@
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\trace\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\view\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\mkvgen\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include_</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\test\unit</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\FreeRTOS_POSIX</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
-                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\include</state>
-                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\src\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libsrtp\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v1.5.0.beta\src\include\posix</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\FreeRTOS_POSIX</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\IAR\ARM_RTL8195B</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\platform</state>
+                    <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\rtl8195b-hp\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\platform</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\network\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\wifi</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include\posix</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -512,6 +513,10 @@
                 </option>
                 <option>
                     <name>IccRTTI2</name>
+                    <state>1</state>
+                </option>
+                <option>
+                    <name>OICompilerExtraOption</name>
                     <state>1</state>
                 </option>
             </data>
@@ -734,7 +739,7 @@
             <name>ILINK</name>
             <archiveVersion>0</archiveVersion>
             <data>
-                <version>21</version>
+                <version>22</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -1050,6 +1055,10 @@
                     <name>IlinkTrustzoneImportLibraryOut</name>
                     <state>###Unitialized###</state>
                 </option>
+                <option>
+                    <name>OILinkExtraOption</name>
+                    <state>1</state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -1199,7 +1208,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1216,7 +1225,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1239,7 +1248,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1298,7 +1307,7 @@
             <name>ICCARM</name>
             <archiveVersion>2</archiveVersion>
             <data>
-                <version>34</version>
+                <version>35</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1546,6 +1555,10 @@
                     <name>IccRTTI2</name>
                     <state>0</state>
                 </option>
+                <option>
+                    <name>OICompilerExtraOption</name>
+                    <state>1</state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -1766,7 +1779,7 @@
             <name>ILINK</name>
             <archiveVersion>0</archiveVersion>
             <data>
-                <version>21</version>
+                <version>22</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -2081,6 +2094,10 @@
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
                     <state>###Unitialized###</state>
+                </option>
+                <option>
+                    <name>OILinkExtraOption</name>
+                    <state>1</state>
                 </option>
             </data>
         </settings>
