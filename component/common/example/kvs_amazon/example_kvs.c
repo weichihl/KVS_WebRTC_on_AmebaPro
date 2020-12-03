@@ -16,7 +16,7 @@
 
 /* Config for Ameba-Pro */
 #if defined(CONFIG_PLATFORM_8195BHP)
-#define STACK_SIZE		4096
+#define STACK_SIZE		20*1024 //4096
 #if FATFS_DISK_SD
 
 #include "sdio_combine.h"
@@ -35,7 +35,7 @@
 #define DEFAULT_BUFFER_DURATION             120 * HUNDREDS_OF_NANOS_IN_A_SECOND
 #define DEFAULT_CALLBACK_CHAIN_COUNT        5
 #define DEFAULT_KEY_FRAME_INTERVAL          45
-#define DEFAULT_FPS_VALUE                   25
+//#define DEFAULT_FPS_VALUE                   25
 #define DEFAULT_STREAM_DURATION             20 * HUNDREDS_OF_NANOS_IN_A_SECOND
 #define DEFAULT_STORAGE_SIZE                20 * 1024 * 1024
 #define RECORDED_FRAME_AVG_BITRATE_BIT_PS   3800000
@@ -233,17 +233,18 @@ void example_kvs_thread(void* param){
         SignalingClientMetrics signalingClientMetrics;
         signalingClientMetrics.version = 0;
         
-        char *sample_chennel_name = "My_KVS_Signaling_Channel";
+#define SAMPLE_CHANNEL_NAME "My_KVS_Signaling_Channel"
+        //char *sample_chennel_name = "My_KVS_Signaling_Channel";
         
         // do trickleIce by default
         printf("[KVS Master] Using trickleICE by default\n\r");
         retStatus =
-            createSampleConfiguration(sample_chennel_name, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, TRUE, TRUE, &pSampleConfiguration);
+            createSampleConfiguration(SAMPLE_CHANNEL_NAME, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, FALSE, FALSE, &pSampleConfiguration); // TRUE, TRUE
         if (retStatus != STATUS_SUCCESS) {
             printf("[KVS Master] createSampleConfiguration(): operation returned status code: 0x%08x \n\r", retStatus);
             goto CleanUp;
         }
-        printf("[KVS Master] Created signaling channel %s\n\r", sample_chennel_name);
+        printf("[KVS Master] Created signaling channel %s\n\r", SAMPLE_CHANNEL_NAME);
 
         if (pSampleConfiguration->enableFileLogging) {
             retStatus = createFileLogger(FILE_LOGGING_BUFFER_SIZE, MAX_NUMBER_OF_LOG_FILES, (PCHAR) FILE_LOGGER_LOG_FILE_DIRECTORY_PATH, TRUE, TRUE, NULL);
@@ -524,7 +525,7 @@ FRESULT del_dir(const TCHAR *path, int del_self)
 
 void example_kvs(void)
 {
-	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
+	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) != pdPASS)
 		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
 }
 #endif
