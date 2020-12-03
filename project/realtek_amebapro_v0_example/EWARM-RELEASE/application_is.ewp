@@ -936,10 +936,10 @@
                     <state>--redirect calloc=__wrap_calloc</state>
                     <state>--redirect free=__wrap_free</state>
                     <state>--redirect printf=__wrap_printf</state>
-                    <state>--redirect sprintf=__wrap_sprintf</state>
+                    <state>--redirect sprintf_________=__wrap_sprintf</state>
                     <state>--redirect snprintf__________=__wrap_snprintf</state>
-                    <state>--redirect vsprintf=__wrap_vsprintf</state>
-                    <state>--redirect vsnprintf=__wrap_vsnprintf</state>
+                    <state>--redirect vsprintf_______=__wrap_vsprintf</state>
+                    <state>--redirect vsnprintf____________=__wrap_vsnprintf</state>
                     <state>--redirect memcmp=__wrap_memcmp</state>
                     <state>--redirect memcpy=__wrap_memcpy</state>
                     <state>--redirect memmove=__wrap_memmove</state>
@@ -4023,6 +4023,9 @@
         </group>
         <group>
             <name>websocket</name>
+            <excluded>
+                <configuration>Debug</configuration>
+            </excluded>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\network\websocket\wsclient_tls.c</name>
             </file>

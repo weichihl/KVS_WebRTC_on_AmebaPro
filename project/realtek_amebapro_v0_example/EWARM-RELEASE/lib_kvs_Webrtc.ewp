@@ -236,6 +236,8 @@
                     <state>BUILD_CLIENT</state>
                     <state>ENABLE_STREAMING</state>
                     <state>KVS_PLAT_ESP_FREERTOS</state>
+                    <state>KVS_PLAT_RTK_FREERTOS___</state>
+                    <state>LWS_RTK_PLATFORM</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
