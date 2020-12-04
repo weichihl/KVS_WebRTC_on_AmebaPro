@@ -574,6 +574,7 @@ STATUS traverseDirectoryPEMFileScan(UINT64 customData, DIR_ENTRY_TYPES entryType
     return STATUS_SUCCESS;
 }
 
+#define TEMP_CERT_PATH "0://cert.pem"
 STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
 {
     STATUS retStatus = STATUS_SUCCESS;
@@ -584,12 +585,27 @@ STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
     CHK(NULL != (pCertName = (PCHAR) MEMALLOC(MAX_PATH_LEN)), STATUS_NOT_ENOUGH_MEMORY);
     MEMSET(pCertName, 0x0, MAX_PATH_LEN);
 //#ifdef KVSWEBRTC_HAVE_GETENV
-//    pSampleConfiguration->pCaCertPath = getenv(CACERT_PATH_ENV_VAR);
+//    pSampleConfiguration->pCaCertPath = GETENV(CACERT_PATH_ENV_VAR);
 //#else
 //    pSampleConfiguration->pCaCertPath = NULL;
 //#endif
-    pSampleConfiguration->pCaCertPath = "0://CA/cert.pem"; //put CA in SD card in advance
+    //pSampleConfiguration->pCaCertPath = "D:/SDK_from_Git/AmebaPro_Amazon_WebRTC/ambpro_sdk/component/common/example/kvs_amazon/cert.pem"; //./cert.pem
+    //extern fatfs_sd_params_t fatfs_sd;
+    //char path[64];
+    //snprintf(path, sizeof(path), "%s%s", fatfs_sd.drv, "/cert.pem");
+    //pSampleConfiguration->pCaCertPath = path;
+    pSampleConfiguration->pCaCertPath = TEMP_CERT_PATH;
+    printf("cert path:%s \n", pSampleConfiguration->pCaCertPath);
+    {
 
+        BOOL exists = FALSE;
+        if(fileExists(pSampleConfiguration->pCaCertPath, &exists) != STATUS_SUCCESS){
+            DLOGD("check cert failed");
+        }
+
+        DLOGD("cert:%s is %x", exists);
+    }
+    #if 0
     // if ca cert path is not set from the environment, try to use the one that cmake detected
     if (pSampleConfiguration->pCaCertPath == NULL) {
         CHK_ERR(STRNLEN(DEFAULT_KVS_CACERT_PATH, MAX_PATH_LEN) > 0, STATUS_INVALID_OPERATION, "No ca cert path given (error:%s)", strerror(errno));
@@ -612,7 +628,8 @@ STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
             }
         }
     }
-
+    #endif
+    printf("look for ssl cert successfully\n");
 CleanUp:
     SAFE_MEMFREE(pCertName);
     CHK_LOG_ERR(retStatus);
@@ -625,36 +642,40 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
     STATUS retStatus = STATUS_SUCCESS;
     PCHAR pAccessKey = NULL, pSecretKey = NULL, pSessionToken = NULL, pLogLevel = NULL;
     PSampleConfiguration pSampleConfiguration = NULL;
-    UINT32 logLevel = LOG_LEVEL_DEBUG;
+    UINT32 logLevel = LOG_LEVEL_VERBOSE;
 
     CHK(ppSampleConfiguration != NULL, STATUS_NULL_ARG);
 
     CHK(NULL != (pSampleConfiguration = (PSampleConfiguration) MEMCALLOC(1, SIZEOF(SampleConfiguration))), STATUS_NOT_ENOUGH_MEMORY);
 
-    //CHK_ERR((pAccessKey = getenv(ACCESS_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_ACCESS_KEY_ID must be set");
-    //CHK_ERR((pSecretKey = getenv(SECRET_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_SECRET_ACCESS_KEY must be set");
-    pAccessKey = "AKIAU3ICOAFO62C6SD4Y";
-    pSecretKey = "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";
+    //CHK_ERR((pAccessKey = GETENV(ACCESS_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_ACCESS_KEY_ID must be set");
+    //CHK_ERR((pSecretKey = GETENV(SECRET_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_SECRET_ACCESS_KEY must be set");
+    pAccessKey = "AKIAYB2GLO5UNAVPRQNX";
+    pSecretKey = "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";
     CHK_ERR(pAccessKey != NULL, STATUS_INVALID_OPERATION, "AWS_ACCESS_KEY_ID must be set");
     CHK_ERR(pSecretKey != NULL, STATUS_INVALID_OPERATION, "AWS_SECRET_ACCESS_KEY must be set");
     
     
-    pSessionToken = getenv(SESSION_TOKEN_ENV_VAR);
+    pSessionToken = GETENV(SESSION_TOKEN_ENV_VAR);
     pSampleConfiguration->enableFileLogging = FALSE;
-    if (NULL != getenv(ENABLE_FILE_LOGGING)) {
+    #if 0
+    if (NULL != GETENV(ENABLE_FILE_LOGGING)) {
         pSampleConfiguration->enableFileLogging = TRUE;
     }
-    if ((pSampleConfiguration->channelInfo.pRegion = getenv(DEFAULT_REGION_ENV_VAR)) == NULL) {
+    #endif
+
+    if ((pSampleConfiguration->channelInfo.pRegion = GETENV(DEFAULT_REGION_ENV_VAR)) == NULL) {
         pSampleConfiguration->channelInfo.pRegion = DEFAULT_AWS_REGION;
     }
 
     CHK_STATUS(lookForSslCert(&pSampleConfiguration));
 
     // Set the logger log level
-    if (NULL == (pLogLevel = getenv(DEBUG_LOG_LEVEL_ENV_VAR)) || STATUS_SUCCESS != STRTOUI32(pLogLevel, NULL, 10, &logLevel) ||
+    if (NULL == (pLogLevel = GETENV(DEBUG_LOG_LEVEL_ENV_VAR)) || STATUS_SUCCESS != STRTOUI32(pLogLevel, NULL, 10, &logLevel) ||
         logLevel < LOG_LEVEL_VERBOSE || logLevel > LOG_LEVEL_SILENT) {
-        logLevel = LOG_LEVEL_VERBOSE; //LOG_LEVEL_WARN  LOG_LEVEL_VERBOSE
+        logLevel = LOG_LEVEL_WARN;
     }
+    logLevel = LOG_LEVEL_VERBOSE;
 
     SET_LOGGER_LOG_LEVEL(logLevel);
 

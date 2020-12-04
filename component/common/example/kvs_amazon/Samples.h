@@ -14,7 +14,7 @@ extern "C" {
 
 #define NUMBER_OF_H264_FRAME_FILES               1500
 #define NUMBER_OF_OPUS_FRAME_FILES               618
-#define DEFAULT_FPS_VALUE                        5
+#define DEFAULT_FPS_VALUE                        25
 #define DEFAULT_MAX_CONCURRENT_STREAMING_SESSION 10
 
 #define SAMPLE_MASTER_CLIENT_ID "ProducerMaster"
