@@ -5059,6 +5059,12 @@
                 </configuration>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_g711\example_audio_to_g711.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_opus\example_audio_to_opus.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\bcast\example_bcast.c</name>
             </file>
             <file>

@@ -628,7 +628,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 
 /* For KVS example*/
-#define CONFIG_EXAMPLE_KVS			1
+#define CONFIG_EXAMPLE_KVS			0
 #if CONFIG_EXAMPLE_KVS
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN
@@ -637,7 +637,16 @@ in lwip_opt.h for support uart adapter*/
 #endif
 #endif
 
-#define CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE        0
+/* For opus encoder eample*/
+#define CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE        1
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
 #define FATFS_DISK_SD 	1
 #endif
+
+/* For audio to G711 eample*/
+#define CONFIG_EXAMPLE_AUDIO_TO_G711            0
+   
+/* For audio to opus eample*/
+#define CONFIG_EXAMPLE_AUDIO_TO_OPUS            0
+
+

@@ -301,6 +301,14 @@
 #include <audio_opus_encode/example_audio_opus_encode.h>
 #endif
 
+#if CONFIG_EXAMPLE_AUDIO_TO_G711
+#include <audio_to_g711/example_audio_to_g711.h>
+#endif
+   
+#if CONFIG_EXAMPLE_AUDIO_TO_OPUS
+#include <audio_to_opus/example_audio_to_opus.h>
+#endif
+
 /*
 	Preprocessor of example
 */
@@ -717,5 +725,14 @@ example_hilink();
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
         example_audio_opus_encode();
 #endif
+
+#if CONFIG_EXAMPLE_AUDIO_TO_G711
+        example_audio_to_g711();
+#endif
+        
+#if CONFIG_EXAMPLE_AUDIO_TO_OPUS
+        example_audio_to_opus();
+#endif
+
 }
 
