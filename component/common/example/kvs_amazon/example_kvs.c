@@ -83,6 +83,8 @@ CleanUp:
     return retStatus;
 }
 
+/////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video ///////
+
 #undef ATOMIC_ADD
 #include "video_common_api.h"
 #include "h264_encoder.h"
@@ -112,12 +114,12 @@ struct h264_to_sd_card_def_setting {
 #define FATFS_BUF_SIZE	(32*1024)
 
 struct h264_to_sd_card_def_setting def_setting = {
-	.height = VIDEO_1080P_HEIGHT,
-	.width = VIDEO_1080P_WIDTH,
+	.height = VIDEO_720P_HEIGHT,
+	.width = VIDEO_720P_WIDTH,
 	.rcMode = H264_RC_MODE_CBR,
-	.bitrate = 2*1024*1024,
+	.bitrate = 512*1024,
 	.fps = 30,
-	.gopLen = 120,
+	.gopLen = 80,
 	.encode_frame_cnt = 1500,
 	.output_buffer_size = VIDEO_1080P_HEIGHT*VIDEO_1080P_WIDTH,
 	.isp_stream_id = 0,
@@ -422,6 +424,165 @@ CleanUp:
 
     return (PVOID)(ULONG_PTR) retStatus;
 }
+
+/////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio ///////
+
+#include "cmsis.h"
+#include "audio_api.h"
+#include "wait_api.h"
+#include <string.h>
+#include "opusenc.h"
+
+audio_t audio_obj;
+
+#define TX_PAGE_SIZE 640  //64*N bytes, max: 4032  
+#define RX_PAGE_SIZE 640  //64*N bytes, max: 4032 
+#define DMA_PAGE_NUM 2   //Only 2 page 
+
+u8 dma_txdata[TX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20))); 
+u8 dma_rxdata[RX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20)));
+
+//opus parameter
+#define SAMPLE_RATE 8000
+#define CHANNELS 1
+#define APPLICATION OPUS_APPLICATION_AUDIO
+
+// extern from g711_codec.c
+extern uint8_t encodeA(short pcm_val);
+extern short decodeA(uint8_t a_val);
+extern uint8_t encodeU(short pcm_val);
+extern short decodeU(uint8_t u_val);
+
+xQueueHandle audio_queue;
+
+void audio_tx_complete_irq(u32 arg, u8 *pbuf){}
+
+void audio_rx_complete_irq(u32 arg, u8 *pbuf)
+{
+    audio_t *obj = (audio_t *)arg; 
+
+    static u32 count=0;
+    count++;
+    if ((count&1023) == 1023)
+    {
+        dbg_printf("*\r\n");
+    }
+
+    if (audio_get_rx_error_cnt(obj) != 0x00) {
+        dbg_printf("rx page error !!! \r\n");
+    }
+    
+    BaseType_t xHigherPriorityTaskWoken;
+    
+    if( xQueueSendFromISR(audio_queue, (void *)pbuf, &xHigherPriorityTaskWoken) != pdTRUE){
+      printf("\n\rAudio queue full.\n\r");
+    } 
+    
+    if( xHigherPriorityTaskWoken)
+      taskYIELD ();
+
+    audio_set_rx_page(&audio_obj); // submit a new page for receive   
+}
+
+PVOID sendAudioPackets(PVOID args)
+{
+    STATUS retStatus = STATUS_SUCCESS;
+    PSampleConfiguration pSampleConfiguration = (PSampleConfiguration) args;
+    Frame frame;
+    UINT32 i;
+    STATUS status;
+
+    if (pSampleConfiguration == NULL) {
+        printf("[KVS Master] sendAudioPackets(): operation returned status code: 0x%08x \n", STATUS_NULL_ARG);
+        goto CleanUp;
+    }
+
+    frame.presentationTs = 0;
+    
+    //Audio Init    
+    audio_init(&audio_obj, OUTPUT_SINGLE_EDNED, MIC_DIFFERENTIAL, AUDIO_CODEC_2p8V); 
+    audio_set_param(&audio_obj, ASR_8KHZ, WL_16BIT);
+    
+    audio_mic_analog_gain(&audio_obj, ENABLE, MIC_30DB);
+
+    //Init RX dma
+    audio_set_rx_dma_buffer(&audio_obj, dma_rxdata, RX_PAGE_SIZE);    
+    audio_rx_irq_handler(&audio_obj, (audio_irq_handler)audio_rx_complete_irq, (u32)&audio_obj);
+
+    //Init TX dma
+    audio_set_tx_dma_buffer(&audio_obj, dma_txdata, TX_PAGE_SIZE);    
+    audio_tx_irq_handler(&audio_obj, (audio_irq_handler)audio_tx_complete_irq, (u32)&audio_obj);
+    
+    //Create a queue to receive the RX buffer from audio_in
+    audio_queue = xQueueCreate(6, TX_PAGE_SIZE);
+    xQueueReset(audio_queue);
+    
+    //Audio TX and RX Start
+    audio_trx_start(&audio_obj);
+    printf("\n\rAudio Start.\n\r");
+    
+//    //Holds the state of the encoder and decoder
+//    OpusEncoder *encoder;
+//    OpusDecoder *decoder;
+//    int err;
+//    //Create a new encoder state
+//    encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);
+//    //Create a new decoder state
+//    decoder = opus_decoder_create(SAMPLE_RATE, CHANNELS, &err);
+    
+    short buf_16bit[TX_PAGE_SIZE/2];
+    unsigned char buf_8bit[TX_PAGE_SIZE/2];
+    u8 *ptx_addre;
+//    opus_int32 compressedBytes;
+//    opus_int32 decompressedBytes;
+
+    while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
+    {
+      if(xQueueReceive(audio_queue, (void*)buf_16bit, 100) == pdTRUE)
+      {
+        //Encode the data with G711 encoder
+        for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+            buf_8bit[j] = encodeU(buf_16bit[j]);
+        }
+        // buf_8bit contain the encoded data
+        
+        //Decode the data with G711 decoder
+        for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+          buf_16bit[j] = decodeU(buf_8bit[j]);
+        }
+
+        ptx_addre = audio_get_tx_page_adr(&audio_obj);
+        memcpy((void*)ptx_addre, (void*)buf_16bit, TX_PAGE_SIZE);
+        audio_set_tx_page(&audio_obj, ptx_addre); // loopback -> can hear the sound from audio jack on amebapro
+      }
+      else
+       continue;
+      
+      frame.frameData = buf_8bit;
+      frame.size = TX_PAGE_SIZE/2;
+
+      frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
+
+      MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
+      for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
+          status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pAudioRtcRtpTransceiver, &frame);
+          if (status != STATUS_SRTP_NOT_READY_YET) {
+              if (status != STATUS_SUCCESS) {
+#ifdef VERBOSE
+                  printf("writeFrame() failed with 0x%08x\n", status);
+#endif
+              }
+          }
+      }
+      MUTEX_UNLOCK(pSampleConfiguration->streamingSessionListReadLock);
+      THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
+    }
+
+CleanUp:
+
+    return (PVOID)(ULONG_PTR) retStatus;
+}
+
 UCHAR wifi_ip[16];
 UCHAR* ameba_get_ip(void){
     extern struct netif xnetif[NET_IF_NUM];
@@ -481,7 +642,9 @@ void example_kvs_thread(void* param){
     
     // Set the video handlers
     pSampleConfiguration->videoSource = sendVideoPackets;
-    pSampleConfiguration->mediaType = SAMPLE_STREAMING_VIDEO_ONLY;
+    pSampleConfiguration->audioSource = sendAudioPackets;
+    //pSampleConfiguration->mediaType = SAMPLE_STREAMING_VIDEO_ONLY;
+    pSampleConfiguration->mediaType = SAMPLE_STREAMING_AUDIO_VIDEO;
     
     printf("[KVS Master] Finished setting audio and video handlers\n\r");
 

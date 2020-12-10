@@ -292,7 +292,7 @@ int pthread_create( pthread_t * thread,
 {
     int iStatus = 0;
     pthread_internal_t * pxThread = NULL;
-    struct sched_param xSchedParam  = { .sched_priority = tskIDLE_PRIORITY };
+    struct sched_param xSchedParam  = { .sched_priority = tskIDLE_PRIORITY+1 };
 
     /* Allocate memory for new thread object. */
     pxThread = ( pthread_internal_t * ) pvPortMalloc( sizeof( pthread_internal_t ) );

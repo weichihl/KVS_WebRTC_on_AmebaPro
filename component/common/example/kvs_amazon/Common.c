@@ -446,9 +446,13 @@ STATUS createSampleStreamingSession(PSampleConfiguration pSampleConfiguration, P
                                                 sampleBandwidthEstimationHandler));
 
     // Add a SendRecv Transceiver of type video
-    CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_OPUS));
+    //CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_OPUS));
+    CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_MULAW));
+    //CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_ALAW));
     pAudioTrack->kind = MEDIA_STREAM_TRACK_KIND_AUDIO;
-    pAudioTrack->codec = RTC_CODEC_OPUS;
+    //pAudioTrack->codec = RTC_CODEC_OPUS;
+    pAudioTrack->codec = RTC_CODEC_MULAW;
+    //pAudioTrack->codec = RTC_CODEC_ALAW;
     STRCPY(pAudioTrack->streamId, "myKvsVideoStream");
     STRCPY(pAudioTrack->trackId, "myAudioTrack");
     RtcRtpTransceiverInit audioRtcRtpTransceiverInit;
@@ -675,7 +679,7 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
         logLevel < LOG_LEVEL_VERBOSE || logLevel > LOG_LEVEL_SILENT) {
         logLevel = LOG_LEVEL_WARN;
     }
-    logLevel = LOG_LEVEL_VERBOSE;
+    logLevel = LOG_LEVEL_WARN; //LOG_LEVEL_VERBOSE
 
     SET_LOGGER_LOG_LEVEL(logLevel);
 
