@@ -105,4 +105,24 @@ Then, go back to application_is project and "Make" again, the updated library ca
 The additional include directories of KVS with WebRTC example is temporarily independent.
 You can add additional include path by right clicking `KVS_with_WebRTC` and choosing `options` --> `C/C++Compiler` --> `Preprocessor`  
 
-<img align="center" src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"><br> 
+<img align="center" src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"><br>  
+
+## Set Up an AWS Account and Create an Administrator  
+Please refer AWS official instruction to get **Access key ID** and **Secret access key**  
+https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/gs-account.html  
+
+Aftering getting the key, enter your key in the following place `utilities` --> `example` --> `KVS_with_WebRTC` --> `Common.c`  
+```
+pAccessKey = "???";  
+pSecretKey = "???";  
+```
+Make application_is project again, make sure your key can be used on amebapro.  
+## Put the CA file in SD card  
+There is a `cert.pem` file in `lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\certs`  
+Please copy it to your SD card.  
+
+## Running WebRTC Test Page Locally  
+Refer the link from **AWS labs**, using the WebRTC SDK Test Page to validate the demo  
+https://github.com/ycyang1229/amazon-kinesis-video-streams-webrtc-sdk-js/tree/test4porting  
+you have to clone the above project and follow the step in **Development** part to run the test page  
+
