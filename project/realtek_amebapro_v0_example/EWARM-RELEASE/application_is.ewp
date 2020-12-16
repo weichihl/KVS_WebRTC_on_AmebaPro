@@ -3088,6 +3088,9 @@
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libsrtp2.a</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libusrsctp.a</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libwebsockets.a</name>
             </file>
         </group>
@@ -3165,6 +3168,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
+            <excluded>
+                <configuration>Debug</configuration>
+            </excluded>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wlan.a</name>

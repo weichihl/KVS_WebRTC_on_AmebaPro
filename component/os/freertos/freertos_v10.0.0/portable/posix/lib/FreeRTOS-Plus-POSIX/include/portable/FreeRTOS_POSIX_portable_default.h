@@ -92,7 +92,7 @@
     #define posixconfigENABLE_MODE_T                 1 /**< mode_t in sys/types.h */
 #endif
 #ifndef posixconfigENABLE_OFF_T
-    #define posixconfigENABLE_OFF_T                 0 /**< mode_t in sys/types.h */
+    #define posixconfigENABLE_OFF_T                 1 /**< mode_t in sys/types.h */
 #endif
 #ifndef posixconfigENABLE_PID_T
     #define posixconfigENABLE_PID_T                  1 /**< pid_t in sys/types.h */
