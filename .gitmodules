@@ -18,3 +18,7 @@
 	path = lib_amazon/libsrtp
 	url = https://github.com/HungTseLee/libsrtp.git
 	branch = webrtc-on-freertos
+[submodule "lib_amazon/libusrsctp"]
+	path = lib_amazon/libusrsctp
+	url = https://github.com/HungTseLee/usrsctp.git
+	branch = esp-porting
