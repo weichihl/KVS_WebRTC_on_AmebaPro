@@ -238,6 +238,7 @@
                     <state>KVS_PLAT_ESP_FREERTOS</state>
                     <state>KVS_PLAT_RTK_FREERTOS___</state>
                     <state>LWS_RTK_PLATFORM</state>
+                    <state>ENABLE_DATA_CHANNEL__</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -366,9 +367,25 @@
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\os_dep\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\platform</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\network\include___</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\network\include_tmp</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\api\wifi</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include_</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include\posix</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include\lwip</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek\freertos</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\test\unit__</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\FreeRTOS_POSIX</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos</state>
@@ -383,25 +400,15 @@
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\trace\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\view\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\mkvgen\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api\platform</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api\network\include__</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\api\wifi__</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include_</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\src\include\posix</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\test\unit</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\FreeRTOS_POSIX</state>
-                    <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\src\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libsrtp\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib\netinet</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib\netinet6</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>

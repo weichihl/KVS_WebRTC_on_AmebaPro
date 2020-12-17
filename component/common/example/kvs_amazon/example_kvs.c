@@ -643,6 +643,9 @@ void example_kvs_thread(void* param){
     // Set the video handlers
     pSampleConfiguration->videoSource = sendVideoPackets;
     pSampleConfiguration->audioSource = sendAudioPackets;
+#ifdef ENABLE_DATA_CHANNEL
+    pSampleConfiguration->onDataChannel = onDataChannel;
+#endif
     //pSampleConfiguration->mediaType = SAMPLE_STREAMING_VIDEO_ONLY;
     pSampleConfiguration->mediaType = SAMPLE_STREAMING_AUDIO_VIDEO;
     
