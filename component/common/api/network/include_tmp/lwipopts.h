@@ -104,7 +104,7 @@ a lot of data that needs to be copied, this should be set high. */
    timeouts. */
 #define MEMP_NUM_SYS_TIMEOUT    10
 
-#define MEMP_NUM_NETCONN        20//8 //8
+#define MEMP_NUM_NETCONN        4//4 //8
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
