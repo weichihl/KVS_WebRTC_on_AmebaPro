@@ -238,7 +238,7 @@
                     <state>KVS_PLAT_ESP_FREERTOS</state>
                     <state>KVS_PLAT_RTK_FREERTOS___</state>
                     <state>LWS_RTK_PLATFORM</state>
-                    <state>ENABLE_DATA_CHANNEL__</state>
+                    <state>ENABLE_DATA_CHANNEL</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
