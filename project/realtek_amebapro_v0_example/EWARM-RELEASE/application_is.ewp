@@ -4681,6 +4681,9 @@
                 <name>$PROJ_DIR$\..\..\..\component\common\example\audio_helix_mp3\example_audio_helix_mp3.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_loop\example_audio_loop.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\audio_opus_encode\example_audio_opus_encode.c</name>
                 <configuration>
                     <name>Debug</name>
@@ -5079,6 +5082,9 @@
                         </data>
                     </settings>
                 </configuration>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_aac\example_audio_to_aac.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_g711\example_audio_to_g711.c</name>

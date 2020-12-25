@@ -10,8 +10,8 @@
 
 audio_t audio_obj;
 
-#define TX_PAGE_SIZE 128 //64*N bytes, max: 4032  
-#define RX_PAGE_SIZE 128 //64*N bytes, max: 4032 
+#define TX_PAGE_SIZE 320 //64*N bytes, max: 4032  
+#define RX_PAGE_SIZE 320 //64*N bytes, max: 4032 
 #define DMA_PAGE_NUM 2   //Only 2 page 
 
 u8 dma_txdata[TX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20))); 
@@ -57,9 +57,16 @@ void audio_rx_complete_irq(u32 arg, u8 *pbuf)
         dbg_printf("rx page error !!! \r\n");
     }
 
-    if( xQueueSendFromISR(audio_queue, (void *)pbuf, 0) != pdTRUE){
-      printf("\n\rSend audio to queue fail.\n\r");
+    BaseType_t xHigherPriorityTaskWoken;
+    
+    if( xQueueSendFromISR(audio_queue, (void *)pbuf, &xHigherPriorityTaskWoken) != pdTRUE){
+      printf("\n\rAudio queue full.\n\r");
     } 
+    
+    if( xHigherPriorityTaskWoken)
+      taskYIELD ();
+
+    audio_set_rx_page(&audio_obj); // submit a new page for receive   
     
 }
 
@@ -98,10 +105,8 @@ void example_audio_to_g711_thread(void* param)
     u8 *ptx_addre;
     while (1)
     {
-      if(uxQueueMessagesWaiting(audio_queue))
+      if(xQueueReceive(audio_queue, (void*)buf_16bit, 6) == pdTRUE)
       {
-        xQueueReceive(audio_queue, (void*)buf_16bit, 0);
-
         //Encode the data with G711 encoder
         for (int i = 0; i < TX_PAGE_SIZE/2; i++){
             buf_8bit[i] = encodeU(buf_16bit[i]);
@@ -116,7 +121,6 @@ void example_audio_to_g711_thread(void* param)
         ptx_addre = audio_get_tx_page_adr(&audio_obj);
         memcpy((void*)ptx_addre, (void*)buf_16bit, TX_PAGE_SIZE);
         audio_set_tx_page(&audio_obj, ptx_addre); // loopback
-        audio_set_rx_page(&audio_obj); // submit a new page for receive   
       }
       else
        continue;

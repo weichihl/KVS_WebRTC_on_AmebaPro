@@ -643,10 +643,14 @@ in lwip_opt.h for support uart adapter*/
 #define FATFS_DISK_SD 	1
 #endif
 
+/* For audio loop eample*/
+#define CONFIG_EXAMPLE_AUDIO_LOOP               0
+   
 /* For audio to G711 eample*/
 #define CONFIG_EXAMPLE_AUDIO_TO_G711            0
    
 /* For audio to opus eample*/
 #define CONFIG_EXAMPLE_AUDIO_TO_OPUS            0
 
-
+/* For audio to AAC eample*/
+#define CONFIG_EXAMPLE_AUDIO_TO_AAC             0
