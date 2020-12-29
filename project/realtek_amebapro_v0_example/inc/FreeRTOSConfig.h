@@ -91,7 +91,7 @@
 #define configCPU_CLOCK_HZ						( SystemCoreClock )
 #define configTICK_RATE_HZ						( 1000 )
 #define configMAX_PRIORITIES					( 12 )
-#define configMINIMAL_STACK_SIZE				( ( unsigned short ) 20*1024 )//( ( unsigned short ) 512 )
+#define configMINIMAL_STACK_SIZE				( ( unsigned short ) 512 ) //( ( unsigned short ) 20*1024 )
 
 #if defined(CONFIG_BUILD_SECURE)
 #define configTOTAL_HEAP_SIZE					( ( size_t ) ( 20 * 1024 ) )
