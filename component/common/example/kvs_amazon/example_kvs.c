@@ -475,7 +475,7 @@ void audio_rx_complete_irq(u32 arg, u8 *pbuf)
     BaseType_t xHigherPriorityTaskWoken;
     
     if( xQueueSendFromISR(audio_queue, (void *)pbuf, &xHigherPriorityTaskWoken) != pdTRUE){
-      printf("\n\rAudio queue full.\n\r");
+      //printf("\n\rAudio queue full.\n\r");
     } 
     
     if( xHigherPriorityTaskWoken)
@@ -594,20 +594,24 @@ UCHAR* ameba_get_ip(void){
 
 char *sample_channel_name = "My_KVS_Signaling_Channel";
 
+MUTEX log_in_order_mutex;
+
 void example_kvs_thread(void* param){
 
-	FRESULT res; 
+    log_in_order_mutex = defaultCreateMutex(FALSE);
 
-	char path[64];
+    FRESULT res; 
 
-	printf("=== KVS Example ===\n\r");
+    char path[64];
 
-	res = fatfs_sd_init();
-	if(res < 0){
-		printf("fatfs_sd_init fail (%d)\n\r", res);
-		goto fail;
-	}
-	fatfs_sd_get_param(&fatfs_sd);
+    printf("=== KVS Example ===\n\r");
+
+    res = fatfs_sd_init();
+    if(res < 0){
+            printf("fatfs_sd_init fail (%d)\n\r", res);
+            goto fail;
+    }
+    fatfs_sd_get_param(&fatfs_sd);
 	
     /** #YC_TBD, */
     vTaskDelay(3000);
@@ -624,7 +628,7 @@ void example_kvs_thread(void* param){
     // do trickleIce by default
     printf("[KVS Master] Using trickleICE by default\n\r");
     retStatus =
-        createSampleConfiguration(sample_channel_name, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, FALSE, FALSE, &pSampleConfiguration);
+        createSampleConfiguration(sample_channel_name, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, TRUE, TRUE, &pSampleConfiguration);
 
     if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] createSampleConfiguration(): operation returned status code: 0x%08x \n\r", retStatus);
@@ -750,7 +754,7 @@ CleanUp:
 
         
 //////////////////////////////////////////////
-	
+	defaultFreeMutex(log_in_order_mutex);
 
 fail:
 	fatfs_sd_close();
