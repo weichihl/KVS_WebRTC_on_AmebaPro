@@ -446,13 +446,21 @@ STATUS createSampleStreamingSession(PSampleConfiguration pSampleConfiguration, P
                                                 sampleBandwidthEstimationHandler));
 
     // Add a SendRecv Transceiver of type video
-    //CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_OPUS));
+#if AUDIO_OPUS
+    CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_OPUS));
+#elif AUDIO_G711_MULAW
     CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_MULAW));
-    //CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_ALAW));
+#elif AUDIO_G711_ALAW   
+    CHK_STATUS(addSupportedCodec(pSampleStreamingSession->pPeerConnection, RTC_CODEC_ALAW));
+#endif
     pAudioTrack->kind = MEDIA_STREAM_TRACK_KIND_AUDIO;
-    //pAudioTrack->codec = RTC_CODEC_OPUS;
+#if AUDIO_OPUS
+    pAudioTrack->codec = RTC_CODEC_OPUS;
+#elif AUDIO_G711_MULAW
     pAudioTrack->codec = RTC_CODEC_MULAW;
-    //pAudioTrack->codec = RTC_CODEC_ALAW;
+#elif AUDIO_G711_ALAW  
+    pAudioTrack->codec = RTC_CODEC_ALAW;
+#endif
     STRCPY(pAudioTrack->streamId, "myKvsVideoStream");
     STRCPY(pAudioTrack->trackId, "myAudioTrack");
     RtcRtpTransceiverInit audioRtcRtpTransceiverInit;

@@ -445,13 +445,15 @@ u8 dma_rxdata[RX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20)));
 //opus parameter
 #define SAMPLE_RATE 8000
 #define CHANNELS 1
-#define APPLICATION OPUS_APPLICATION_AUDIO
+#define APPLICATION   OPUS_APPLICATION_RESTRICTED_LOWDELAY  // OPUS_APPLICATION_VOIP //OPUS_APPLICATION_AUDIO  
 
+#if (AUDIO_G711_MULAW || AUDIO_G711_ALAW)
 // extern from g711_codec.c
 extern uint8_t encodeA(short pcm_val);
 extern short decodeA(uint8_t a_val);
 extern uint8_t encodeU(short pcm_val);
 extern short decodeU(uint8_t u_val);
+#endif
 
 xQueueHandle audio_queue;
 
@@ -520,36 +522,51 @@ PVOID sendAudioPackets(PVOID args)
     //Audio TX and RX Start
     audio_trx_start(&audio_obj);
     printf("\n\rAudio Start.\n\r");
-    
-//    //Holds the state of the encoder and decoder
-//    OpusEncoder *encoder;
-//    OpusDecoder *decoder;
-//    int err;
-//    //Create a new encoder state
-//    encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);
-//    //Create a new decoder state
-//    decoder = opus_decoder_create(SAMPLE_RATE, CHANNELS, &err);
+
+#if AUDIO_OPUS
+    //Holds the state of the opus encoder
+    OpusEncoder *encoder;
+    int err;
+    //Create a new opus encoder state
+    encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);	
+    //Perform a CTL function on an Opus encoder.
+    opus_encoder_ctl(encoder, OPUS_SET_FORCE_CHANNELS(2));
+    opus_encoder_ctl(encoder, OPUS_SET_COMPLEXITY(1));
+    opus_encoder_ctl(encoder, OPUS_SET_SIGNAL(OPUS_SIGNAL_VOICE));
+    //opus_encoder_ctl(encoder, OPUS_SET_BITRATE(500*20)); 
+    //opus_encoder_ctl(encoder, OPUS_SET_LSB_DEPTH(8)); // Input precision in bits, between 8 and 24 (default: 24).    
+#endif
     
     short buf_16bit[TX_PAGE_SIZE/2];
     unsigned char buf_8bit[TX_PAGE_SIZE/2];
     u8 *ptx_addre;
-//    opus_int32 compressedBytes;
-//    opus_int32 decompressedBytes;
+    opus_int32 compressedBytes;
+
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
     {
       if(xQueueReceive(audio_queue, (void*)buf_16bit, 100) == pdTRUE)
       {
-        //Encode the data with G711 encoder
+
+#if AUDIO_OPUS
+        //Encode the data with OPUS encoder
+        compressedBytes = opus_encode(encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
+        frame.size = compressedBytes;
+#elif AUDIO_G711_MULAW
+        //Encode the data with G711 MULAW encoder
         for (int j = 0; j < TX_PAGE_SIZE/2; j++){
             buf_8bit[j] = encodeU(buf_16bit[j]);
         }
-        // buf_8bit contain the encoded data
-        
-        //Decode the data with G711 decoder
+        frame.size = TX_PAGE_SIZE/2;
+#elif AUDIO_G711_ALAW  
+        //Encode the data with G711 ALAW encoder
         for (int j = 0; j < TX_PAGE_SIZE/2; j++){
-          buf_16bit[j] = decodeU(buf_8bit[j]);
+            buf_8bit[j] = encodeA(buf_16bit[j]);
         }
+        frame.size = TX_PAGE_SIZE/2;
+#endif
+        
+        // buf_8bit contain the encoded data
 
         ptx_addre = audio_get_tx_page_adr(&audio_obj);
         memcpy((void*)ptx_addre, (void*)buf_16bit, TX_PAGE_SIZE);
@@ -557,9 +574,10 @@ PVOID sendAudioPackets(PVOID args)
       }
       else
        continue;
-      
+
       frame.frameData = buf_8bit;
-      frame.size = TX_PAGE_SIZE/2;
+      //frame.size = TX_PAGE_SIZE/2;
+      //frame.size = compressedBytes;
 
       frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
 
@@ -575,7 +593,7 @@ PVOID sendAudioPackets(PVOID args)
           }
       }
       MUTEX_UNLOCK(pSampleConfiguration->streamingSessionListReadLock);
-      THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
+      //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
     }
 
 CleanUp:

@@ -4542,7 +4542,7 @@
                                 <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\openssl</state>
                                 <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\platform</state>
                                 <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\src\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v1.5.0.beta\src\include\posix</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v1.5.0.beta\src\include\posix______</state>
                                 <state>$PROJ_DIR$\..\..\..\component\common\audio\libogg-1.3.3</state>
                                 <state>$PROJ_DIR$\..\..\..\component\common\audio\libogg-1.3.3\include</state>
                                 <state>$PROJ_DIR$\..\..\..\component\common\audio\opus-1.3.1</state>

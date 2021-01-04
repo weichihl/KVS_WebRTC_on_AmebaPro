@@ -39,6 +39,10 @@ extern "C" {
 #define SAMPLE_HASH_TABLE_BUCKET_LENGTH 2
   
 #define ENABLE_DATA_CHANNEL
+  
+#define AUDIO_G711_MULAW        0
+#define AUDIO_G711_ALAW         0
+#define AUDIO_OPUS              1
 
 typedef enum {
     SAMPLE_STREAMING_VIDEO_ONLY,
