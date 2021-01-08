@@ -34,7 +34,6 @@
 #define DEFAULT_BUFFER_DURATION             120 * HUNDREDS_OF_NANOS_IN_A_SECOND
 #define DEFAULT_CALLBACK_CHAIN_COUNT        5
 #define DEFAULT_KEY_FRAME_INTERVAL          45
-//#define DEFAULT_FPS_VALUE                   25
 #define DEFAULT_STREAM_DURATION             20 * HUNDREDS_OF_NANOS_IN_A_SECOND
 #define DEFAULT_STORAGE_SIZE                20 * 1024 * 1024
 #define RECORDED_FRAME_AVG_BITRATE_BIT_PS   3800000
@@ -47,41 +46,8 @@ extern PSampleConfiguration gSampleConfiguration;
 /* End of KVS config */
 
 ////
-FRESULT list_files(char *);
-FRESULT del_dir(const TCHAR *path, int del_self);  
-FATFS 	fs_sd;
-FIL     m_file;
-#define TEST_BUF_SIZE	(512)
 fatfs_sd_params_t fatfs_sd;
 ////
-
-STATUS readFrameFromDisk(PBYTE pFrame, PUINT32 pSize, PCHAR frameFilePath)
-{
-    STATUS retStatus = STATUS_SUCCESS;
-    UINT64 size = 0;
-
-    if (pSize == NULL) {
-        printf("[KVS Master] readFrameFromDisk(): operation returned status code: 0x%08x \n\r", STATUS_NULL_ARG);
-        goto CleanUp;
-    }
-
-    size = *pSize;
-
-    // Get the size and read into frame
-    retStatus = readFile(frameFilePath, TRUE, pFrame, &size);
-    if (retStatus != STATUS_SUCCESS) {
-        printf("[KVS Master] readFile(): operation returned status code: 0x%08x \n\r", retStatus);
-        goto CleanUp;
-    }
-
-CleanUp:
-
-    if (pSize != NULL) {
-        *pSize = (UINT32) size;
-    }
-
-    return retStatus;
-}
 
 /////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video ///////
 
@@ -189,6 +155,7 @@ PVOID sendVideoPackets(PVOID args)
     STATUS status;
     UINT32 i;
     //UINT64 startTime, lastFrameTime, elapsed;
+    vTaskDelay(3000);
     MEMSET(&encoderStats, 0x00, SIZEOF(RtcEncoderStats));
 
 
@@ -227,14 +194,7 @@ PVOID sendVideoPackets(PVOID args)
 	isp_init_cfg.isp_fw_location = ISP_FW_LOCATION;
 	
 	video_subsys_init(&isp_init_cfg);
-#if 0
-#if CONFIG_LIGHT_SENSOR
-	init_sensor_service();
-#else
-	ir_cut_init(NULL);
-	ir_cut_enable(1);
-#endif
-#endif
+
 	/**
 	 * setup the sw module of h264 engine.
 	*/
@@ -330,62 +290,40 @@ PVOID sendVideoPackets(PVOID args)
 
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) {
-		VIDEO_BUFFER video_buf;
-		isp_buf_t isp_buf;
-		// [9][ISP] get isp data
-		/**
-		 * get the isp buffe from the isr of isp engine.
-		*/
-		if(xQueueReceive(isp_ctx.output_ready, &isp_buf, 10) != pdTRUE) {
-			continue;
-		}
-		
-		// [10][H264] encode data
-		/** allocate the output buffer of h264 engine. */
-		video_buf.output_buffer_size = def_setting.output_buffer_size;
-		video_buf.output_buffer = malloc(video_buf.output_buffer_size);
-		if (video_buf.output_buffer== NULL) {
-			printf("Allocate output buffer fail\n\r");
-			continue;
-		}
-		/** trigger the h264 engine. */
-		ret = h264_encode_frame(h264_ctx, &isp_buf, &video_buf);
-		if (ret != H264_OK) {
-			printf("\n\rh264_encode_frame err %d\n\r",ret);
-			if (video_buf.output_buffer != NULL)
-				free(video_buf.output_buffer);
-			continue;
-		}
+        VIDEO_BUFFER video_buf;
+        isp_buf_t isp_buf;
+        // [9][ISP] get isp data
+        /**
+         * get the isp buffe from the isr of isp engine.
+        */
+        if(xQueueReceive(isp_ctx.output_ready, &isp_buf, 10) != pdTRUE) {
+                continue;
+        }
+        
+        // [10][H264] encode data
+        /** allocate the output buffer of h264 engine. */
+        video_buf.output_buffer_size = def_setting.output_buffer_size;
+        video_buf.output_buffer = malloc(video_buf.output_buffer_size);
+        if (video_buf.output_buffer== NULL) {
+                printf("Allocate output buffer fail\n\r");
+                continue;
+        }
+        /** trigger the h264 engine. */
+        ret = h264_encode_frame(h264_ctx, &isp_buf, &video_buf);
+        if (ret != H264_OK) {
+                printf("\n\rh264_encode_frame err %d\n\r",ret);
+                if (video_buf.output_buffer != NULL)
+                        free(video_buf.output_buffer);
+                continue;
+        }
 
-		// [11][ISP] put back isp buffer
-		/** return the isp buffer. */
-		xQueueSend(isp_ctx.output_recycle, &isp_buf, 10);
+        // [11][ISP] put back isp buffer
+        /** return the isp buffer. */
+        xQueueSend(isp_ctx.output_recycle, &isp_buf, 10);
 
-        //fileIndex = fileIndex % NUMBER_OF_H264_FRAME_FILES + 1;
-        //snprintf(filePath, MAX_PATH_LEN, "/h264SampleFrames/frame-%04d.h264", fileIndex);
-
-        //retStatus = readFrameFromDisk(NULL, &frameSize, filePath);
-        //if (retStatus != STATUS_SUCCESS) {
-        //    printf("[KVS Master] readFrameFromDisk(): operation returned status code: 0x%08x \n\r", retStatus);
-        //    goto CleanUp;
-        //}
-
-        // Re-alloc if needed
-        //if (frameSize > pSampleConfiguration->videoBufferSize) {
-        //    printf("[KVS Master] Video frame Buffer reallocation failed...overflow\n\r");
-        //}
-
+        
         frame.frameData = video_buf.output_buffer;
         frame.size = video_buf.output_size;
-        //UINT64 fileSt = GETTIME();
-        //retStatus = readFrameFromDisk(frame.frameData, &frameSize, filePath);
-        //UINT64 fileEnd = GETTIME();
-        //DLOGD("f: %llu", (fileEnd-fileSt)/HUNDREDS_OF_NANOS_IN_A_MILLISECOND);
-
-        if (retStatus != STATUS_SUCCESS) {
-            printf("[KVS Master] readFrameFromDisk(): operation returned status code: 0x%08x \n\r", retStatus);
-            goto CleanUp;
-        }
 
         // based on bitrate of samples/h264SampleFrames/frame-*
         encoderStats.width = 640;
@@ -395,10 +333,10 @@ PVOID sendVideoPackets(PVOID args)
 
         MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
         for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
-            UINT64 frameSt = GETTIME();
+            //UINT64 frameSt = GETTIME();
             status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pVideoRtcRtpTransceiver, &frame);
-            UINT64 frameEnd = GETTIME();
-            DLOGD("w:%llu", (frameEnd-frameSt)/HUNDREDS_OF_NANOS_IN_A_MILLISECOND);
+            //UINT64 frameEnd = GETTIME();
+            //DLOGD("w:%llu", (frameEnd-frameSt)/HUNDREDS_OF_NANOS_IN_A_MILLISECOND);
             encoderStats.encodeTimeMsec = 4; // update encode time to an arbitrary number to demonstrate stats update
             updateEncoderStats(pSampleConfiguration->sampleStreamingSessionList[i]->pVideoRtcRtpTransceiver, &encoderStats);
             if (status != STATUS_SRTP_NOT_READY_YET) {
@@ -493,6 +431,8 @@ PVOID sendAudioPackets(PVOID args)
     Frame frame;
     UINT32 i;
     STATUS status;
+    
+    vTaskDelay(3000);
 
     if (pSampleConfiguration == NULL) {
         printf("[KVS Master] sendAudioPackets(): operation returned status code: 0x%08x \n", STATUS_NULL_ARG);
@@ -672,17 +612,6 @@ void example_kvs_thread(void* param){
     pSampleConfiguration->mediaType = SAMPLE_STREAMING_AUDIO_VIDEO;
     
     printf("[KVS Master] Finished setting audio and video handlers\n\r");
-
-
-    snprintf(path, sizeof(path), "%s%s", fatfs_sd.drv, "/h264SampleFrames/frame-0001.h264");
-    printf("The video file path: %s \n\r", path);
-
-    retStatus = readFrameFromDisk(NULL, &frameSize, path);
-    if (retStatus != STATUS_SUCCESS) {
-        printf("[KVS Master] readFrameFromDisk(): operation returned status code: 0x%08x \n\r", retStatus);
-        goto CleanUp;
-    }
-    printf("[KVS Master] Checked sample video frame availability....available\n\r");
         
     // Initialize KVS WebRTC. This must be done before anything else, and must only be done once.
 
@@ -782,165 +711,13 @@ exit:
 }
 
 
-
-char *print_file_info(FILINFO fileinfo, char *fn, char* path)
-{
-	char info[256];
-	char fname[64];
-	memset(fname, 0, sizeof(fname));
-	snprintf(fname, sizeof(fname), "%s", fn);	
-	
-	snprintf(info, sizeof(info), 
-		"%c%c%c%c%c  %u/%02u/%02u  %02u:%02u  %9llu  %30s  %30s", 
-		(fileinfo.fattrib & AM_DIR) ? 'D' : '-',
-		(fileinfo.fattrib & AM_RDO) ? 'R' : '-',
-		(fileinfo.fattrib & AM_HID) ? 'H' : '-',
-		(fileinfo.fattrib & AM_SYS) ? 'S' : '-',
-		(fileinfo.fattrib & AM_ARC) ? 'A' : '-',
-		(fileinfo.fdate >> 9) + 1980,
-		(fileinfo.fdate >> 5) & 15,
-		fileinfo.fdate & 31,
-		(fileinfo.ftime >> 11),
-		(fileinfo.ftime >> 5) & 63,
-		fileinfo.fsize,
-		fn,
-		path);
-	printf("%s\n\r", info);
-	return info;
-}
-
-FRESULT list_files(char* list_path)
-{
-	DIR m_dir;
-	FILINFO m_fileinfo;
-	FRESULT res;
-	char *filename;
-#if _USE_LFN
-	char fname_lfn[_MAX_LFN + 1];
-	m_fileinfo.lfname = fname_lfn;
-	m_fileinfo.lfsize = sizeof(fname_lfn);
-#endif
-	char cur_path[64];
-	//strcpy(cur_path, list_path);
-
-	// open directory
-	res = f_opendir(&m_dir, list_path);
-
-	if(res == FR_OK)
-	{
-		for (;;) {
-			strcpy(cur_path, list_path);
-			// read directory and store it in file info object
-			res = f_readdir(&m_dir, &m_fileinfo);
-			if (res != FR_OK || m_fileinfo.fname[0] == 0) {
-				break;
-			}
-
-#if _USE_LFN
-			filename = *m_fileinfo.lfname ? m_fileinfo.lfname : m_fileinfo.fname;
-#else
-			filename = m_fileinfo.fname;
-#endif
-			if (*filename == '.' || *filename == '..') 
-			{
-				continue;
-			}
-
-			// check if the object is directory
-			if(m_fileinfo.fattrib & AM_DIR)
-			{
-				sprintf(&cur_path[strlen(list_path)], "/%s", filename);
-				print_file_info(m_fileinfo, filename, cur_path);
-				res = list_files(cur_path);
-				//strcpy(list_path, cur_path);
-				if (res != FR_OK) 
-				{
-					break;
-				}
-				//list_path[strlen(list_path)] = 0;
-			}
-			else {
-				print_file_info(m_fileinfo, filename, cur_path);
-			}
-
-		}
-	}
-
-	// close directory
-	res = f_closedir(&m_dir);
-	if(res){
-		printf("close directory fail: %d\n\r", res);
-	}
-	return res;
-}
-
-FRESULT del_dir(const TCHAR *path, int del_self)  
-{  
-    FRESULT res;  
-    DIR   m_dir;    
-    FILINFO m_fileinfo;     
-	char *filename;
-    char file[_MAX_LFN + 1];  
-#if _USE_LFN
-		char fname_lfn[_MAX_LFN + 1];
-		m_fileinfo.lfname = fname_lfn;
-		m_fileinfo.lfsize = sizeof(fname_lfn);
-#endif
-
-    res = f_opendir(&m_dir, path);  
-
-	if(res == FR_OK) {
-		for (;;) {
-			// read directory and store it in file info object
-			res = f_readdir(&m_dir, &m_fileinfo);
-			if (res != FR_OK || m_fileinfo.fname[0] == 0) {
-				break;
-			}
-
-#if _USE_LFN
-			filename = *m_fileinfo.lfname ? m_fileinfo.lfname : m_fileinfo.fname;
-#else
-			filename = m_fileinfo.fname;
-#endif
-			if (*filename == '.' || *filename == '..') 
-			{
-				continue;
-			}
-
-			printf("del: %s\n\r", filename);
-			sprintf((char*)file, "%s/%s", path, filename);  
-
-			if (m_fileinfo.fattrib & AM_DIR) {  
-            	res = del_dir(file, 1);  
-        	}  
-        	else { 
-            	res = f_unlink(file);  
-        	}  	
-
-		}
-
-	}
-	
-    // close directory
-	res = f_closedir(&m_dir);
-
-	// delete self? 
-    if(res == FR_OK) {
-		if(del_self == 1)
-			res = f_unlink(path);  
-    }
-
-	return res;  
-}  
-
-
 #include <sntp/sntp.h>
 
 void example_kvs(void)
 {
     
     //if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) != pdPASS)
+	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
 		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
 }
 #endif
