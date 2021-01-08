@@ -377,7 +377,6 @@
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\internal</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\openssl</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\platform</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\include_</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos</state>

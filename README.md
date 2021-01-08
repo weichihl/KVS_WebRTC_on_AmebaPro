@@ -1,4 +1,4 @@
-﻿# AmebaPro
+﻿# AmebaPro with KVS WebRTC
 SDK for Realtek AmebaPro chipset  
 This project is going to demonstrate how to use KVS with WebRTC on AmebaPro  
 The related example code: `project\component\common\example\kvs_amazon`  

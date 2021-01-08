@@ -86,13 +86,13 @@ a lot of data that needs to be copied, this should be set high. */
 #define MEMP_NUM_PBUF           100
 /* MEMP_NUM_UDP_PCB: the number of UDP protocol control blocks. One
    per active UDP "connection". */
-#define MEMP_NUM_UDP_PCB        20//6
+#define MEMP_NUM_UDP_PCB        20
 /* MEMP_NUM_TCP_PCB: the number of simulatenously active TCP
    connections. */
-#define MEMP_NUM_TCP_PCB        20//10
+#define MEMP_NUM_TCP_PCB        20
 /* MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP
    connections. */
-#define MEMP_NUM_TCP_PCB_LISTEN 20//5
+#define MEMP_NUM_TCP_PCB_LISTEN 20
 /* MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP
    segments. */
 #ifdef CONFIG_HIGH_TP_TEST
@@ -104,7 +104,7 @@ a lot of data that needs to be copied, this should be set high. */
    timeouts. */
 #define MEMP_NUM_SYS_TIMEOUT    10
 
-#define MEMP_NUM_NETCONN        20//8 //8
+#define MEMP_NUM_NETCONN        20
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */

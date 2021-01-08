@@ -359,7 +359,6 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\inc</state>
-                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include____</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib\netinet</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\libusrsctp\usrsctplib\netinet6</state>
