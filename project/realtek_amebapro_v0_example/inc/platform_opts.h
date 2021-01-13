@@ -628,7 +628,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 
 /* For KVS example*/
-#define CONFIG_EXAMPLE_KVS			1
+#define CONFIG_EXAMPLE_KVS			0
 #if CONFIG_EXAMPLE_KVS
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN

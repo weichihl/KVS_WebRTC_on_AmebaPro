@@ -64,8 +64,7 @@
 #define ISP_AUTO_SEL_DISABLE 0X00
 #define ISP_AUTO_SEL_ENABLE  0X01
 
-//#define SENSOR_USE      	SENSOR_SC2232
-#define SENSOR_USE			SENSOR_IMX307
+#define SENSOR_USE      	SENSOR_SC2232
 #define SENSOR_AUTO_SEL         ISP_AUTO_SEL_ENABLE //Enalbe Auto select 
 #if SENSOR_AUTO_SEL == 0X01 && SENSOR_USE == SENSOR_ALL
 static const unsigned char sen_id[0x08]={SENSOR_GC1054,SENSOR_SC2232,SENSOR_JXF37,SENSOR_GC2053,SENSOR_ALL};//It need match with the above selection, it will scan the sequence from the array.
