@@ -40,9 +40,9 @@ extern "C" {
   
 //#define ENABLE_DATA_CHANNEL
   
-#define AUDIO_G711_MULAW        0
+#define AUDIO_G711_MULAW        1
 #define AUDIO_G711_ALAW         0
-#define AUDIO_OPUS              1
+#define AUDIO_OPUS              0
 
 typedef enum {
     SAMPLE_STREAMING_VIDEO_ONLY,

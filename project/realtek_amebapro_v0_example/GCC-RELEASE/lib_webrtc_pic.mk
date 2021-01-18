@@ -119,7 +119,7 @@ CFLAGS += -march=armv8-m.main+dsp -mthumb -mcmse -mfloat-abi=softfp -mfpu=fpv5-s
 CFLAGS += -nostartfiles -nodefaultlibs -nostdlib -fstack-usage -fdata-sections -ffunction-sections -fno-common
 CFLAGS += -Wall -Wpointer-arith -Wstrict-prototypes -Wundef -Wno-write-strings -Wno-maybe-uninitialized 
 CFLAGS += -D__thumb2__ -DCONFIG_PLATFORM_8195BHP -D__FPU_PRESENT -D__ARM_ARCH_7M__=0 -D__ARM_ARCH_7EM__=0 -D__ARM_ARCH_8M_MAIN__=1 -D__ARM_ARCH_8M_BASE__=0 
-CFLAGS += -DCONFIG_BUILD_RAM=1
+CFLAGS += -DCONFIG_BUILD_RAM=1 -DCONFIG_BUILD_LIB=1
 CFLAGS += -DV8M_STKOVF
 CFLAGS += $(USER_CFLAGS)
 
@@ -142,7 +142,6 @@ prerequirement:
 $(SRC_O): %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	#$(CC) $(CFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
-	$(OBJCOPY) --prefix-alloc-sections .webrtc_pic $@
 	cp $@ $(OBJ_DIR)/$(notdir $@)
 	mv $(notdir $*.i) $(INFO_DIR)
 	mv $(notdir $*.s) $(INFO_DIR)
@@ -167,7 +166,7 @@ $(ERAM_O): %.o : %.c
 .PHONY: clean
 clean:
 	rm -rf $(TARGET)
-	rm -f $(patsubst %.o,%.d,$(SRC_O)) $(patsubst %.o,%.su,$(ERAM_O)) $(patsubst %.o,%.d,$(SRAM_O))
+	rm -f $(patsubst %.o,%.d,$(SRC_O)) $(patsubst %.o,%.d,$(ERAM_O)) $(patsubst %.o,%.d,$(SRAM_O))
 	rm -f $(patsubst %.o,%.su,$(SRC_O)) $(patsubst %.o,%.su,$(ERAM_O)) $(patsubst %.o,%.su,$(SRAM_O))
 	rm -f $(SRC_O) $(DRAM_O)
 	rm -f *.i

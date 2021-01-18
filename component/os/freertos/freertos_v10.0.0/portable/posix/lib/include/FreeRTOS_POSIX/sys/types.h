@@ -53,14 +53,18 @@
  * @brief Used for clock ID type in the clock and timer functions.
  */
 #if !defined( posixconfigENABLE_CLOCKID_T ) || ( posixconfigENABLE_CLOCKID_T == 1 )
+#if defined (__ICCARM__)
     typedef int             clockid_t;
+#endif
 #endif
 
 /**
  * @brief Used for some file attributes.
  */
 #if !defined( posixconfigENABLE_MODE_T ) || ( posixconfigENABLE_MODE_T == 1 )
+#if defined (__ICCARM__)
     typedef unsigned int             mode_t;
+#endif
 #endif
 
 /**
@@ -142,7 +146,9 @@ typedef void                * pthread_barrierattr_t;
  * @brief Used for timer ID returned by timer_create().
  */
 #if !defined( posixconfigENABLE_TIMER_T ) || ( posixconfigENABLE_TIMER_T == 1 )
+#if defined (__ICCARM__)
     typedef void            * timer_t;
+#endif
 #endif
 
 /**

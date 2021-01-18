@@ -79,6 +79,36 @@ INCLUDES += -I../../../component/common/file_system/fatfs
 
 SRC_C =
 
+#state
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/state/src/State.c
+#utils
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Allocators.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Atomics.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Base64.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/BitField.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/BitReader.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Crc32.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Directory.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/DoubleLinkedList.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/DynamicLibrary.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Endianness.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/FileIo.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/FileLogger.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/HashTable.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Hex.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/InstrumentedAllocators.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Logger.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Mutex.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Semaphore.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/SingleLinkedList.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/StackQueue.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/String.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Tags.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Thread.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Time.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/TimerQueue.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Version.c
+
 #lws
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Lws/LwsCall.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Lws/LwsIotCredentialProvider.c
@@ -91,7 +121,7 @@ SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/RequestInfo.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/StaticCredentialProvider.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Util.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Version.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Version_c.c
 
 # User CFLAGS
 # -------------------------------------------------------------------
@@ -120,7 +150,7 @@ CFLAGS += -march=armv8-m.main+dsp -mthumb -mcmse -mfloat-abi=softfp -mfpu=fpv5-s
 CFLAGS += -nostartfiles -nodefaultlibs -nostdlib -fstack-usage -fdata-sections -ffunction-sections -fno-common
 CFLAGS += -Wall -Wpointer-arith -Wstrict-prototypes -Wundef -Wno-write-strings -Wno-maybe-uninitialized 
 CFLAGS += -D__thumb2__ -DCONFIG_PLATFORM_8195BHP -D__FPU_PRESENT -D__ARM_ARCH_7M__=0 -D__ARM_ARCH_7EM__=0 -D__ARM_ARCH_8M_MAIN__=1 -D__ARM_ARCH_8M_BASE__=0 
-CFLAGS += -DCONFIG_BUILD_RAM=1
+CFLAGS += -DCONFIG_BUILD_RAM=1 -DCONFIG_BUILD_LIB=1
 CFLAGS += -DV8M_STKOVF
 CFLAGS += $(USER_CFLAGS)
 
@@ -143,7 +173,6 @@ prerequirement:
 $(SRC_O): %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	#$(CC) $(CFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
-	$(OBJCOPY) --prefix-alloc-sections .webrtc_pic $@
 	cp $@ $(OBJ_DIR)/$(notdir $@)
 	mv $(notdir $*.i) $(INFO_DIR)
 	mv $(notdir $*.s) $(INFO_DIR)
@@ -168,7 +197,7 @@ $(ERAM_O): %.o : %.c
 .PHONY: clean
 clean:
 	rm -rf $(TARGET)
-	rm -f $(patsubst %.o,%.d,$(SRC_O)) $(patsubst %.o,%.su,$(ERAM_O)) $(patsubst %.o,%.d,$(SRAM_O))
+	rm -f $(patsubst %.o,%.d,$(SRC_O)) $(patsubst %.o,%.d,$(ERAM_O)) $(patsubst %.o,%.d,$(SRAM_O))
 	rm -f $(patsubst %.o,%.su,$(SRC_O)) $(patsubst %.o,%.su,$(ERAM_O)) $(patsubst %.o,%.su,$(SRAM_O))
 	rm -f $(SRC_O) $(DRAM_O)
 	rm -f *.i

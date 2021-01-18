@@ -55,9 +55,11 @@ unsigned sleep( unsigned seconds );
  */
 int usleep( useconds_t usec );
 
+#if defined (__ICCARM__)
 char *strerror_r(int errnum, char *buffer, size_t n);
 
 void bzero(char *s, int n);
+#endif
 
 #ifdef __cplusplus
 }

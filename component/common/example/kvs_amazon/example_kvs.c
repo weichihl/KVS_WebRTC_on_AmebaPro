@@ -572,10 +572,10 @@ void example_kvs_thread(void* param){
     fatfs_sd_get_param(&fatfs_sd);
 	
     /** #YC_TBD, */
-    vTaskDelay(3000);
+    vTaskDelay(1000);
     #include <sntp/sntp.h>
     sntp_init();
-    vTaskDelay(3000);
+    vTaskDelay(2000);
 
     STATUS retStatus = STATUS_SUCCESS;
     UINT32 frameSize;
@@ -585,6 +585,7 @@ void example_kvs_thread(void* param){
 
     // do trickleIce by default
     printf("[KVS Master] Using trickleICE by default\n\r");
+    printf("[KVS Master] creating Sample Configuration... \n\r");
     retStatus =
         createSampleConfiguration(sample_channel_name, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, TRUE, TRUE, &pSampleConfiguration);
 
@@ -592,8 +593,13 @@ void example_kvs_thread(void* param){
         printf("[KVS Master] createSampleConfiguration(): operation returned status code: 0x%08x \n\r", retStatus);
         goto CleanUp;
     }
+    printf("[KVS Master] Sample Configuration is created \n\r");
+    
+    
     printf("[KVS Master] Created signaling channel %s\n\r", sample_channel_name);
 
+    
+    printf("[KVS Master] creating FileLogger... \n\r");
     if (pSampleConfiguration->enableFileLogging) {
         retStatus = createFileLogger(FILE_LOGGING_BUFFER_SIZE, MAX_NUMBER_OF_LOG_FILES, (PCHAR) FILE_LOGGER_LOG_FILE_DIRECTORY_PATH, TRUE, TRUE, NULL);
         if (retStatus != STATUS_SUCCESS) {
@@ -601,6 +607,7 @@ void example_kvs_thread(void* param){
             pSampleConfiguration->enableFileLogging = FALSE;
         }
     }
+    printf("[KVS Master] FileLogger is created \n\r");
     
     // Set the video handlers
     pSampleConfiguration->videoSource = sendVideoPackets;
@@ -615,6 +622,7 @@ void example_kvs_thread(void* param){
         
     // Initialize KVS WebRTC. This must be done before anything else, and must only be done once.
 
+    printf("[KVS Master] init KvsWebRtc... \n\r");
     retStatus = initKvsWebRtc();
     if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] initKvsWebRtc(): operation returned status code: 0x%08x \n\r", retStatus);
@@ -623,18 +631,19 @@ void example_kvs_thread(void* param){
     printf("[KVS Master] KVS WebRTC initialization completed successfully\n\r");
     
     pSampleConfiguration->signalingClientCallbacks.messageReceivedFn = signalingMessageReceived;
-
+printf("\n\r[KVS Master] debug: 1\n\r");
     strcpy(pSampleConfiguration->clientInfo.clientId, SAMPLE_MASTER_CLIENT_ID);
-
+printf("\n\r[KVS Master] debug: 2\n\r");
     retStatus = createSignalingClientSync(&pSampleConfiguration->clientInfo, &pSampleConfiguration->channelInfo,
                                             &pSampleConfiguration->signalingClientCallbacks, pSampleConfiguration->pCredentialProvider,
                                             &pSampleConfiguration->signalingClientHandle);
+printf("\n\r[KVS Master] debug: 3\n\r");
     if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] createSignalingClientSync(): operation returned status code: 0x%08x \n\r", retStatus);
         goto CleanUp;
     }
     printf("[KVS Master] Signaling client created successfully\n\r");
-
+printf("\n\r[KVS Master] debug: 4\n\r");
     // Enable the processing of the messages
     retStatus = signalingClientConnectSync(pSampleConfiguration->signalingClientHandle);
     if (retStatus != STATUS_SUCCESS) {
@@ -715,10 +724,11 @@ exit:
 
 void example_kvs(void)
 {
-    
+    printf("=== example_kvs 1 ===\n\r");
     //if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
 	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
 		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
+	printf("=== example_kvs 2 ===\n\r");
 }
 #endif
 #endif /* CONFIG_EXAMPLE_FATFS */

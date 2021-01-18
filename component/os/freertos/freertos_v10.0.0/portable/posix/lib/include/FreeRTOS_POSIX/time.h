@@ -38,16 +38,16 @@
 #undef CLOCKS_PER_SEC
 #else
 #include "time_gcc.h"
-typedef int dev_t;
-typedef unsigned int ino_t;
+//typedef int dev_t;
+//typedef unsigned int ino_t;
 //typedef int mode_t;
-typedef int nlink_t;
-typedef int uid_t;
-typedef int gid_t;
+//typedef int nlink_t;
+//typedef int uid_t;
+//typedef int gid_t;
 typedef long int off_t;
 
-typedef signed int blksize_t;
-typedef signed int blkcnt_t;   
+//typedef signed int blksize_t;
+//typedef signed int blkcnt_t;   
 #endif
 
 /* FreeRTOS+POSIX platform-specific configuration headers. */
@@ -297,10 +297,12 @@ struct timezone
 
 #if !LWIP_TIMEVAL_PRIVATE
 #define _TIMEVAL_DEFINED
+#if defined (__ICCARM__)
 struct timeval {
   long    tv_sec;         /* seconds */
   long    tv_usec;        /* and microseconds */
 };
+#endif
 #endif /* LWIP_TIMEVAL_PRIVATE */
 
 #define CFG_RTC_DEFAULT_TIMESTAMP 1256729737 //Set RTC time to Wed, 28 Oct 2009 11:35:37
