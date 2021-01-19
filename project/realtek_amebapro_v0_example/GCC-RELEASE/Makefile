@@ -26,7 +26,7 @@ ifeq ($(findstring Linux, $(OS)), Linux)
 endif
 .PHONY: ram_is
 ram_is: toolchain
-	@$(MAKE) -f lib_webrtc_pic.mk clean all
+#	@$(MAKE) -f lib_webrtc_pic.mk clean all
 	@$(MAKE) -f lib_webrtc_producer_c.mk clean all
 	@$(MAKE) -f libsrtp2.mk clean all
 	@$(MAKE) -f libwebsockets.mk clean all
