@@ -472,7 +472,7 @@ size_t __wrap_fread ( void * ptr, size_t size, size_t count, FILE * stream )
 	if(res > 0)
 		return -1;
 	
-	return br;
+	return br/size;
 }
 
 size_t __wrap_fwrite ( const void * ptr, size_t size, size_t count, FILE * stream )

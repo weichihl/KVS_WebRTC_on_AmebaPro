@@ -26,12 +26,12 @@ ifeq ($(findstring Linux, $(OS)), Linux)
 endif
 .PHONY: ram_is
 ram_is: toolchain
-#	@$(MAKE) -f lib_webrtc_pic.mk clean all
-	@$(MAKE) -f lib_webrtc_producer_c.mk clean all
-	@$(MAKE) -f libsrtp2.mk clean all
-	@$(MAKE) -f libwebsockets.mk clean all
-	@$(MAKE) -f lib_kvs_webrtc.mk clean all
-	@$(MAKE) -f application.is.mk clean all
+	@$(MAKE) -f lib_webrtc_producer_c.mk all
+	@$(MAKE) -f libsrtp2.mk all
+	@$(MAKE) -f libwebsockets.mk all
+	@$(MAKE) -f lib_kvs_webrtc.mk all
+	@$(MAKE) -f application.is.mk all
+	
 
 .PHONY: ram_mp
 ram_mp: toolchain
@@ -45,6 +45,10 @@ ram_lp: toolchain
 clean:
 	@$(MAKE) -f application.lp.mk clean
 	@$(MAKE) -f application.is.mk clean
+	@$(MAKE) -f lib_webrtc_producer_c.mk clean
+	@$(MAKE) -f libsrtp2.mk clean
+	@$(MAKE) -f libwebsockets.mk clean
+	@$(MAKE) -f lib_kvs_webrtc.mk clean
 
 .PHONY: clean_lp
 clean_lp:

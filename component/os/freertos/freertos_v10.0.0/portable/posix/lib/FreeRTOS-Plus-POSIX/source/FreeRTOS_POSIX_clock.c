@@ -278,6 +278,8 @@ int getTimezone(void)
 {
     return rtsTimezone;
 }
+
+#if defined (__ICCARM__)
 struct tm * localtime_r( const time_t * timer,
                          struct tm * result )
 {
@@ -315,6 +317,7 @@ struct tm * localtime_r( const time_t * timer,
       }
       return tmp;
 }
+#endif
 
 /*-----------------------------------------------------------*/
 

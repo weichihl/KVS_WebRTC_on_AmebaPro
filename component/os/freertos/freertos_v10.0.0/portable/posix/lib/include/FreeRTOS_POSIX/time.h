@@ -204,8 +204,10 @@ int clock_settime( clockid_t clock_id,
  * @note This function only stores the time as tm.tm_tick. All other members of
  * the struct will be set to 0.
  */
+#if defined (__ICCARM__)
 struct tm * localtime_r( const time_t * timer,
                          struct tm * result );
+#endif
 
 /**
  * @brief High resolution sleep.
