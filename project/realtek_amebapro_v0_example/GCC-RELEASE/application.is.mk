@@ -857,7 +857,7 @@ LIBFLAGS += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/lib/lib/h
 LIBFLAGS += -L../../../component/soc/realtek/8195b/misc/bsp/lib/common/GCC/
 all: LIBFLAGS += -l_codec -l_dct -l_faac -l_h264 -l_haac -l_http -l_mmf -l_muxer -l_p2p -l_rtsp -l_sdcard -l_soc_is -l_speex -l_usbd -l_wlan -l_wps -l_qr_code -l_mdns -l_tftp
 mp: LIBFLAGS += -l_codec -l_dct -l_faac -l_h264 -l_haac -l_http -l_mmf -l_muxer -l_p2p -l_rtsp -l_sdcard -l_soc_is -l_speex -l_usbd -l_wlan_mp -l_wps -l_qr_code -l_mdns -l_tftp
-all: LIBFLAGS += -lrtstream -lrtscamkit -lrtsv4l2 -lrtsisp -lrtsosd -l_kvs_webrtc -l_webrtc_producer_c -lsrtp2 -lwebsockets
+all: LIBFLAGS += -lrtstream -lrtscamkit -lrtsv4l2 -lrtsisp -lrtsosd -l_kvs_webrtc -l_webrtc_producer_c -lsrtp2 -lwebsockets -l_opus -l_opusenc -l_opusfile
 #-l_webrtc_pic 
 LIBFLAGS += -Wl,-u,ram_start -Wl,-u,cinit_start
 

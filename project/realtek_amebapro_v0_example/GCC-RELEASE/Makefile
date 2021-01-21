@@ -30,7 +30,7 @@ ram_is: toolchain
 	@$(MAKE) -f libsrtp2.mk all
 	@$(MAKE) -f libwebsockets.mk all
 	@$(MAKE) -f lib_kvs_webrtc.mk all
-	@$(MAKE) -f application.is.mk all
+	@$(MAKE) -f application.is.mk clean all
 	
 
 .PHONY: ram_mp
