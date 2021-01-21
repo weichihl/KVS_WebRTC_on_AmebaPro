@@ -715,11 +715,10 @@ exit:
 
 void example_kvs(void)
 {
-    printf("=== example_kvs 1 ===\n\r");
+    
     //if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
 	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
 		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
-	printf("=== example_kvs 2 ===\n\r");
 }
 #endif
 #endif /* CONFIG_EXAMPLE_FATFS */
