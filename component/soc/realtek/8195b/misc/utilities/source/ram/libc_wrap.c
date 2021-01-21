@@ -485,7 +485,7 @@ size_t __wrap_fwrite ( const void * ptr, size_t size, size_t count, FILE * strea
 	if(res > 0)
 		return -1;
 	
-	return bw;
+	return bw/size;
 }
 
 int  __wrap_fseek ( FILE * stream, long int offset, int origin ) 
