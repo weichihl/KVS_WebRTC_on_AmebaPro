@@ -20,13 +20,6 @@ u8 dma_rxdata[RX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20)));
 void audio_tx_complete_irq(u32 arg, u8 *pbuf)
 {
     audio_t *obj = (audio_t *)arg; 
-    
-    static u32 count=0;
-    count++;
-    if ((count&1023) == 1023)
-    {
-        dbg_printf(".\r\n");
-    }
 
     if (audio_get_tx_error_cnt(obj) != 0x00) {
         dbg_printf("tx page error !!! \r\n");
@@ -37,13 +30,6 @@ void audio_rx_complete_irq(u32 arg, u8 *pbuf)
 {
     audio_t *obj = (audio_t *)arg; 
     u8 *ptx_addre;
-
-    static u32 count=0;
-    count++;
-    if ((count&1023) == 1023)
-    {
-        dbg_printf("*\r\n");
-    }
 
     if (audio_get_rx_error_cnt(obj) != 0x00) {
         dbg_printf("rx page error !!! \r\n");
@@ -59,7 +45,7 @@ void audio_rx_complete_irq(u32 arg, u8 *pbuf)
 void example_audio_loop_thread(void* param)
 {
     //Wait the power is stable 
-    wait_ms(300); 
+    vTaskDelay(300); 
     
     //Audio Init    
     audio_init(&audio_obj, OUTPUT_SINGLE_EDNED, MIC_DIFFERENTIAL, AUDIO_CODEC_2p8V); 
@@ -78,9 +64,10 @@ void example_audio_loop_thread(void* param)
     //Audio TX and RX Start
     audio_trx_start(&audio_obj);
     
-	while(1);
+	while(1){
+		vTaskDelay(300); 
+	};
     
-    vTaskDelete(NULL);
 }
 
 
