@@ -15,39 +15,28 @@
 
 /* Config for Ameba-Pro */
 #if defined(CONFIG_PLATFORM_8195BHP)
-#define STACK_SIZE		20*1024
-#if FATFS_DISK_SD
 
+#define STACK_SIZE		20*1024
+
+/* SD */
 #include "sdio_combine.h"
 #include "sdio_host.h"
 #include <disk_if/inc/sdcard.h>
 #include "fatfs_sdcard_api.h"
-#endif
+fatfs_sd_params_t fatfs_sd; 
 
 #endif // defined(CONFIG_PLATFORM_8195BHP)
+
 
 /* Config for KVS example */
 #include <com/amazonaws/kinesis/video/cproducer/Include.h>
 #include "Samples.h"
-
-#define DEFAULT_RETENTION_PERIOD            2 * HUNDREDS_OF_NANOS_IN_AN_HOUR
-#define DEFAULT_BUFFER_DURATION             120 * HUNDREDS_OF_NANOS_IN_A_SECOND
-#define DEFAULT_CALLBACK_CHAIN_COUNT        5
-#define DEFAULT_KEY_FRAME_INTERVAL          45
-#define DEFAULT_STREAM_DURATION             20 * HUNDREDS_OF_NANOS_IN_A_SECOND
-#define DEFAULT_STORAGE_SIZE                20 * 1024 * 1024
-#define RECORDED_FRAME_AVG_BITRATE_BIT_PS   3800000
-
-#define NUMBER_OF_FRAME_FILES               403
 
 #define FILE_LOGGING_BUFFER_SIZE            (100 * 1024)
 #define MAX_NUMBER_OF_LOG_FILES             5
 extern PSampleConfiguration gSampleConfiguration;
 /* End of KVS config */
 
-////
-fatfs_sd_params_t fatfs_sd;
-////
 
 /////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video ///////
 
@@ -59,7 +48,6 @@ fatfs_sd_params_t fatfs_sd;
 
 #include "mmf2_dbg.h"
 #include "sensor.h"
-
 
 struct h264_to_sd_card_def_setting {
 	uint32_t height;
@@ -86,7 +74,7 @@ struct h264_to_sd_card_def_setting def_setting = {
 	.bitrate = 512*1024,
 	.fps = 30,
 	.gopLen = 30,
-	.encode_frame_cnt = 1500,
+	.encode_frame_cnt = 300,
 	.output_buffer_size = VIDEO_720P_HEIGHT*VIDEO_720P_WIDTH,
 	.isp_stream_id = 0,
 	.isp_hw_slot = 2,
@@ -150,18 +138,16 @@ PVOID sendVideoPackets(PVOID args)
     PSampleConfiguration pSampleConfiguration = (PSampleConfiguration) args;
     RtcEncoderStats encoderStats;
     Frame frame;
-    UINT32 fileIndex = 0, frameSize;
-    CHAR filePath[MAX_PATH_LEN + 1];
     STATUS status;
     UINT32 i;
-    //UINT64 startTime, lastFrameTime, elapsed;
     vTaskDelay(3000);
     MEMSET(&encoderStats, 0x00, SIZEOF(RtcEncoderStats));
 
-
+    u8 start_transfer = 0;
+    
     int ret;
     isp_init_cfg_t isp_init_cfg;
-	isp_t isp_ctx;
+    isp_t isp_ctx;
 
     if (pSampleConfiguration == NULL) {
         printf("[KVS Master] sendVideoPackets(): operation returned status code: 0x%08x \n\r", STATUS_NULL_ARG);
@@ -169,125 +155,112 @@ PVOID sendVideoPackets(PVOID args)
     }
 
     frame.presentationTs = 0;
-    //startTime = GETTIME();
-    //lastFrameTime = startTime;
-    pSampleConfiguration->pVideoFrameBuffer = (PBYTE) MEMALLOC(32*1024);
-    pSampleConfiguration->videoBufferSize = 32*1024;
 
-    if (pSampleConfiguration->pVideoFrameBuffer == NULL) {
-        printf("[KVS Master] Video frame Buffer reallocation failed...%s (code %d)\n\r", strerror(errno), errno);
-        printf("[KVS Master] realloc(): operation returned status code: 0x%08x \n\r", STATUS_NOT_ENOUGH_MEMORY);
-        goto CleanUp;
+    printf("[H264] init video related settings\n\r");
+    // [4][H264] init video related settings
+    /**
+     * setup the hardware of isp/h264
+    */
+    memset(&isp_init_cfg, 0, sizeof(isp_init_cfg));
+    isp_init_cfg.pin_idx = ISP_PIN_IDX;
+    isp_init_cfg.clk = SENSOR_CLK_USE;
+    isp_init_cfg.ldc = LDC_STATE;
+    isp_init_cfg.fps = SENSOR_FPS;
+    isp_init_cfg.isp_fw_location = ISP_FW_LOCATION;
+    
+    video_subsys_init(&isp_init_cfg);
+
+    /**
+     * setup the sw module of h264 engine.
+    */
+    printf("[H264] create encoder\n\r");
+    // [5][H264] create encoder
+    struct h264_context* h264_ctx;
+    ret = h264_create_encoder(&h264_ctx);
+    if (ret != H264_OK) {
+            printf("\n\rh264_create_encoder err %d\n\r",ret);
+            //goto exit;
     }
 
-
-	printf("[H264] init video related settings\n\r");
-	// [4][H264] init video related settings
-	/**
-	 * setup the hardware of isp/h264
-	*/
-	memset(&isp_init_cfg, 0, sizeof(isp_init_cfg));
-	isp_init_cfg.pin_idx = ISP_PIN_IDX;
-	isp_init_cfg.clk = SENSOR_CLK_USE;
-	isp_init_cfg.ldc = LDC_STATE;
-	isp_init_cfg.fps = SENSOR_FPS;
-	isp_init_cfg.isp_fw_location = ISP_FW_LOCATION;
-	
-	video_subsys_init(&isp_init_cfg);
-
-	/**
-	 * setup the sw module of h264 engine.
-	*/
-	printf("[H264] create encoder\n\r");
-	// [5][H264] create encoder
-	struct h264_context* h264_ctx;
-	ret = h264_create_encoder(&h264_ctx);
-	if (ret != H264_OK) {
-		printf("\n\rh264_create_encoder err %d\n\r",ret);
-		//goto exit;
-	}
-
-	printf("[H264] get & set encoder parameters\n\r");
-	// [6][H264] get & set encoder parameters
-	struct h264_parameter h264_parm;
-	ret = h264_get_parm(h264_ctx, &h264_parm);
-	if (ret != H264_OK) {
-		printf("\n\rh264_get_parmeter err %d\n\r",ret);
-		//goto exit;
-	}
-	
-	h264_parm.height = def_setting.height;
-	h264_parm.width = def_setting.width;
-	h264_parm.rcMode = def_setting.rcMode;
-	h264_parm.bps = def_setting.bitrate;
-	h264_parm.ratenum = def_setting.fps;
-	h264_parm.gopLen = def_setting.gopLen;
-	
-	ret = h264_set_parm(h264_ctx, &h264_parm);
-	if (ret != H264_OK) {
-		printf("\n\rh264_set_parmeter err %d\n\r",ret);
-		//goto exit;
-	}
-	
-	printf("[H264] init encoder\n\r");
-	// [7][H264] init encoder
-	ret = h264_init_encoder(h264_ctx);
-	if (ret != H264_OK) {
-		printf("\n\rh264_init_encoder_buffer err %d\n\r",ret);
-		//goto exit;
-	}
-	
-	// [8][ISP] init ISP
-	/**
-	 * setup the sw module of isp engine.
-	*/
-	printf("[ISP] init ISP\n\r");
-	memset(&isp_ctx,0,sizeof(isp_ctx));
-	isp_ctx.output_ready = xQueueCreate(ISP_SW_BUF_NUM, sizeof(isp_buf_t));
-	isp_ctx.output_recycle = xQueueCreate(ISP_SW_BUF_NUM, sizeof(isp_buf_t));
-	
-	isp_ctx.cfg.isp_id = def_setting.isp_stream_id;
-	isp_ctx.cfg.format = def_setting.isp_format;
-	isp_ctx.cfg.width = def_setting.width;
-	isp_ctx.cfg.height = def_setting.height;
-	isp_ctx.cfg.fps = def_setting.fps;
-	isp_ctx.cfg.hw_slot_num = def_setting.isp_hw_slot;
-	
-	isp_ctx.stream = isp_stream_create(&isp_ctx.cfg);
-	
-	isp_stream_set_complete_callback(isp_ctx.stream, isp_frame_cb, (void*)&isp_ctx);
-	
-	for (int i=0; i<ISP_SW_BUF_NUM; i++ ) {
-		/** sensor is at yuv420 mode. */
-		unsigned char *ptr =(unsigned char *) malloc(def_setting.width*def_setting.height*3/2);
-		if (ptr==NULL) {
-			printf("[ISP] Allocate isp buffer[%d] failed\n\r",i);
-			while(1);
-		}
-		isp_ctx.buf_item[i].slot_id = i;
-		isp_ctx.buf_item[i].y_addr = (uint32_t) ptr;
-		isp_ctx.buf_item[i].uv_addr = isp_ctx.buf_item[i].y_addr + def_setting.width*def_setting.height;
-		/** looks like this isp has ping-pong buffers. */
-		if (i<def_setting.isp_hw_slot) {
-			// config hw slot
-			//printf("\n\rconfig hw slot[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
-			isp_handle_buffer(isp_ctx.stream, &isp_ctx.buf_item[i], MODE_SETUP);
-		}
-		/** backup buffer. */
-		else {
-			// extra sw buffer
-			//printf("\n\rextra sw buffer[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
-			if(xQueueSend(isp_ctx.output_recycle, &isp_ctx.buf_item[i], 0)!= pdPASS) {
-				printf("[ISP] Queue send fail\n\r");
-				while(1);
-			}
-		}
-	}
-	
-	isp_stream_apply(isp_ctx.stream);
-	isp_stream_start(isp_ctx.stream);
-
-
+    printf("[H264] get & set encoder parameters\n\r");
+    // [6][H264] get & set encoder parameters
+    struct h264_parameter h264_parm;
+    ret = h264_get_parm(h264_ctx, &h264_parm);
+    if (ret != H264_OK) {
+            printf("\n\rh264_get_parmeter err %d\n\r",ret);
+            //goto exit;
+    }
+    
+    h264_parm.height = def_setting.height;
+    h264_parm.width = def_setting.width;
+    h264_parm.rcMode = def_setting.rcMode;
+    h264_parm.bps = def_setting.bitrate;
+    h264_parm.ratenum = def_setting.fps;
+    h264_parm.gopLen = def_setting.gopLen;
+    
+    ret = h264_set_parm(h264_ctx, &h264_parm);
+    if (ret != H264_OK) {
+            printf("\n\rh264_set_parmeter err %d\n\r",ret);
+            //goto exit;
+    }
+    
+    printf("[H264] init encoder\n\r");
+    // [7][H264] init encoder
+    ret = h264_init_encoder(h264_ctx);
+    if (ret != H264_OK) {
+            printf("\n\rh264_init_encoder_buffer err %d\n\r",ret);
+            //goto exit;
+    }
+    
+    // [8][ISP] init ISP
+    /**
+     * setup the sw module of isp engine.
+    */
+    printf("[ISP] init ISP\n\r");
+    memset(&isp_ctx,0,sizeof(isp_ctx));
+    isp_ctx.output_ready = xQueueCreate(ISP_SW_BUF_NUM, sizeof(isp_buf_t));
+    isp_ctx.output_recycle = xQueueCreate(ISP_SW_BUF_NUM, sizeof(isp_buf_t));
+    
+    isp_ctx.cfg.isp_id = def_setting.isp_stream_id;
+    isp_ctx.cfg.format = def_setting.isp_format;
+    isp_ctx.cfg.width = def_setting.width;
+    isp_ctx.cfg.height = def_setting.height;
+    isp_ctx.cfg.fps = def_setting.fps;
+    isp_ctx.cfg.hw_slot_num = def_setting.isp_hw_slot;
+    
+    isp_ctx.stream = isp_stream_create(&isp_ctx.cfg);
+    
+    isp_stream_set_complete_callback(isp_ctx.stream, isp_frame_cb, (void*)&isp_ctx);
+    
+    for (int i=0; i<ISP_SW_BUF_NUM; i++ ) {
+            /** sensor is at yuv420 mode. */
+            unsigned char *ptr =(unsigned char *) malloc(def_setting.width*def_setting.height*3/2);
+            if (ptr==NULL) {
+                    printf("[ISP] Allocate isp buffer[%d] failed\n\r",i);
+                    while(1);
+            }
+            isp_ctx.buf_item[i].slot_id = i;
+            isp_ctx.buf_item[i].y_addr = (uint32_t) ptr;
+            isp_ctx.buf_item[i].uv_addr = isp_ctx.buf_item[i].y_addr + def_setting.width*def_setting.height;
+            /** looks like this isp has ping-pong buffers. */
+            if (i<def_setting.isp_hw_slot) {
+                    // config hw slot
+                    //printf("\n\rconfig hw slot[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
+                    isp_handle_buffer(isp_ctx.stream, &isp_ctx.buf_item[i], MODE_SETUP);
+            }
+            /** backup buffer. */
+            else {
+                    // extra sw buffer
+                    //printf("\n\rextra sw buffer[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
+                    if(xQueueSend(isp_ctx.output_recycle, &isp_ctx.buf_item[i], 0)!= pdPASS) {
+                            printf("[ISP] Queue send fail\n\r");
+                            while(1);
+                    }
+            }
+    }
+    
+    isp_stream_apply(isp_ctx.stream);
+    isp_stream_start(isp_ctx.stream);
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) {
         VIDEO_BUFFER video_buf;
@@ -321,14 +294,26 @@ PVOID sendVideoPackets(PVOID args)
         /** return the isp buffer. */
         xQueueSend(isp_ctx.output_recycle, &isp_buf, 10);
 
+        // Check if the frame is I frame
+        if (!start_transfer) {
+            if (h264_is_i_frame(video_buf.output_buffer)) {
+                start_transfer = 1;
+                //xQueueSend(sd_card_queue, (void *)&video_buf, 0xFFFFFFFF);
+            }
+            else {
+                if (video_buf.output_buffer != NULL)
+                    free(video_buf.output_buffer);
+                continue;
+            }
+        }
         
         frame.frameData = video_buf.output_buffer;
         frame.size = video_buf.output_size;
 
         // based on bitrate of samples/h264SampleFrames/frame-*
-        encoderStats.width = 640;
-        encoderStats.height = 480;
-        encoderStats.targetBitrate = 262000;
+        encoderStats.width = h264_parm.width;
+        encoderStats.height = h264_parm.height;
+        encoderStats.targetBitrate = h264_parm.bps;
         frame.presentationTs += SAMPLE_VIDEO_FRAME_DURATION;
 
         MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
@@ -349,26 +334,31 @@ PVOID sendVideoPackets(PVOID args)
         }
         MUTEX_UNLOCK(pSampleConfiguration->streamingSessionListReadLock);
         free(video_buf.output_buffer);
-        // Adjust sleep in the case the sleep itself and writeFrame take longer than expected. Since sleep makes sure that the thread
-        // will be paused at least until the given amount, we can assume that there's no too early frame scenario.
-        // Also, it's very unlikely to have a delay greater than SAMPLE_VIDEO_FRAME_DURATION, so the logic assumes that this is always
-        // true for simplicity.
-        //elapsed = lastFrameTime - startTime;
-        //THREAD_SLEEP(SAMPLE_VIDEO_FRAME_DURATION - elapsed % SAMPLE_VIDEO_FRAME_DURATION);
-        //lastFrameTime = GETTIME();
     }
 
 CleanUp:
 
+    video_subsys_deinit(&isp_init_cfg);
+    h264_free_encoder(&h264_ctx);
+    vQueueDelete(isp_ctx.output_ready);
+    vQueueDelete(isp_ctx.output_recycle);
+    
+    isp_stream_stop(isp_ctx.stream);
+    isp_stream_cancel(isp_ctx.stream);
+    isp_stream_destroy(isp_ctx.stream);
+    
+    for (int i=0; i<ISP_SW_BUF_NUM; i++ ){
+	unsigned char* ptr = (unsigned char*) isp_ctx.buf_item[i].y_addr;
+	if (ptr) 
+          free(ptr);
+    }
+  
     return (PVOID)(ULONG_PTR) retStatus;
 }
 
 /////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio ///////
 
-#include "cmsis.h"
 #include "audio_api.h"
-#include "wait_api.h"
-#include <string.h>
 #include "opusenc.h"
 
 audio_t audio_obj;
@@ -400,13 +390,6 @@ void audio_tx_complete_irq(u32 arg, u8 *pbuf){}
 void audio_rx_complete_irq(u32 arg, u8 *pbuf)
 {
     audio_t *obj = (audio_t *)arg; 
-
-    static u32 count=0;
-    count++;
-    if ((count&1023) == 1023)
-    {
-        dbg_printf("*\r\n");
-    }
 
     if (audio_get_rx_error_cnt(obj) != 0x00) {
         dbg_printf("rx page error !!! \r\n");
@@ -465,16 +448,16 @@ PVOID sendAudioPackets(PVOID args)
 
 #if AUDIO_OPUS
     //Holds the state of the opus encoder
-    OpusEncoder *encoder;
+    OpusEncoder *opus_encoder;
     int err;
     //Create a new opus encoder state
-    encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);	
+    opus_encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);	
     //Perform a CTL function on an Opus encoder.
-    opus_encoder_ctl(encoder, OPUS_SET_FORCE_CHANNELS(2));
-    opus_encoder_ctl(encoder, OPUS_SET_COMPLEXITY(1));
-    opus_encoder_ctl(encoder, OPUS_SET_SIGNAL(OPUS_SIGNAL_VOICE));
-    //opus_encoder_ctl(encoder, OPUS_SET_BITRATE(500*20)); 
-    //opus_encoder_ctl(encoder, OPUS_SET_LSB_DEPTH(8)); // Input precision in bits, between 8 and 24 (default: 24).    
+    opus_encoder_ctl(opus_encoder, OPUS_SET_FORCE_CHANNELS(2));
+    opus_encoder_ctl(opus_encoder, OPUS_SET_COMPLEXITY(1));
+    opus_encoder_ctl(opus_encoder, OPUS_SET_SIGNAL(OPUS_SIGNAL_VOICE));
+    //opus_encoder_ctl(opus_encoder, OPUS_SET_BITRATE(500*20)); 
+    //opus_encoder_ctl(opus_encoder, OPUS_SET_LSB_DEPTH(8)); // Input precision in bits, between 8 and 24 (default: 24).    
 #endif
     
     short buf_16bit[TX_PAGE_SIZE/2];
@@ -490,7 +473,7 @@ PVOID sendAudioPackets(PVOID args)
 
 #if AUDIO_OPUS
         //Encode the data with OPUS encoder
-        compressedBytes = opus_encode(encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
+        compressedBytes = opus_encode(opus_encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
         frame.size = compressedBytes;
 #elif AUDIO_G711_MULAW
         //Encode the data with G711 MULAW encoder
@@ -538,6 +521,13 @@ PVOID sendAudioPackets(PVOID args)
 
 CleanUp:
 
+    audio_trx_stop(&audio_obj);
+    audio_deinit(&audio_obj);
+    vQueueDelete(audio_queue);
+#if AUDIO_OPUS
+    opus_encoder_destroy(opus_encoder);
+#endif
+
     return (PVOID)(ULONG_PTR) retStatus;
 }
 
@@ -578,7 +568,6 @@ void example_kvs_thread(void* param){
     vTaskDelay(3000);
 
     STATUS retStatus = STATUS_SUCCESS;
-    UINT32 frameSize;
     PSampleConfiguration pSampleConfiguration = NULL;
     SignalingClientMetrics signalingClientMetrics;
     signalingClientMetrics.version = 0;
@@ -608,13 +597,11 @@ void example_kvs_thread(void* param){
 #ifdef ENABLE_DATA_CHANNEL
     pSampleConfiguration->onDataChannel = onDataChannel;
 #endif
-    //pSampleConfiguration->mediaType = SAMPLE_STREAMING_VIDEO_ONLY;
     pSampleConfiguration->mediaType = SAMPLE_STREAMING_AUDIO_VIDEO;
     
     printf("[KVS Master] Finished setting audio and video handlers\n\r");
         
     // Initialize KVS WebRTC. This must be done before anything else, and must only be done once.
-
     retStatus = initKvsWebRtc();
     if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] initKvsWebRtc(): operation returned status code: 0x%08x \n\r", retStatus);
@@ -721,4 +708,4 @@ void example_kvs(void)
 		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
 }
 #endif
-#endif /* CONFIG_EXAMPLE_FATFS */
+#endif /* CONFIG_EXAMPLE_KVS */

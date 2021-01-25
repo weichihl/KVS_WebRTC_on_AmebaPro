@@ -232,12 +232,10 @@
                     <state>KVS_USE_MBEDTLS</state>
                     <state>KVS_BUILD_WITH_LWS</state>
                     <state>KVS_PLAT_RTK_FREERTOS</state>
+                    <state>LWS_RTK_PLATFORM</state>
                     <state>LWS_AMAZON_RTOS</state>
                     <state>BUILD_CLIENT</state>
                     <state>ENABLE_STREAMING</state>
-                    <state>KVS_PLAT_ESP_FREERTOS</state>
-                    <state>KVS_PLAT_RTK_FREERTOS___</state>
-                    <state>LWS_RTK_PLATFORM</state>
                     <state>ENABLE_DATA_CHANNEL___</state>
                 </option>
                 <option>

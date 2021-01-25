@@ -687,7 +687,7 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
         logLevel < LOG_LEVEL_VERBOSE || logLevel > LOG_LEVEL_SILENT) {
         logLevel = LOG_LEVEL_WARN;
     }
-    logLevel = LOG_LEVEL_VERBOSE; //LOG_LEVEL_WARN
+    logLevel = LOG_LEVEL_WARN; //LOG_LEVEL_VERBOSE
 
     SET_LOGGER_LOG_LEVEL(logLevel);
 
