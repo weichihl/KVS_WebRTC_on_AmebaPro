@@ -363,8 +363,8 @@ CleanUp:
 
 audio_t audio_obj;
 
-#define TX_PAGE_SIZE 640  //64*N bytes, max: 4032  
-#define RX_PAGE_SIZE 640  //64*N bytes, max: 4032 
+#define TX_PAGE_SIZE 320  //64*N bytes, max: 4032  
+#define RX_PAGE_SIZE 320  //64*N bytes, max: 4032 
 #define DMA_PAGE_NUM 2   //Only 2 page 
 
 u8 dma_txdata[TX_PAGE_SIZE*DMA_PAGE_NUM]__attribute__ ((aligned (0x20))); 
@@ -456,8 +456,8 @@ PVOID sendAudioPackets(PVOID args)
     opus_encoder_ctl(opus_encoder, OPUS_SET_FORCE_CHANNELS(2));
     opus_encoder_ctl(opus_encoder, OPUS_SET_COMPLEXITY(1));
     opus_encoder_ctl(opus_encoder, OPUS_SET_SIGNAL(OPUS_SIGNAL_VOICE));
-    //opus_encoder_ctl(opus_encoder, OPUS_SET_BITRATE(500*20)); 
-    //opus_encoder_ctl(opus_encoder, OPUS_SET_LSB_DEPTH(8)); // Input precision in bits, between 8 and 24 (default: 24).    
+    opus_encoder_ctl(opus_encoder, OPUS_SET_BITRATE(500*30)); 
+    opus_encoder_ctl(opus_encoder, OPUS_SET_LSB_DEPTH(8)); // Input precision in bits, between 8 and 24 (default: 24).    
 #endif
     
     short buf_16bit[TX_PAGE_SIZE/2];
