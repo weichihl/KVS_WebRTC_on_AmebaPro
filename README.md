@@ -10,7 +10,12 @@ To get start, users will need to set up the software to program the board.
 IAR IDE provides the toolchain for AmebaPro. It allows users to write programs, compile and upload them to your board. Also, it supports step-by-step debug. Realtek also provides Image Tool for users to do downloading code process.  
 
 ## Requirement
+Supported IDE/toolchain: IAR, GCC
+#### IAR Embedded Workbench - IAR Systems  
 Please use IAR version 8.3 (There may be some compiler problems with v8.4)  
+#### GCC toolchain
+Linux: asdk-6.4.1-linux-newlib-build-3026-x86_64  
+Cygwin: asdk-6.4.1-cygwin-newlib-build-2778-i686  
 
 ## Clone Project  
 To check out this repostiory:
@@ -28,7 +33,7 @@ git submodule update --init
 ## SDK Project introduction
 Currently users can use ignore secure mode. Project_is(ignore secure) is the project without Arm TrustZone technology. This project is easier to develop and suit for firsttime developer.  
 
-## Compile program
+## Compile program with IAR Embedded Workbench
 AmebaPro use the newest Big-Little architecture. Big CPU is 300MHz, supporting high speed function like WiFi, ISP, Encoder and Codec. Little CPU is 4MHz, supporting low power peripheral function. Big CPU supports power-save mode while little CPU is operating. Big CPU power-save mode can be awaked by event trigger. Since the big CPU will depend on the setting of small CPU, it is necessary to compile the small CPU before the big CPU.  
 
 ### Compile little CPU
@@ -44,6 +49,24 @@ Step3. Make sure there is no error after compile.
 ### Generating image (Bin)
 After compile, the images partition.bin, boot.bin, firmware_is.bin and flash_is.bin can be seen in the EWARM-RELEASE\Debug\Exe.  
 Partition.bin stores partition table, recording the address of Boot image and firmware image. Boot.bin is bootloader image; firmware_is.bin is application image, flash_is.bin links partition.bin, boot.bin and firmware_is.bin. Users need to choose flash_is.bin when downloading the image to board by Image Tool.  
+
+## Compile program with GCC toolchain  
+If using Linux environment or Cygwin on windows, follow the instructions below to build the project  
+```
+cd project/realtek_amebapro_v0_example/GCC-RELEASE  
+```
+To build the library and the example by running make in the directory
+```
+make
+```
+If somehow it built failed, you can try to type `make clean` and then redo the make procedure.  
+After successfully build, there should be a directory named “application_is” created under GCC-RELEASE/ directory.  
+The image file `flash_is.bin` is located in ”application_is” directory.  
+#### Note:
+if there is compile error with shell script, you may need to run following command to deal with the problem  
+```
+dos2unix component/soc/realtek/8195b/misc/gcc_utility/*
+```
 
 ## Using image tool to download image
 Execute ImageTool.exe from location `project\tools\AmebaPro\Image_Tool\ImageTool.exe`  
