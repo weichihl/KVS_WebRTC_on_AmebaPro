@@ -39,7 +39,8 @@ extern "C" {
 #define SAMPLE_HASH_TABLE_BUCKET_LENGTH 2
   
 //#define ENABLE_DATA_CHANNEL
-  
+//#define ENABLE_AUDIO_SENDRECV
+
 #define AUDIO_G711_MULAW        1
 #define AUDIO_G711_ALAW         0
 #define AUDIO_OPUS              0

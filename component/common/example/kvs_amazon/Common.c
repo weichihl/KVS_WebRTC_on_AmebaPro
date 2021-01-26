@@ -464,7 +464,11 @@ STATUS createSampleStreamingSession(PSampleConfiguration pSampleConfiguration, P
     STRCPY(pAudioTrack->streamId, "myKvsVideoStream");
     STRCPY(pAudioTrack->trackId, "myAudioTrack");
     RtcRtpTransceiverInit audioRtcRtpTransceiverInit;
+#ifdef ENABLE_AUDIO_SENDRECV
+    audioRtcRtpTransceiverInit.direction =  RTC_RTP_TRANSCEIVER_DIRECTION_SENDRECV;
+#else
     audioRtcRtpTransceiverInit.direction =  RTC_RTP_TRANSCEIVER_DIRECTION_SENDONLY;
+#endif
     CHK_STATUS(addTransceiver(pSampleStreamingSession->pPeerConnection, pAudioTrack, &audioRtcRtpTransceiverInit, &pSampleStreamingSession->pAudioRtcRtpTransceiver));
 
     CHK_STATUS(transceiverOnBandwidthEstimation(pSampleStreamingSession->pAudioRtcRtpTransceiver, (UINT64) pSampleStreamingSession,
@@ -533,17 +537,17 @@ CleanUp:
     return retStatus;
 }
 
-VOID sampleFrameHandler(UINT64 customData, PFrame pFrame)
-{
-    UNUSED_PARAM(customData);
-    DLOGV("Frame received. TrackId: %" PRIu64 ", Size: %u, Flags %u", pFrame->trackId, pFrame->size, pFrame->flags);
-    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) customData;
-    if (pSampleStreamingSession->firstFrame) {
-        pSampleStreamingSession->firstFrame = FALSE;
-        pSampleStreamingSession->startUpLatency = (GETTIME() - pSampleStreamingSession->offerReceiveTime) / HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
-        printf("Start up latency from offer to first frame: %" PRIu64 "ms\n", pSampleStreamingSession->startUpLatency);
-    }
-}
+//VOID sampleFrameHandler(UINT64 customData, PFrame pFrame)
+//{
+//    UNUSED_PARAM(customData);
+//    DLOGV("Frame received. TrackId: %" PRIu64 ", Size: %u, Flags %u", pFrame->trackId, pFrame->size, pFrame->flags);
+//    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) customData;
+//    if (pSampleStreamingSession->firstFrame) {
+//        pSampleStreamingSession->firstFrame = FALSE;
+//        pSampleStreamingSession->startUpLatency = (GETTIME() - pSampleStreamingSession->offerReceiveTime) / HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
+//        printf("Start up latency from offer to first frame: %" PRIu64 "ms\n", pSampleStreamingSession->startUpLatency);
+//    }
+//}
 
 VOID sampleBandwidthEstimationHandler(UINT64 customData, DOUBLE maxiumBitrate)
 {

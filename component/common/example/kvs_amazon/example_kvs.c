@@ -384,6 +384,7 @@ extern short decodeU(uint8_t u_val);
 #endif
 
 xQueueHandle audio_queue;
+xQueueHandle audio_queue_recv;
 
 void audio_tx_complete_irq(u32 arg, u8 *pbuf){}
 
@@ -462,9 +463,7 @@ PVOID sendAudioPackets(PVOID args)
     
     short buf_16bit[TX_PAGE_SIZE/2];
     unsigned char buf_8bit[TX_PAGE_SIZE/2];
-    u8 *ptx_addre;
     opus_int32 compressedBytes;
-
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
     {
@@ -490,18 +489,11 @@ PVOID sendAudioPackets(PVOID args)
 #endif
         
         // buf_8bit contain the encoded data
-
-        ptx_addre = audio_get_tx_page_adr(&audio_obj);
-        memcpy((void*)ptx_addre, (void*)buf_16bit, TX_PAGE_SIZE);
-        audio_set_tx_page(&audio_obj, ptx_addre); // loopback -> can hear the sound from audio jack on amebapro
       }
       else
        continue;
 
       frame.frameData = buf_8bit;
-      //frame.size = TX_PAGE_SIZE/2;
-      //frame.size = compressedBytes;
-
       frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
 
       MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
@@ -530,6 +522,94 @@ CleanUp:
 
     return (PVOID)(ULONG_PTR) retStatus;
 }
+
+PVOID sampleReceiveAudioFrame(PVOID args)
+{
+    //Create a queue to receive the G711 audio frame from viewer
+    audio_queue_recv = xQueueCreate(80, TX_PAGE_SIZE/2);
+    xQueueReset(audio_queue_recv);
+    
+    STATUS retStatus = STATUS_SUCCESS;
+    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) args;
+    if (pSampleStreamingSession == NULL) {
+        printf("[KVS Master] sampleReceiveAudioFrame(): operation returned status code: 0x%08x \n", STATUS_NULL_ARG);
+        goto CleanUp;
+    }
+
+    retStatus = transceiverOnFrame(pSampleStreamingSession->pAudioRtcRtpTransceiver, (UINT64) pSampleStreamingSession, sampleFrameHandler);
+    if (retStatus != STATUS_SUCCESS) {
+        printf("[KVS Master] transceiverOnFrame(): operation returned status code: 0x%08x \n", retStatus);
+        goto CleanUp;
+    }
+    
+    u8 *ptx_addre;
+    unsigned char buf_g711_recv[TX_PAGE_SIZE/2];
+    short buf_16bit_dec[TX_PAGE_SIZE/2];
+    
+//    int time3 = xTaskGetTickCount();
+//    int time4 = time3;
+    int time_start = xTaskGetTickCount();
+    int time_last = time_start;
+    int time_val;
+    
+    while (!ATOMIC_LOAD_BOOL(&pSampleStreamingSession->terminateFlag)) 
+    {
+      if(xQueueReceive(audio_queue_recv, (void*)buf_g711_recv, 0) == pdTRUE)
+      {
+//          time4 = xTaskGetTickCount();
+//          printf("\n\raudio_loop_val = %d\n\r", time4-time3);
+//          time3 = time4;
+          
+          #if AUDIO_G711_MULAW
+              //Decode the data with G711 MULAW decoder
+              for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                  buf_16bit_dec[j] = decodeU(buf_g711_recv[j]);
+              }
+          #elif AUDIO_G711_ALAW 
+              //Decode the data with G711 ALAW decoder
+              for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                  buf_16bit_dec[j] = decodeA(buf_g711_recv[j]);
+              }
+          #endif
+          
+          ptx_addre = audio_get_tx_page_adr(&audio_obj);
+          memcpy((void*)ptx_addre, (void*)buf_16bit_dec, TX_PAGE_SIZE);
+          audio_set_tx_page(&audio_obj, ptx_addre); // loopback -> can hear the sound from audio jack on amebapro
+      }
+      else
+        continue;
+
+      time_val = time_last - time_start;
+      vTaskDelay(20 - time_val%20);
+      time_last = xTaskGetTickCount();
+      //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
+    }
+
+CleanUp:
+
+    return (PVOID)(ULONG_PTR) retStatus;
+}
+
+unsigned char buf_8bit_recv[TX_PAGE_SIZE/2];
+
+VOID sampleFrameHandler(UINT64 customData, PFrame pFrame)
+{
+    UNUSED_PARAM(customData);
+    DLOGV("Frame received. TrackId: %" PRIu64 ", Size: %u, Flags %u", pFrame->trackId, pFrame->size, pFrame->flags);
+    memcpy((void*)buf_8bit_recv, (void*)pFrame->frameData, pFrame->size);    
+    
+    if( xQueueSendFromISR(audio_queue_recv, (void *)buf_8bit_recv, NULL) != pdTRUE){
+      DLOGV("\n\rAudio_sound queue full.\n\r");
+    } 
+
+    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) customData;
+    if (pSampleStreamingSession->firstFrame) {
+        pSampleStreamingSession->firstFrame = FALSE;
+        pSampleStreamingSession->startUpLatency = (GETTIME() - pSampleStreamingSession->offerReceiveTime) / HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
+        printf("Start up latency from offer to first frame: %" PRIu64 "ms\n", pSampleStreamingSession->startUpLatency);
+    }
+}
+
 
 UCHAR wifi_ip[16];
 UCHAR* ameba_get_ip(void){
@@ -594,6 +674,9 @@ void example_kvs_thread(void* param){
     // Set the video handlers
     pSampleConfiguration->videoSource = sendVideoPackets;
     pSampleConfiguration->audioSource = sendAudioPackets;
+#ifdef ENABLE_AUDIO_SENDRECV    
+    pSampleConfiguration->receiveAudioVideoSource = sampleReceiveAudioFrame;
+#endif
 #ifdef ENABLE_DATA_CHANNEL
     pSampleConfiguration->onDataChannel = onDataChannel;
 #endif
