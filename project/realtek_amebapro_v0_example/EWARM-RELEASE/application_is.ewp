@@ -4050,9 +4050,6 @@
         </group>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\drivers\wlan\realtek\src\core\option\rtw_opt_skbuf.c</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
         </file>
     </group>
     <group>

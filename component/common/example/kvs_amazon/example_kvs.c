@@ -37,6 +37,11 @@ fatfs_sd_params_t fatfs_sd;
 extern PSampleConfiguration gSampleConfiguration;
 /* End of KVS config */
 
+/* used to monitor skb resource*/
+extern int skbbuf_used_num;
+extern int skbdata_used_num;
+extern int max_local_skb_num;
+extern int max_skb_buf_num;
 
 /////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video ///////
 
@@ -316,6 +321,12 @@ PVOID sendVideoPackets(PVOID args)
         encoderStats.targetBitrate = h264_parm.bps;
         frame.presentationTs += SAMPLE_VIDEO_FRAME_DURATION;
 
+        // wait for skb resource release
+        if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
+            //skip this frame and wait for skb resource release.
+            continue;
+	}
+	
         MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
         for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
             //UINT64 frameSt = GETTIME();
@@ -496,6 +507,12 @@ PVOID sendAudioPackets(PVOID args)
       frame.frameData = buf_8bit;
       frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
 
+      // wait for skb resource release
+      if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
+          //skip this frame and wait for skb resource release.
+          continue;
+      }
+      
       MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
       for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
           status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pAudioRtcRtpTransceiver, &frame);

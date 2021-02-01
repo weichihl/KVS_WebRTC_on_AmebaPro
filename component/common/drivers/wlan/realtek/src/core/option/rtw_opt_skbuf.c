@@ -3,7 +3,7 @@
 #include <skbuff.h>
 #ifdef CONFIG_PLATFORM_8195BHP  //Ameba Pro Config setting
 #define MAX_SKB_BUF_SIZE     1666	// should >= the size in wlan driver
-#define MAX_SKB_BUF_NUM      96         // Please modify here
+#define MAX_SKB_BUF_NUM      1024         // Please modify here
 #define MAX_LOCAL_SKB_NUM    (MAX_SKB_BUF_NUM + 2)
 #define SKBUF_IN_DRAM 1
 #else
