@@ -67,7 +67,7 @@ int platform_set_malloc_free(
 	/* Variables */
 	rom_ssl_ram_map.use_hw_crypto_func = 1;
 	
-#if defined(MBEDTLS_VERSION_NUMBER) && (MBEDTLS_VERSION_NUMBER==0x02100300)
+#if defined(MBEDTLS_VERSION_NUMBER) && (MBEDTLS_VERSION_NUMBER==0x02100300 || MBEDTLS_VERSION_NUMBER==0x02100600)
 	//AES HW CRYPTO
 	rtl_cryptoEngine_init();
 	rom_ssl_ram_map.hw_crypto_aes_ecb_init = rtl_crypto_aes_ecb_init;

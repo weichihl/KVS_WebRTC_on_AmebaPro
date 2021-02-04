@@ -389,6 +389,7 @@
                     <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\lwip\lwip_v2.0.2\port\realtek\freertos</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\include</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_ram_map\rom</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>

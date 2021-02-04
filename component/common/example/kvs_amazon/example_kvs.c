@@ -650,6 +650,9 @@ void example_kvs_thread(void* param){
     char path[64];
 
     printf("=== KVS Example ===\n\r");
+    
+    // initialize HW crypto
+    platform_set_malloc_free( (void*(*)( size_t ))calloc, vPortFree);
 
     res = fatfs_sd_init();
     if(res < 0){
@@ -659,7 +662,7 @@ void example_kvs_thread(void* param){
     fatfs_sd_get_param(&fatfs_sd);
 	
     /** #YC_TBD, */
-    vTaskDelay(3000);
+    //vTaskDelay(3000);
     #include <sntp/sntp.h>
     sntp_init();
     vTaskDelay(3000);

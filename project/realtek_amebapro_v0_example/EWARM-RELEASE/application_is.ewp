@@ -3784,6 +3784,12 @@
                 <name>mbedtls_2.16.6</name>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aes.c</name>
+                    <excluded>
+                        <configuration>Debug</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aes_alt.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.6\library\aesni.c</name>
@@ -4030,9 +4036,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\ssl_func_stubs\ssl_func_stubs.c</name>
-                    <excluded>
-                        <configuration>Debug</configuration>
-                    </excluded>
                 </file>
             </group>
         </group>
