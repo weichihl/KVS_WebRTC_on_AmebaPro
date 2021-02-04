@@ -26,6 +26,7 @@ typedef struct webrtc_aec_property
 {
     void* webrtc_aec;
     void* webrtc_ns;
+	void* webrtc_ns2;
     void* webrtc_agc;
 
     int16_t frame_size;
@@ -62,6 +63,7 @@ void AEC_init(int16_t frame_size , int32_t sample_freq , AEC_CORE aec_core,
 
 #define AEC_init_default() AEC_init(160, 8000, SPEEX_AEC, 160*20, 1, 18, 0, 1, 1.0f)
 
+int AEC_set_level(int level);
 int AEC_process(const int16_t* farend, const int16_t* nearend, int16_t* out);
 void AEC_destory();
 int AEC_agc(int16_t* out);
@@ -75,5 +77,21 @@ void set_sndcard_delay_ms_for_webrtc(int16_t ms);
 void AGC_init(int32_t sample_freq, int16_t agc_mode, int16_t compression_gain_db, uint8_t limiter_enable);
 void AGC_destory(void);
 void AGC_process(int16_t frame_size, int16_t* out);
+
+void AGC2_init(int32_t sample_freq, int16_t agc_mode, int16_t compression_gain_db, uint8_t limiter_enable);
+void AGC2_destory(void);
+void AGC2_process(int16_t frame_size, int16_t* out);
+
+void NS_init(int32_t sample_freq, int16_t ns_mode);
+void NS_destory(void);
+void NS_process(int16_t frame_size, int16_t* out);
+
+void NS2_init(int32_t sample_freq, int16_t ns_mode);
+void NS2_destory(void);
+void NS2_process(int16_t frame_size, int16_t* out);
+
+void VAD_init(int32_t sample_freq, int16_t vad_mode);
+void VAD_destory(void);
+int VAD_process(int16_t frame_size, int16_t* out);
 
 #endif // AEC_H

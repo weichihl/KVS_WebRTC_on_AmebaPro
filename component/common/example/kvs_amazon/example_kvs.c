@@ -371,6 +371,7 @@ CleanUp:
 
 #include "audio_api.h"
 #include "opusenc.h"
+#include "AEC.h"
 
 audio_t audio_obj;
 
@@ -457,6 +458,10 @@ PVOID sendAudioPackets(PVOID args)
     //Audio TX and RX Start
     audio_trx_start(&audio_obj);
     printf("\n\rAudio Start.\n\r");
+    
+    //Noise suppression init & automatic gain control init
+    NS_init(8000, 1);
+    AGC_init(8000, 1, 24, 0);
 
 #if AUDIO_OPUS
     //Holds the state of the opus encoder
@@ -480,6 +485,9 @@ PVOID sendAudioPackets(PVOID args)
     {
       if(xQueueReceive(audio_queue, (void*)buf_16bit, 100) == pdTRUE)
       {
+        //Do noise suppression & automatic gain control
+        NS_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
+        AGC_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
 
 #if AUDIO_OPUS
         //Encode the data with OPUS encoder
@@ -536,6 +544,8 @@ CleanUp:
 #if AUDIO_OPUS
     opus_encoder_destroy(opus_encoder);
 #endif
+    NS_destory();
+    AGC_destory();
 
     return (PVOID)(ULONG_PTR) retStatus;
 }
