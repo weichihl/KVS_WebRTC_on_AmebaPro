@@ -297,6 +297,10 @@
 #include <kvs_amazon/example_kvs.h>
 #endif
 
+#if CONFIG_EXAMPLE_KVS_PRODUCER
+#include <kvs_producer/example_kvs_producer.h>
+#endif
+
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
 #include <audio_opus_encode/example_audio_opus_encode.h>
 #endif
@@ -728,6 +732,10 @@ example_hilink();
         
 #if CONFIG_EXAMPLE_KVS
 	example_kvs();
+#endif
+
+#if CONFIG_EXAMPLE_KVS_PRODUCER
+    example_kvs_producer();
 #endif
         
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE

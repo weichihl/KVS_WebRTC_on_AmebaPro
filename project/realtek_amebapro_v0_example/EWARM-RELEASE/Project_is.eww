@@ -30,5 +30,8 @@
     <project>
         <path>$WS_DIR$\libwebsockets.ewp</path>
     </project>
+    <project>
+        <path>$WS_DIR$\lib_kvs_producer.ewp</path>
+    </project>
     <batchBuild />
 </workspace>

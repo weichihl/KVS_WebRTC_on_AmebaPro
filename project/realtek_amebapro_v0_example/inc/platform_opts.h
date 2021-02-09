@@ -637,6 +637,8 @@ in lwip_opt.h for support uart adapter*/
 #endif
 #endif
 
+#define CONFIG_EXAMPLE_KVS_PRODUCER             0
+
 /* For opus encoder eample*/
 #define CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE        0
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
