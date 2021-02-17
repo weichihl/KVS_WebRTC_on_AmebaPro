@@ -6,6 +6,8 @@
 #include "section_config.h"
 #include <lwip_netconf.h>
 
+#include "wifi_conf.h"
+
 #if CONFIG_EXAMPLE_KVS
 
 #if CONFIG_FATFS_EN
@@ -670,7 +672,13 @@ void example_kvs_thread(void* param){
             goto fail;
     }
     fatfs_sd_get_param(&fatfs_sd);
-	
+
+    while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS )
+    {
+        vTaskDelay( 200 / portTICK_PERIOD_MS );
+    }
+    printf( "wifi connected\r\n" );
+
     /** #YC_TBD, */
     //vTaskDelay(3000);
     #include <sntp/sntp.h>

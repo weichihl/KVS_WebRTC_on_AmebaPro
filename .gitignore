@@ -3,3 +3,9 @@
 *.d
 *.o
 *.su
+component/soc/realtek/8195b/misc/bsp/lib/common/IAR
+project/realtek_amebapro_v0_example/EWARM-RELEASE/Debug
+project/realtek_amebapro_v0_example/EWARM-RELEASE/settings
+project/realtek_amebapro_v0_example/EWARM-RELEASE/postbuild_is_log.txt
+project/realtek_amebapro_v0_example/EWARM-RELEASE/xip_fw.icf
+project/realtek_amebapro_v0_example/EWARM-RELEASE/key.json
