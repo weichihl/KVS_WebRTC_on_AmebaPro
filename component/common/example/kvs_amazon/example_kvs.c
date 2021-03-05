@@ -4,21 +4,23 @@
 #include "basic_types.h"
 #include "platform_opts.h"
 #include "section_config.h"
-#include <lwip_netconf.h>
-
-#include "wifi_conf.h"
 
 #if CONFIG_EXAMPLE_KVS
 
-#if CONFIG_FATFS_EN
-#include "ff.h"
-#include <fatfs_ext/inc/ff_driver.h>
-
+/* Basic setting for kvs webrtc example */
+#include "example_kvs.h"
 
 /* Config for Ameba-Pro */
-#if defined(CONFIG_PLATFORM_8195BHP)
-
 #define STACK_SIZE		20*1024
+
+/* Network */
+#include <lwip_netconf.h>
+#include "wifi_conf.h"
+#include <sntp/sntp.h>
+
+/* File system */
+#include "ff.h"
+#include <fatfs_ext/inc/ff_driver.h>
 
 /* SD */
 #include "sdio_combine.h"
@@ -27,23 +29,19 @@
 #include "fatfs_sdcard_api.h"
 fatfs_sd_params_t fatfs_sd; 
 
-#endif // defined(CONFIG_PLATFORM_8195BHP)
-
-
 /* Config for KVS example */
 #include <com/amazonaws/kinesis/video/cproducer/Include.h>
 #include "Samples.h"
-
 #define FILE_LOGGING_BUFFER_SIZE            (100 * 1024)
 #define MAX_NUMBER_OF_LOG_FILES             5
 extern PSampleConfiguration gSampleConfiguration;
-/* End of KVS config */
 
-/* used to monitor skb resource*/
+/* used to monitor skb resource */
 extern int skbbuf_used_num;
 extern int skbdata_used_num;
 extern int max_local_skb_num;
 extern int max_skb_buf_num;
+
 
 /////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video /////////////// Video ///////
 
@@ -52,48 +50,39 @@ extern int max_skb_buf_num;
 #include "h264_encoder.h"
 #include "isp_api.h"
 #include "h264_api.h"
-
-#include "mmf2_dbg.h"
 #include "sensor.h"
 
-struct h264_to_sd_card_def_setting {
+struct h264_kvs_def_setting {
 	uint32_t height;
 	uint32_t width;
 	H264_RC_MODE rcMode;
 	uint32_t bitrate;
 	uint32_t fps;
 	uint32_t gopLen;
-	uint32_t encode_frame_cnt;
 	uint32_t output_buffer_size;
 	uint8_t isp_stream_id;
 	uint32_t isp_hw_slot;
 	uint32_t isp_format;
-	char fatfs_filename[64];
 };
 
 #define ISP_SW_BUF_NUM	4
-#define FATFS_BUF_SIZE	(32*1024)
 
-struct h264_to_sd_card_def_setting def_setting = {
+struct h264_kvs_def_setting def_setting = {
 	.height = VIDEO_720P_HEIGHT,
 	.width = VIDEO_720P_WIDTH,
 	.rcMode = H264_RC_MODE_CBR,
 	.bitrate = 512*1024,
 	.fps = 30,
 	.gopLen = 30,
-	.encode_frame_cnt = 300,
 	.output_buffer_size = VIDEO_720P_HEIGHT*VIDEO_720P_WIDTH,
 	.isp_stream_id = 0,
 	.isp_hw_slot = 2,
 	.isp_format = ISP_FORMAT_YUV420_SEMIPLANAR,
-	.fatfs_filename = "h264_to_sdcard.h264",
 };
 
 typedef struct isp_s{
 	isp_stream_t* stream;
-	
 	isp_cfg_t cfg;
-	
 	isp_buf_t buf_item[ISP_SW_BUF_NUM];
 	xQueueHandle output_ready;
 	xQueueHandle output_recycle;//!< the return buffer.
@@ -104,8 +93,8 @@ typedef struct isp_s{
 */
 void isp_frame_cb(void* p)
 {
-	BaseType_t xTaskWokenByReceive = pdFALSE;//!< true, a task is waiting for the available item of this queue.
-	BaseType_t xHigherPriorityTaskWoken;//!< 
+	BaseType_t xTaskWokenByReceive = pdFALSE;
+	BaseType_t xHigherPriorityTaskWoken;
 	
 	isp_t* ctx = (isp_t*)p;
 	isp_info_t* info = &ctx->stream->info;
@@ -269,7 +258,8 @@ PVOID sendVideoPackets(PVOID args)
     isp_stream_apply(isp_ctx.stream);
     isp_stream_start(isp_ctx.stream);
 
-    while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) {
+    while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
+    {
         VIDEO_BUFFER video_buf;
         isp_buf_t isp_buf;
         // [9][ISP] get isp data
@@ -301,7 +291,7 @@ PVOID sendVideoPackets(PVOID args)
         /** return the isp buffer. */
         xQueueSend(isp_ctx.output_recycle, &isp_buf, 10);
 
-        // Check if the frame is I frame
+        /* Check if the frame is I frame */
         if (!start_transfer) {
             if (h264_is_i_frame(video_buf.output_buffer)) {
                 start_transfer = 1;
@@ -321,20 +311,17 @@ PVOID sendVideoPackets(PVOID args)
         encoderStats.width = h264_parm.width;
         encoderStats.height = h264_parm.height;
         encoderStats.targetBitrate = h264_parm.bps;
-        frame.presentationTs += SAMPLE_VIDEO_FRAME_DURATION;
+        frame.presentationTs = getEpochTimestampInHundredsOfNanos();
+        //printf("frame.presentationTs = %llu\n\r", frame.presentationTs);
 
-        // wait for skb resource release
+        /* wait for skb resource release */
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
-            //skip this frame and wait for skb resource release.
-            continue;
+            continue; //skip this frame and wait for skb resource release.
 	}
 	
         MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
         for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
-            //UINT64 frameSt = GETTIME();
             status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pVideoRtcRtpTransceiver, &frame);
-            //UINT64 frameEnd = GETTIME();
-            //DLOGD("w:%llu", (frameEnd-frameSt)/HUNDREDS_OF_NANOS_IN_A_MILLISECOND);
             encoderStats.encodeTimeMsec = 4; // update encode time to an arbitrary number to demonstrate stats update
             updateEncoderStats(pSampleConfiguration->sampleStreamingSessionList[i]->pVideoRtcRtpTransceiver, &encoderStats);
             if (status != STATUS_SRTP_NOT_READY_YET) {
@@ -575,8 +562,6 @@ PVOID sampleReceiveAudioFrame(PVOID args)
     unsigned char buf_g711_recv[TX_PAGE_SIZE/2];
     short buf_16bit_dec[TX_PAGE_SIZE/2];
     
-//    int time3 = xTaskGetTickCount();
-//    int time4 = time3;
     int time_start = xTaskGetTickCount();
     int time_last = time_start;
     int time_val;
@@ -585,10 +570,6 @@ PVOID sampleReceiveAudioFrame(PVOID args)
     {
       if(xQueueReceive(audio_queue_recv, (void*)buf_g711_recv, 0) == pdTRUE)
       {
-//          time4 = xTaskGetTickCount();
-//          printf("\n\raudio_loop_val = %d\n\r", time4-time3);
-//          time3 = time4;
-          
           #if AUDIO_G711_MULAW
               //Decode the data with G711 MULAW decoder
               for (int j = 0; j < TX_PAGE_SIZE/2; j++){
@@ -649,8 +630,6 @@ UCHAR* ameba_get_ip(void){
     return wifi_ip;
 }
 
-char *sample_channel_name = "My_KVS_Signaling_Channel";
-
 MUTEX log_in_order_mutex;
 
 void example_kvs_thread(void* param){
@@ -659,11 +638,9 @@ void example_kvs_thread(void* param){
 
     FRESULT res; 
 
-    char path[64];
-
     printf("=== KVS Example ===\n\r");
     
-    // initialize HW crypto
+    /* initialize HW crypto */
     platform_set_malloc_free( (void*(*)( size_t ))calloc, vPortFree);
 
     res = fatfs_sd_init();
@@ -673,15 +650,12 @@ void example_kvs_thread(void* param){
     }
     fatfs_sd_get_param(&fatfs_sd);
 
-    while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS )
-    {
+    while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS ){
         vTaskDelay( 200 / portTICK_PERIOD_MS );
     }
     printf( "wifi connected\r\n" );
 
-    /** #YC_TBD, */
     //vTaskDelay(3000);
-    #include <sntp/sntp.h>
     sntp_init();
     vTaskDelay(3000);
 
@@ -693,13 +667,13 @@ void example_kvs_thread(void* param){
     // do trickleIce by default
     printf("[KVS Master] Using trickleICE by default\n\r");
     retStatus =
-        createSampleConfiguration(sample_channel_name, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, TRUE, TRUE, &pSampleConfiguration);
+        createSampleConfiguration(KVS_WEBRTC_CHANNEL_NAME, SIGNALING_CHANNEL_ROLE_TYPE_MASTER, TRUE, TRUE, &pSampleConfiguration);
 
     if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] createSampleConfiguration(): operation returned status code: 0x%08x \n\r", retStatus);
         goto CleanUp;
     }
-    printf("[KVS Master] Created signaling channel %s\n\r", sample_channel_name);
+    printf("[KVS Master] Created signaling channel %s\n\r", KVS_WEBRTC_CHANNEL_NAME);
 
     if (pSampleConfiguration->enableFileLogging) {
         retStatus = createFileLogger(FILE_LOGGING_BUFFER_SIZE, MAX_NUMBER_OF_LOG_FILES, (PCHAR) FILE_LOGGER_LOG_FILE_DIRECTORY_PATH, TRUE, TRUE, NULL);
@@ -753,7 +727,7 @@ void example_kvs_thread(void* param){
 
     gSampleConfiguration = pSampleConfiguration;
 
-    printf("[KVS Master] Channel %s set up done \n\r", sample_channel_name);
+    printf("[KVS Master] Channel %s set up done \n\r", KVS_WEBRTC_CHANNEL_NAME);
 
     // Checking for termination
     retStatus = sessionCleanupWait(pSampleConfiguration);
@@ -766,7 +740,7 @@ void example_kvs_thread(void* param){
 
         
 CleanUp:
-        if (retStatus != STATUS_SUCCESS) {
+    if (retStatus != STATUS_SUCCESS) {
         printf("[KVS Master] Terminated with status code 0x%08x", retStatus);
     }
 
@@ -807,26 +781,18 @@ CleanUp:
     }
     printf("[KVS Master] Cleanup done\n\r");
 
-        
-//////////////////////////////////////////////
-	defaultFreeMutex(log_in_order_mutex);
+    defaultFreeMutex(log_in_order_mutex);
 
 fail:
-	fatfs_sd_close();
+    fatfs_sd_close();
 
 exit:
-	vTaskDelete(NULL);
+    vTaskDelete(NULL);
 }
-
-
-#include <sntp/sntp.h>
 
 void example_kvs(void)
 {
-    
-    //if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-	if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-		printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
+    if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
+        printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
 }
-#endif
 #endif /* CONFIG_EXAMPLE_KVS */

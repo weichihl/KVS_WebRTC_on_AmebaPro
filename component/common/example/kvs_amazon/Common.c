@@ -1,6 +1,7 @@
 #define LOG_CLASS "WebRtcSamples"
 #include "Samples.h"
 #include "fatfs_wrap.h"
+#include "example_kvs.h"
 
 PSampleConfiguration gSampleConfiguration = NULL;
 
@@ -664,10 +665,8 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
 
     CHK(NULL != (pSampleConfiguration = (PSampleConfiguration) MEMCALLOC(1, SIZEOF(SampleConfiguration))), STATUS_NOT_ENOUGH_MEMORY);
 
-    //CHK_ERR((pAccessKey = GETENV(ACCESS_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_ACCESS_KEY_ID must be set");
-    //CHK_ERR((pSecretKey = GETENV(SECRET_KEY_ENV_VAR)) != NULL, STATUS_INVALID_OPERATION, "AWS_SECRET_ACCESS_KEY must be set");
-    pAccessKey = "???"; //// Enter your access key here ////
-    pSecretKey = "???"; //// Enter your secret key here ////
+    pAccessKey = KVS_WEBRTC_ACCESS_KEY;
+    pSecretKey = KVS_WEBRTC_SECRET_KEY;
     CHK_ERR(pAccessKey != NULL, STATUS_INVALID_OPERATION, "AWS_ACCESS_KEY_ID must be set");
     CHK_ERR(pSecretKey != NULL, STATUS_INVALID_OPERATION, "AWS_SECRET_ACCESS_KEY must be set");
     
@@ -691,7 +690,7 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
         logLevel < LOG_LEVEL_VERBOSE || logLevel > LOG_LEVEL_SILENT) {
         logLevel = LOG_LEVEL_WARN;
     }
-    logLevel = LOG_LEVEL_WARN; //LOG_LEVEL_VERBOSE
+    logLevel = KVS_WEBRTC_LOG_LEVEL;
 
     SET_LOGGER_LOG_LEVEL(logLevel);
 
@@ -1208,4 +1207,32 @@ CleanUp:
 
     CHK_LOG_ERR(retStatus);
     return retStatus;
+}
+/**
+ * @brief return epoch time in hundreds of nanosecond
+*/
+uint64_t getEpochTimestampInHundredsOfNanos( void )
+{
+    uint64_t timestamp;
+
+    long sec;
+    long usec;
+    unsigned int tick;
+    unsigned int tickDiff;
+
+    sntp_get_lasttime(&sec, &usec, &tick);
+
+    tickDiff = xTaskGetTickCount() - tick;
+
+    sec += tickDiff / configTICK_RATE_HZ;
+    usec += ( ( tickDiff % configTICK_RATE_HZ ) / portTICK_RATE_MS ) * 1000;
+
+    if ( usec >= 1000000 ){
+        usec -= 1000000;
+        sec ++;
+    }
+
+    timestamp = ((uint64_t)sec * 1000 + usec / 1000 ) * HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
+
+    return timestamp;
 }

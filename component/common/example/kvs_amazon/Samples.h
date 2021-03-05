@@ -37,13 +37,6 @@ extern "C" {
 
 #define SAMPLE_HASH_TABLE_BUCKET_COUNT  50
 #define SAMPLE_HASH_TABLE_BUCKET_LENGTH 2
-  
-//#define ENABLE_DATA_CHANNEL
-//#define ENABLE_AUDIO_SENDRECV
-
-#define AUDIO_G711_MULAW        1
-#define AUDIO_G711_ALAW         0
-#define AUDIO_OPUS              0
 
 typedef enum {
     SAMPLE_STREAMING_VIDEO_ONLY,
@@ -171,6 +164,7 @@ STATUS logSignalingClientStats(PSignalingClientMetrics);
 STATUS logSelectedIceCandidatesInformation(PSampleStreamingSession);
 STATUS logStartUpLatency(PSampleConfiguration);
 INT32 kvsWebRTCClientMaster(void);
+uint64_t getEpochTimestampInHundredsOfNanos( void );
 #ifdef __cplusplus
 }
 #endif

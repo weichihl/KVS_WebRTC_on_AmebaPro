@@ -1,10 +1,11 @@
+#include "platform_opts.h"
+
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
 //#include <stdio.h>
 #include "opusenc.h"
 #include <fatfs_ext/inc/ff_driver.h>
 #include <disk_if/inc/sdcard.h>
 #include "ff.h"
-#include "platform_opts.h"
 #include <platform_stdlib.h>
 #include "sdio_combine.h"
 #include "sdio_host.h"
