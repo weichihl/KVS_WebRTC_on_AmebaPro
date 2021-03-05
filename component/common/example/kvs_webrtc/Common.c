@@ -1,7 +1,7 @@
 #define LOG_CLASS "WebRtcSamples"
 #include "Samples.h"
 #include "fatfs_wrap.h"
-#include "example_kvs.h"
+#include "example_kvs_webrtc.h"
 
 PSampleConfiguration gSampleConfiguration = NULL;
 

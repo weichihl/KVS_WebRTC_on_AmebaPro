@@ -5,10 +5,10 @@
 #include "platform_opts.h"
 #include "section_config.h"
 
-#if CONFIG_EXAMPLE_KVS
+#if CONFIG_EXAMPLE_KVS_WEBRTC
 
 /* Basic setting for kvs webrtc example */
-#include "example_kvs.h"
+#include "example_kvs_webrtc.h"
 
 /* Config for Ameba-Pro */
 #define STACK_SIZE		20*1024
@@ -632,7 +632,7 @@ UCHAR* ameba_get_ip(void){
 
 MUTEX log_in_order_mutex;
 
-void example_kvs_thread(void* param){
+void example_kvs_webrtc_thread(void* param){
 
     log_in_order_mutex = defaultCreateMutex(FALSE);
 
@@ -790,9 +790,9 @@ exit:
     vTaskDelete(NULL);
 }
 
-void example_kvs(void)
+void example_kvs_webrtc(void)
 {
-    if(xTaskCreate(example_kvs_thread, ((const char*)"example_kvs_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-        printf("\n\r%s xTaskCreate(example_kvs_thread) failed", __FUNCTION__);
+    if(xTaskCreate(example_kvs_webrtc_thread, ((const char*)"example_kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
+        printf("\n\r%s xTaskCreate(example_kvs_webrtc_thread) failed", __FUNCTION__);
 }
-#endif /* CONFIG_EXAMPLE_KVS */
+#endif /* CONFIG_EXAMPLE_KVS_WEBRTC */

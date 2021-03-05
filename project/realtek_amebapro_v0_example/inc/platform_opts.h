@@ -627,9 +627,9 @@ in lwip_opt.h for support uart adapter*/
 #endif
 #endif
 
-/* For KVS example*/
-#define CONFIG_EXAMPLE_KVS			1
-#if CONFIG_EXAMPLE_KVS
+/* For KVS WebRTC example*/
+#define CONFIG_EXAMPLE_KVS_WEBRTC               1
+#if CONFIG_EXAMPLE_KVS_WEBRTC
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN
 // fatfs disk interface
@@ -637,6 +637,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 #endif
 
+/* For KVS Producer example*/
 #define CONFIG_EXAMPLE_KVS_PRODUCER             0
 
 /* For opus encoder eample*/

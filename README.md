@@ -1,7 +1,9 @@
-﻿# AmebaPro with KVS WebRTC
+﻿# AmebaPro with KVS WebRTC and Producer
 SDK for Realtek AmebaPro chipset  
-This project is going to demonstrate how to use KVS with WebRTC on AmebaPro  
-The related example code: `project\component\common\example\kvs_amazon`  
+This project is going to demonstrate how to use KVS with WebRTC and Producer on AmebaPro  
+The related example code:  
+`project\component\common\example\kvs_webrtc`  
+`project\component\common\example\kvs_producer`  
 Please refer to the readme.TXT in example directory to check the corresponding setting is ok  
 
 ## Description
@@ -106,8 +108,8 @@ JTAG/SWD is a universal standard for chip internal test. The external JTAG inter
 ### Application example source
 The examples for AmebaPro application is the SDK/common/example file. All the example provide related files including .c,.h, and readme. The readme file explains how to compile and important parameter.  
 After opening IAR, the first step is adding example source code(.c) into application_is -> utilities -> example(right click example and choose Add -> Add Files or drag-and-drop the file into it ).  
-After adding example code, user should use platform_opts.h to switch on the example. For example, if users are going to use DCT function, compile flag CONFIG_EXAMPLE_DCT should be set to 1, which means  
-`#define CONFIG_EXAMPLE_DCT 1`  
+After adding example code, user should use platform_opts.h to switch on the example. For example, if users are going to use KVS WebRTC, compile flag CONFIG_EXAMPLE_KVS_WEBRTC should be set to 1, which means  
+`#define CONFIG_EXAMPLE_KVS_WEBRTC 1`  
 In platform_opts.h so that the example function in example_entry will execute. After this procedure, rebuild application_is project to execute the example.  
 
 ### Peripheral example source
@@ -126,7 +128,7 @@ Then, go back to application_is project and "Make" again, the updated library ca
 
 ## Add independent and additional include directories to specific example   
 The additional include directories of KVS with WebRTC example is temporarily independent.
-You can add additional include path by right clicking `KVS_with_WebRTC` and choosing `options` --> `C/C++Compiler` --> `Preprocessor`  
+You can add additional include path by right clicking `kvs_webrtc` and choosing `options` --> `C/C++Compiler` --> `Preprocessor`  
 
 <img align="center" src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"><br>  
 
@@ -134,10 +136,11 @@ You can add additional include path by right clicking `KVS_with_WebRTC` and choo
 Please refer AWS official instruction to get **Access key ID** and **Secret access key**  
 https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/gs-account.html  
 
-Aftering getting the key, enter your key in the following place `utilities` --> `example` --> `KVS_with_WebRTC` --> `Common.c`  
+Aftering getting the key, enter your key and sinaling channel name in the following file `example_kvs_webrtc.h`  
 ```
-pAccessKey = "???";  
-pSecretKey = "???";  
+#define KVS_WEBRTC_ACCESS_KEY   "XXXXXXXX"  
+#define KVS_WEBRTC_SECRET_KEY   "XXXXXXXX"  
+#define KVS_WEBRTC_CHANNEL_NAME "XXXXXXXX"  
 ```
 Make application_is project again, make sure your key can be used on amebapro.  
 ## Put the CA file in SD card  

@@ -1,7 +1,7 @@
-#ifndef _EXAMPLE_KVS_H
-#define _EXAMPLE_KVS_H
+#ifndef _EXAMPLE_KVS_WEBRTC_H_
+#define _EXAMPLE_KVS_WEBRTC_H_
 
-void example_kvs(void);
+void example_kvs_webrtc(void);
 
 /* Enter your AWS KVS key here */
 #define KVS_WEBRTC_ACCESS_KEY   "XXXXXXXX"
@@ -24,5 +24,5 @@ void example_kvs(void);
 /* Enable data channel */
 //#define ENABLE_DATA_CHANNEL
 
-#endif /* _EXAMPLE_FATFS_H */
+#endif /* _EXAMPLE_KVS_WEBRTC_H_ */
 

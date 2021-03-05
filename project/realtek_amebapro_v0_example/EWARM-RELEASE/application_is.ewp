@@ -4625,12 +4625,12 @@
                 </configuration>
             </group>
             <group>
-                <name>KVS_with_WebRTC</name>
+                <name>kvs_webrtc</name>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_amazon\Common.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_webrtc\Common.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_amazon\example_kvs.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_webrtc\example_kvs_webrtc.c</name>
                 </file>
                 <configuration>
                     <name>Debug</name>

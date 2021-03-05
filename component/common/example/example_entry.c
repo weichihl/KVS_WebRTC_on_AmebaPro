@@ -293,8 +293,8 @@
 #include <sd_hot_plug/example_sd_hotplug.h>
 #endif
    
-#if CONFIG_EXAMPLE_KVS
-#include <kvs_amazon/example_kvs.h>
+#if CONFIG_EXAMPLE_KVS_WEBRTC
+#include <kvs_webrtc/example_kvs_webrtc.h>
 #endif
 
 #if CONFIG_EXAMPLE_KVS_PRODUCER
@@ -730,8 +730,8 @@ example_hilink();
         example_sd_hot_plug();
 #endif
         
-#if CONFIG_EXAMPLE_KVS
-	example_kvs();
+#if CONFIG_EXAMPLE_KVS_WEBRTC
+	example_kvs_webrtc();
 #endif
 
 #if CONFIG_EXAMPLE_KVS_PRODUCER
