@@ -59,7 +59,7 @@ int usleep( useconds_t usec );
 char *strerror_r(int errnum, char *buffer, size_t n);
 
 void bzero(char *s, int n);
-#endif
+#endif /* defined (__ICCARM__) */
 
 #ifdef __cplusplus
 }

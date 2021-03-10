@@ -44,8 +44,8 @@
 //typedef int nlink_t;
 //typedef int uid_t;
 //typedef int gid_t;
-typedef long int off_t;
-
+//typedef long int off_t;
+//
 //typedef signed int blksize_t;
 //typedef signed int blkcnt_t;   
 #endif
@@ -297,14 +297,12 @@ struct timezone
         int  tz_dsttime;     /* type of dst correction */
 };
 
-#if !LWIP_TIMEVAL_PRIVATE
+#if (!LWIP_TIMEVAL_PRIVATE && defined (__ICCARM__))
 #define _TIMEVAL_DEFINED
-#if defined (__ICCARM__)
 struct timeval {
   long    tv_sec;         /* seconds */
   long    tv_usec;        /* and microseconds */
 };
-#endif
 #endif /* LWIP_TIMEVAL_PRIVATE */
 
 #define CFG_RTC_DEFAULT_TIMESTAMP 1256729737 //Set RTC time to Wed, 28 Oct 2009 11:35:37

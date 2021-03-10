@@ -31,12 +31,12 @@ ram_is: toolchain
 	@$(MAKE) -f libwebsockets.mk all
 	@$(MAKE) -f lib_kvs_webrtc.mk all
 	@$(MAKE) -f lib_kvs_producer.mk all
-	@$(MAKE) -f application.is.mk clean all
+	@$(MAKE) -f application.is.amazon_kvs.mk clean all
 	
 
 .PHONY: ram_mp
 ram_mp: toolchain
-	@$(MAKE) -f application.is.mk clean mp
+	@$(MAKE) -f application.is.amazon_kvs.mk clean mp
 
 .PHONY: ram_lp
 ram_lp: toolchain
@@ -45,7 +45,7 @@ ram_lp: toolchain
 .PHONY: clean
 clean:
 	@$(MAKE) -f application.lp.mk clean
-	@$(MAKE) -f application.is.mk clean
+	@$(MAKE) -f application.is.amazon_kvs.mk clean
 	@$(MAKE) -f lib_webrtc_producer_c.mk clean
 	@$(MAKE) -f libsrtp2.mk clean
 	@$(MAKE) -f libwebsockets.mk clean
@@ -58,15 +58,15 @@ clean_lp:
 	
 .PHONY: clean_is
 clean_is:
-	@$(MAKE) -f application.is.mk clean
+	@$(MAKE) -f application.is.amazon_kvs.mk clean
 
 
 .PHONY: flash debug setup
 setup:
-	@$(MAKE) -f application.is.mk $(MAKECMDGOALS)
+	@$(MAKE) -f application.is.amazon_kvs.mk $(MAKECMDGOALS)
 
 flash: toolchain
-	@$(MAKE) -f application.is.mk flashburn
+	@$(MAKE) -f application.is.amazon_kvs.mk flashburn
 
 debug: toolchain
-	@$(MAKE) -f application.is.mk debug
+	@$(MAKE) -f application.is.amazon_kvs.mk debug

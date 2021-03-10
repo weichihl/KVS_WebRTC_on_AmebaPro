@@ -81,7 +81,7 @@ INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include
-INCLUDES += -I../../../lib_amazon/iar_include
+INCLUDES += -I../../../lib_amazon/gcc_include
 
 
 # Source file list

@@ -39,7 +39,7 @@ INFO_DIR=$(TARGET)/Debug/info
 
 INCLUDES =
 INCLUDES += -I../inc
-INCLUDES += -I../../../lib_amazon/iar_include
+INCLUDES += -I../../../lib_amazon/gcc_include
 INCLUDES += -I../../../lib_amazon/libsrtp/crypto/include
 INCLUDES += -I../../../lib_amazon/libsrtp/include
 INCLUDES += -I../../../lib_amazon/libsrtp

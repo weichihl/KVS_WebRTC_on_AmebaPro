@@ -39,7 +39,7 @@ INFO_DIR=$(TARGET)/Debug/info
 
 INCLUDES =
 INCLUDES += -I../inc
-INCLUDES += -I../../../lib_amazon/iar_include
+INCLUDES += -I../../../lib_amazon/gcc_include
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-pic/src/common/include
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-pic/src/state/include
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/include

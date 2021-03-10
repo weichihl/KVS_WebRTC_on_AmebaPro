@@ -57,11 +57,17 @@ If using Linux environment or Cygwin on windows, follow the instructions below t
 ```
 cd project/realtek_amebapro_v0_example/GCC-RELEASE  
 ```
-To build the library and the example by running make in the directory
+If using GCC toolchain to build the project, it is necessary to configure some value in "FreeRTOS_POSIX_portable_default.h"  
+```
+#define posixconfigENABLE_CLOCKID_T  0  
+#define posixconfigENABLE_MODE_T     0  
+#define posixconfigENABLE_TIMER_T    0  
+```
+Build the library and the example by running make in the directory  
 ```
 make -f Makefile_amazon_kvs all
 ```
-If somehow it built failed, you can try to type `make clean` and then redo the make procedure.  
+If somehow it built failed, you can try to type `make -f Makefile_amazon_kvs clean` and then redo the make procedure.  
 After successfully build, there should be a directory named “application_is” created under GCC-RELEASE/ directory.  
 The image file `flash_is.bin` is located in ”application_is” directory.  
 #### Note:

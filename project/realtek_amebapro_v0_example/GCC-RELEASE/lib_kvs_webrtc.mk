@@ -39,7 +39,7 @@ INFO_DIR=$(TARGET)/Debug/info
 
 INCLUDES =
 INCLUDES += -I../inc
-INCLUDES += -I../../../lib_amazon/iar_include
+INCLUDES += -I../../../lib_amazon/gcc_include
 INCLUDES += -I../../../component/os/os_dep/include
 INCLUDES += -I../../../component/common/api
 INCLUDES += -I../../../component/common/api/platform
@@ -149,12 +149,10 @@ USER_CFLAGS += -D__IEEE_LITTLE_ENDIAN
 USER_CFLAGS += -DKVS_USE_MBEDTLS
 USER_CFLAGS += -DKVS_BUILD_WITH_LWS
 USER_CFLAGS += -DKVS_PLAT_RTK_FREERTOS
+USER_CFLAGS += -DLWS_RTK_PLATFORM
 USER_CFLAGS += -DLWS_AMAZON_RTOS
 USER_CFLAGS += -DBUILD_CLIENT
 USER_CFLAGS += -DENABLE_STREAMING
-USER_CFLAGS += -DKVS_PLAT_ESP_FREERTOS
-USER_CFLAGS += -DKVS_PLAT_RTK_FREERTOS___
-USER_CFLAGS += -DLWS_RTK_PLATFORM
 USER_CFLAGS += -DENABLE_DATA_CHANNEL___
 
 # Generate obj list
