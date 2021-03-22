@@ -164,7 +164,7 @@ STATUS logSignalingClientStats(PSignalingClientMetrics);
 STATUS logSelectedIceCandidatesInformation(PSampleStreamingSession);
 STATUS logStartUpLatency(PSampleConfiguration);
 INT32 kvsWebRTCClientMaster(void);
-uint64_t getEpochTimestampInHundredsOfNanos( void );
+uint64_t getEpochTimestampInHundredsOfNanos(void*);
 #ifdef __cplusplus
 }
 #endif

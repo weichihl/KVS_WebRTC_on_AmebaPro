@@ -103,9 +103,7 @@ void isp_frame_cb(void* p)
     isp_buf_t queue_item;
     
     int is_output_ready = 0;
-    
-    buf.timestamp = xTaskGetTickCountFromISR();
-    
+
     if(info->isp_overflow_flag == 0){
         /** get the available buffer. */
         is_output_ready = xQueueReceiveFromISR(ctx->output_recycle, &buf, &xTaskWokenByReceive) == pdTRUE;
@@ -118,6 +116,7 @@ void isp_frame_cb(void* p)
     if(is_output_ready){
         /** flush the isp to the available buffer. */
         isp_handle_buffer(ctx->stream, &buf, MODE_EXCHANGE);
+        buf.timestamp = xTaskGetTickCountFromISR(); /*update the timestamp*/
         /** send it to the routine of h264 engine. */
         xQueueSendFromISR(ctx->output_ready, &buf, &xHigherPriorityTaskWoken);  
     }else{
@@ -310,9 +309,8 @@ PVOID sendVideoPackets(PVOID args)
         encoderStats.width = h264_parm.width;
         encoderStats.height = h264_parm.height;
         encoderStats.targetBitrate = h264_parm.bps;
-        //frame.presentationTs = getEpochTimestampInHundredsOfNanos();
-        frame.presentationTs = isp_buf.timestamp * HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
-        //printf("frame.presentationTs = %llu\n\r", frame.presentationTs);
+        frame.presentationTs = getEpochTimestampInHundredsOfNanos(&isp_buf.timestamp);
+        //printf("video timestamp = %llu\n\r", frame.presentationTs);
 
         /* wait for skb resource release */
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
@@ -480,7 +478,7 @@ PVOID sendAudioPackets(PVOID args)
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
     {
-        if(xQueueReceive(audio_queue, (void*)&audio_buf, 100) == pdTRUE)
+        if(xQueueReceive(audio_queue, (void*)&audio_buf, portMAX_DELAY) == pdTRUE)
         {
             memcpy((void*)buf_16bit, (void*)audio_buf.data_buf, TX_PAGE_SIZE);
             //Do noise suppression & automatic gain control
@@ -512,7 +510,8 @@ PVOID sendAudioPackets(PVOID args)
 
         frame.frameData = buf_8bit;
         //frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
-        frame.presentationTs = audio_buf.timestamp * HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
+        frame.presentationTs = getEpochTimestampInHundredsOfNanos(&audio_buf.timestamp);
+        //printf("audio timestamp = %llu\n\r", frame.presentationTs);
 
         // wait for skb resource release
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
@@ -525,9 +524,9 @@ PVOID sendAudioPackets(PVOID args)
             status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pAudioRtcRtpTransceiver, &frame);
             if (status != STATUS_SRTP_NOT_READY_YET) {
                 if (status != STATUS_SUCCESS) {
-                    #ifdef VERBOSE
+#ifdef VERBOSE
                     printf("writeFrame() failed with 0x%08x\n", status);
-                    #endif
+#endif
                 }
             }
         }
@@ -663,7 +662,7 @@ void example_kvs_webrtc_thread(void* param){
     printf( "wifi connected\r\n" );
 
     sntp_init();
-    while( getEpochTimestampInHundredsOfNanos() < 10000000000000000ULL ){
+    while( getEpochTimestampInHundredsOfNanos(NULL) < 10000000000000000ULL ){
         vTaskDelay( 200 / portTICK_PERIOD_MS );
     }
 

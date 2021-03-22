@@ -1211,7 +1211,7 @@ CleanUp:
 /**
  * @brief return epoch time in hundreds of nanosecond
 */
-uint64_t getEpochTimestampInHundredsOfNanos( void )
+uint64_t getEpochTimestampInHundredsOfNanos( void* pTick )
 {
     uint64_t timestamp;
 
@@ -1222,7 +1222,10 @@ uint64_t getEpochTimestampInHundredsOfNanos( void )
 
     sntp_get_lasttime(&sec, &usec, &tick);
 
-    tickDiff = xTaskGetTickCount() - tick;
+    if ((void*)pTick == NULL)
+        tickDiff = xTaskGetTickCount() - tick;
+    else
+        tickDiff = (*(PUINT32)pTick) - tick;
 
     sec += tickDiff / configTICK_RATE_HZ;
     usec += ( ( tickDiff % configTICK_RATE_HZ ) / portTICK_RATE_MS ) * 1000;
