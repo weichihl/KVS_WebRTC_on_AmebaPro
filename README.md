@@ -163,6 +163,54 @@ https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AN0025%20Real
 > Enter the AWS Access Key, AWS Secret Key and Stream name to test the prducer streaming  
 
 
+## GCC Debugger setting
+> If under linux environment, using J-link to download image to EVB will be recommended.  
+> AmebaPro supports J-Link for code download and enter debugger mode with GCC. The settings for J-Link debuggers are described below. Here, we will use **segger j-link** to demonstrate how to download image via SWD interface.  
+> ### J-link with SWD interface
+> Note that if you are using Virtual Machine as your platform, please make sure the USB connection setting between VM host and client is correct so that the VM client can detect the device.  
+> The external SWD interface requires two pins: bidirectional SWDIO signal and a clock, SWCLK, which can be input or output from the device.  
+> #### Note: If using 2V0、2V1 version AmebaPro. Please check SW7 pin 3 switch to ON before connection.  
+> if using SWD, please check four pin (VTref[VDD]、TMS[SWDIO]、TCLK[SWCLK] and TDO[SWO]) connected to EVB correctly.  
+> #### Reminder: The JTAG pin names are incorrect on AmebaPro 2V0、2V1. Please follow the diagram in the following figure to connect AmebaPro to JTAG/SWD debugger.  
+> <p align="center"> <img src="photo/J-link.png" alt="test image size" height="70%" width="70%"></p>  
+> 
+> ### Linux J-Link GDB server
+> For J-Link GDB server, please check http://www.segger.com and download “J-Link Software and Documentation Pack” (https://www.segger.com/downloads/jlink). We suggest using Debian package manager to install the Debian version:  
+> ```
+> dpkg -i JLink_Linux_V698e_x86_64.deb
+> ```
+> After the installation of the software pack, there should be a tool named “JLinkGDBServer” under JLink directory. Take Ubuntu 16.04 as example, the JLinkGDBServer can be found at /opt/SEGGER/JLink/ directory. Please open a new terminal and type following command to start GDB server. Note that this terminal should NOT be closed if you want to download software or enter GDB debugger mode.  
+> ```
+> /opt/SEGGER/JLink/JLinkGDBServer -device cortex-m33 -if SWD
+> ```
+> <p align="center"> <img src="photo/gdb_server.png" alt="test image size" height="70%" width="70%"></p>  
+> 
+> The started J-Link GDB server should looks like above figure. Please make sure the TCP/IP port is 2331 which should be the same as default setting in  
+> ```
+> component\soc\realtek\8195a\misc\gcc_utility\rtl_gdb_flash_write.txt  
+> ```
+> On the project terminal you should type below command before you using J-Link to download software or enter GDB debugger:  
+> ```
+> make -f Makefile_amazon_kvs setup GDB_SERVER=jlink
+> ```
+> ### Download image to flash  
+> After building the project in GCC, check that image exists in ”application_is” directory.  
+> Then, go back to `project/realtek_amebapro_v0_example/GCC-RELEASE` and run the command:  
+> ```
+> make -f Makefile_amazon_kvs flash
+> ```
+> Now, the image is being downloaded to EVB.  
+> Press the reset botton on the EVB to run the example after downloading.  
+> #### Note:
+> If there is no reponse after run the command above, quit the GDB mode and press the reset botton on EVB. Try the command again.  
+> 
+> ### Enter GDB debugger  
+> type below command to enter GDB debug mode:  
+> ```
+> make -f Makefile_amazon_kvs debug
+> ```
+> For further information about GDB debugger and its commands, please check https://www.gnu.org/software/gdb/ and https://sourceware.org/gdb/current/onlinedocs/gdb/.  
+
 ## More Information  
 > ### Rebuild the library and compile the application project again (IAR)  
 > If the source codes in library are modified, the corresponding library should be rebuild.  
@@ -179,5 +227,4 @@ https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AN0025%20Real
 > 
 > <p align="center"> <img src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"></p>  
 > 
-> ### Using JTAG/SWD to debug
-> AmebaPro support using JTAG/SWD to debug.    
+ 

@@ -207,7 +207,7 @@ void camera_thread(void *param)
     h264_parm.height = VIDEO_HEIGHT;
     h264_parm.width = VIDEO_WIDTH;
     h264_parm.rcMode = H264_RC_MODE_CBR;
-    h264_parm.bps = 512 * 1024;
+    h264_parm.bps = 1024 * 1024;
     h264_parm.ratenum = 30;
     h264_parm.gopLen = 30;
     
