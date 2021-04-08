@@ -1,15 +1,24 @@
 ﻿# AmebaPro with KVS WebRTC and Producer
-SDK for Realtek AmebaPro chipset  
 This project is going to demonstrate how to use KVS with WebRTC and Producer on AmebaPro  
+
+## Brief Introduction for Amazon KVS  
+**Amazon Kinesis Video Streams** include two main services, which are Producer and WebRTC  
+https://aws.amazon.com/kinesis/video-streams/?nc1=h_ls&amazon-kinesis-video-streams-resources-blog.sort-by=item.additionalFields.createdDate&amazon-kinesis-video-streams-resources-blog.sort-order=desc  
+**KVS Producer** can be used to stream live video from devices to the AWS Cloud, or build applications for batch-oriented video analytics.  
+https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/what-is-kinesis-video.html  
+**KVS WebRTC** is an open technology specification for enabling real-time communication (RTC) across browsers and mobile applications via simple APIs.  
+https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/what-is-kvswebrtc.html  
+
+
+## Description
+This article introduces users how to develop AmebaPro with KVS service.  
+
+**Note: Currently, the source code of WebRTC on FreeRTOS is public, so we can clone the repostiory as submodule directly. However, the Producer on FreeRTOS still in development stage, source code will be released in the future. User can test the demo code without building the kvs producer lib.**  
+
 The related example code:  
 `project\component\common\example\kvs_webrtc`  
 `project\component\common\example\kvs_producer`  
-Please refer to the readme.TXT in example directory to check the corresponding setting is ok  
 
-## Description
-This article introduces users how to develop AmebaPro. AmebaPro is composed of one main board, one sensor board, and one daughter board with LED, light sensor, and IRLED. AmebaPro SDK provides all the example source code for the function mentioned above.  
-To get start, users will need to set up the software to program the board.  
-IAR IDE provides the toolchain for AmebaPro. It allows users to write programs, compile and upload them to your board. Also, it supports step-by-step debug. Realtek also provides Image Tool for users to do downloading code process.  
 
 ## Requirement
 Supported IDE/toolchain: IAR, GCC
@@ -18,6 +27,7 @@ Please use IAR version 8.3 (There may be some compiler problems with v8.4)
 #### GCC toolchain
 Linux: asdk-6.4.1-linux-newlib-build-3026-x86_64  
 Cygwin: asdk-6.4.1-cygwin-newlib-build-2778-i686  
+
 
 ## Clone Project  
 To check out this repostiory:
@@ -31,6 +41,23 @@ If you already have a checkout, run the following command to sync submodules:
 ```
 git submodule update --init
 ```
+
+## Set Up an AWS Account and Create an Administrator  
+Please refer AWS official instruction to get **Access key ID** and **Secret access key**  
+https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/gs-account.html  
+
+Aftering getting the key, enter your key and sinaling channel name in the following file `example_kvs_webrtc.h`  
+```
+#define KVS_WEBRTC_ACCESS_KEY   "XXXXXXXX"  
+#define KVS_WEBRTC_SECRET_KEY   "XXXXXXXX"  
+#define KVS_WEBRTC_CHANNEL_NAME "XXXXXXXX"  
+```
+Make application_is project again, make sure your key can be used on amebapro.  
+### Put the CA file in SD card   
+If using WebRTC example, please prepare a SD card for AWS certificate  
+There is a `cert.pem` file in `lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\certs`  
+Please copy it to your SD card, then insert it into AmabaPro.  
+
 
 ## SDK Project introduction
 Currently users can use ignore secure mode. Project_is(ignore secure) is the project without Arm TrustZone technology. This project is easier to develop and suit for firsttime developer.  
@@ -106,6 +133,16 @@ Step3: Choose target flash binary image file “flash_xx.bin”
 Step4: Check Mode is “1. Program flash”  
 Step5: Click “Download”  
 Step6: Progress will be shown on progress bar and result will be shown after download finish.  
+Step7: Switch “1” to OFF from SW7(2V0、2V1) or Switch “2” to OFF from SW7(1V0)  
+Step8: Push reset button to start the program.  
+
+## Setting WIFI SSID/password with AT command  
+In order to run the example, AmebaPro should connect to the network. It can be achieved by run the AT command in uart console.  
+Please refer to the steps below:  
+ATW0=**WiFi_SSID** : Set the WiFi AP to be connected  
+ATW1=**WiFi_Password** : Set the WiFi AP password  
+ATWC : Initiate the connection  
+
 
 ## Using JTAG/SWD to debug
 JTAG/SWD is a universal standard for chip internal test. The external JTAG interface has four mandatory pins, TCK, TMS, TDI, and TDO, and an optional reset, nTRST. JTAG-DP and SW-DP also require a separate power-on reset, nPOTRST. The external SWD interface requires two pins: bidirectional SWDIO signal and a clock, SWCLK, which can be input or output from the device.  
@@ -138,23 +175,13 @@ You can add additional include path by right clicking `kvs_webrtc` and choosing 
 
 <img align="center" src="photo/example_include_path.png" alt="test image size" height="40%" width="40%"><br>  
 
-## Set Up an AWS Account and Create an Administrator  
-Please refer AWS official instruction to get **Access key ID** and **Secret access key**  
-https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/gs-account.html  
 
-Aftering getting the key, enter your key and sinaling channel name in the following file `example_kvs_webrtc.h`  
-```
-#define KVS_WEBRTC_ACCESS_KEY   "XXXXXXXX"  
-#define KVS_WEBRTC_SECRET_KEY   "XXXXXXXX"  
-#define KVS_WEBRTC_CHANNEL_NAME "XXXXXXXX"  
-```
-Make application_is project again, make sure your key can be used on amebapro.  
-## Put the CA file in SD card  
-There is a `cert.pem` file in `lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\certs`  
-Please copy it to your SD card.  
 
 ## Running WebRTC Test Page Locally  
 Refer the link from **AWS labs**, using the WebRTC SDK Test Page to validate the demo  
 https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-js  
 you have to clone the above project and follow the step in **Development** part to run the test page  
 
+## Test Producer example with test page  
+https://aws-samples.github.io/amazon-kinesis-video-streams-media-viewer  
+Enter the AWS Access Key, AWS Secret Key and Stream name to test the prducer streaming  

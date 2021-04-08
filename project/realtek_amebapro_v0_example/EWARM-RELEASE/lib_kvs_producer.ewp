@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.32.1.18618</state>
+                    <state>8.32.3.20186</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -116,7 +116,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -133,7 +133,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -156,7 +156,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>59</state>
                 </option>
                 <option>
@@ -1076,11 +1076,11 @@
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>IarchiveOutput</name>
-                    <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\$PROJ_FNAME$.a</state>
+                    <state>D:\SDK_from_Git\WebRTC_Public\KVS_WebRTC_on_AmebaPro\project\realtek_amebapro_v0_example\EWARM-RELEASE\Debug\Exe\lib_kvs_producer.a</state>
                 </option>
             </data>
         </settings>
@@ -1210,7 +1210,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1227,7 +1227,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1250,7 +1250,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -2137,6 +2137,9 @@
     </configuration>
     <group>
         <name>coreHTTP</name>
+        <excluded>
+            <configuration>Debug</configuration>
+        </excluded>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\aws\coreHTTP\source\core_http_client.c</name>
         </file>
@@ -2146,12 +2149,18 @@
     </group>
     <group>
         <name>parson</name>
+        <excluded>
+            <configuration>Debug</configuration>
+        </excluded>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\parson\parson.c</name>
         </file>
     </group>
     <group>
         <name>producer</name>
+        <excluded>
+            <configuration>Debug</configuration>
+        </excluded>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\aws_signer_v4.c</name>
         </file>

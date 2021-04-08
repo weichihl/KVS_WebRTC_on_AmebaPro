@@ -30,7 +30,7 @@ ram_is: toolchain
 	@$(MAKE) -f libsrtp2.mk all
 	@$(MAKE) -f libwebsockets.mk all
 	@$(MAKE) -f lib_kvs_webrtc.mk all
-	@$(MAKE) -f lib_kvs_producer.mk all
+#	@$(MAKE) -f lib_kvs_producer.mk all
 	@$(MAKE) -f application.is.amazon_kvs.mk clean all
 	
 
@@ -49,7 +49,7 @@ clean:
 	@$(MAKE) -f lib_webrtc_producer_c.mk clean
 	@$(MAKE) -f libsrtp2.mk clean
 	@$(MAKE) -f libwebsockets.mk clean
-	@$(MAKE) -f lib_kvs_producer.mk clean
+#	@$(MAKE) -f lib_kvs_producer.mk clean
 	@$(MAKE) -f lib_kvs_webrtc.mk clean
 
 .PHONY: clean_lp

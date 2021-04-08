@@ -14,7 +14,7 @@ We setup it by cloning it as following:
 
 ```
 cd lib_amazon
-git clone git@github.com:iotlabtpe/amazon-kinesis-video-streams-producer-embedded-c.git --recursive
+git clone -b v0.0.1 git@github.com:iotlabtpe/amazon-kinesis-video-streams-producer-embedded-c.git --recursive
 cd amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP
 git apply ../../../patch/0001-coreHTTP.patch
 ```
