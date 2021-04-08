@@ -11,7 +11,7 @@
 #include "example_kvs_webrtc.h"
 
 /* Config for Ameba-Pro */
-#define STACK_SIZE		20*1024
+#define STACK_SIZE      20*1024
 
 /* Network */
 #include <lwip_netconf.h>
@@ -53,39 +53,39 @@ extern int max_skb_buf_num;
 #include "sensor.h"
 
 struct h264_kvs_def_setting {
-	uint32_t height;
-	uint32_t width;
-	H264_RC_MODE rcMode;
-	uint32_t bitrate;
-	uint32_t fps;
-	uint32_t gopLen;
-	uint32_t output_buffer_size;
-	uint8_t isp_stream_id;
-	uint32_t isp_hw_slot;
-	uint32_t isp_format;
+    uint32_t height;
+    uint32_t width;
+    H264_RC_MODE rcMode;
+    uint32_t bitrate;
+    uint32_t fps;
+    uint32_t gopLen;
+    uint32_t output_buffer_size;
+    uint8_t isp_stream_id;
+    uint32_t isp_hw_slot;
+    uint32_t isp_format;
 };
 
-#define ISP_SW_BUF_NUM	4
+#define ISP_SW_BUF_NUM  4
 
 struct h264_kvs_def_setting def_setting = {
-	.height = VIDEO_720P_HEIGHT,
-	.width = VIDEO_720P_WIDTH,
-	.rcMode = H264_RC_MODE_CBR,
-	.bitrate = 512*1024,
-	.fps = 30,
-	.gopLen = 30,
-	.output_buffer_size = VIDEO_720P_HEIGHT*VIDEO_720P_WIDTH,
-	.isp_stream_id = 0,
-	.isp_hw_slot = 2,
-	.isp_format = ISP_FORMAT_YUV420_SEMIPLANAR,
+    .height = VIDEO_1080P_HEIGHT,
+    .width = VIDEO_1080P_WIDTH,
+    .rcMode = H264_RC_MODE_CBR,
+    .bitrate = 1*1024*1024,
+    .fps = 15,
+    .gopLen = 30,
+    .output_buffer_size = VIDEO_1080P_HEIGHT*VIDEO_1080P_WIDTH,
+    .isp_stream_id = 0,
+    .isp_hw_slot = 2,
+    .isp_format = ISP_FORMAT_YUV420_SEMIPLANAR,
 };
 
 typedef struct isp_s{
-	isp_stream_t* stream;
-	isp_cfg_t cfg;
-	isp_buf_t buf_item[ISP_SW_BUF_NUM];
-	xQueueHandle output_ready;
-	xQueueHandle output_recycle;//!< the return buffer.
+    isp_stream_t* stream;
+    isp_cfg_t cfg;
+    isp_buf_t buf_item[ISP_SW_BUF_NUM];
+    xQueueHandle output_ready;
+    xQueueHandle output_recycle;//!< the return buffer.
 }isp_t;
 
 /**
@@ -93,39 +93,39 @@ typedef struct isp_s{
 */
 void isp_frame_cb(void* p)
 {
-	BaseType_t xTaskWokenByReceive = pdFALSE;
-	BaseType_t xHigherPriorityTaskWoken;
-	
-	isp_t* ctx = (isp_t*)p;
-	isp_info_t* info = &ctx->stream->info;
-	isp_cfg_t *cfg = &ctx->cfg;
-	isp_buf_t buf;
-	isp_buf_t queue_item;
-	
-	int is_output_ready = 0;
-	
-	u32 timestamp = xTaskGetTickCountFromISR();
-	
-	if(info->isp_overflow_flag == 0){
-		/** get the available buffer. */
-		is_output_ready = xQueueReceiveFromISR(ctx->output_recycle, &buf, &xTaskWokenByReceive) == pdTRUE;
-	}else{
-		/** this should be take care. */
-		info->isp_overflow_flag = 0;
-		ISP_DBG_ERROR("isp overflow = %d\r\n",cfg->isp_id);
-	}
-	
-	if(is_output_ready){
-		/** flush the isp to the available buffer. */
-		isp_handle_buffer(ctx->stream, &buf, MODE_EXCHANGE);
-		/** send it to the routine of h264 engine. */
-		xQueueSendFromISR(ctx->output_ready, &buf, &xHigherPriorityTaskWoken);	
-	}else{
-		/** drop this frame buffer if there is no available buffer. */
-		isp_handle_buffer(ctx->stream, NULL, MODE_SKIP);
-	}
-	if( xHigherPriorityTaskWoken || xTaskWokenByReceive)
-		taskYIELD ();
+    BaseType_t xTaskWokenByReceive = pdFALSE;
+    BaseType_t xHigherPriorityTaskWoken;
+    
+    isp_t* ctx = (isp_t*)p;
+    isp_info_t* info = &ctx->stream->info;
+    isp_cfg_t *cfg = &ctx->cfg;
+    isp_buf_t buf;
+    isp_buf_t queue_item;
+    
+    int is_output_ready = 0;
+    
+    buf.timestamp = xTaskGetTickCountFromISR();
+    
+    if(info->isp_overflow_flag == 0){
+        /** get the available buffer. */
+        is_output_ready = xQueueReceiveFromISR(ctx->output_recycle, &buf, &xTaskWokenByReceive) == pdTRUE;
+    }else{
+        /** this should be take care. */
+        info->isp_overflow_flag = 0;
+        ISP_DBG_ERROR("isp overflow = %d\r\n",cfg->isp_id);
+    }
+    
+    if(is_output_ready){
+        /** flush the isp to the available buffer. */
+        isp_handle_buffer(ctx->stream, &buf, MODE_EXCHANGE);
+        /** send it to the routine of h264 engine. */
+        xQueueSendFromISR(ctx->output_ready, &buf, &xHigherPriorityTaskWoken);  
+    }else{
+        /** drop this frame buffer if there is no available buffer. */
+        isp_handle_buffer(ctx->stream, NULL, MODE_SKIP);
+    }
+    if( xHigherPriorityTaskWoken || xTaskWokenByReceive)
+        taskYIELD ();
 }
 
 PVOID sendVideoPackets(PVOID args)
@@ -173,8 +173,8 @@ PVOID sendVideoPackets(PVOID args)
     struct h264_context* h264_ctx;
     ret = h264_create_encoder(&h264_ctx);
     if (ret != H264_OK) {
-            printf("\n\rh264_create_encoder err %d\n\r",ret);
-            //goto exit;
+        printf("\n\rh264_create_encoder err %d\n\r",ret);
+        //goto exit;
     }
 
     printf("[H264] get & set encoder parameters\n\r");
@@ -182,8 +182,8 @@ PVOID sendVideoPackets(PVOID args)
     struct h264_parameter h264_parm;
     ret = h264_get_parm(h264_ctx, &h264_parm);
     if (ret != H264_OK) {
-            printf("\n\rh264_get_parmeter err %d\n\r",ret);
-            //goto exit;
+        printf("\n\rh264_get_parmeter err %d\n\r",ret);
+        //goto exit;
     }
     
     h264_parm.height = def_setting.height;
@@ -195,16 +195,16 @@ PVOID sendVideoPackets(PVOID args)
     
     ret = h264_set_parm(h264_ctx, &h264_parm);
     if (ret != H264_OK) {
-            printf("\n\rh264_set_parmeter err %d\n\r",ret);
-            //goto exit;
+        printf("\n\rh264_set_parmeter err %d\n\r",ret);
+        //goto exit;
     }
     
     printf("[H264] init encoder\n\r");
     // [7][H264] init encoder
     ret = h264_init_encoder(h264_ctx);
     if (ret != H264_OK) {
-            printf("\n\rh264_init_encoder_buffer err %d\n\r",ret);
-            //goto exit;
+        printf("\n\rh264_init_encoder_buffer err %d\n\r",ret);
+        //goto exit;
     }
     
     // [8][ISP] init ISP
@@ -228,30 +228,30 @@ PVOID sendVideoPackets(PVOID args)
     isp_stream_set_complete_callback(isp_ctx.stream, isp_frame_cb, (void*)&isp_ctx);
     
     for (int i=0; i<ISP_SW_BUF_NUM; i++ ) {
-            /** sensor is at yuv420 mode. */
-            unsigned char *ptr =(unsigned char *) malloc(def_setting.width*def_setting.height*3/2);
-            if (ptr==NULL) {
-                    printf("[ISP] Allocate isp buffer[%d] failed\n\r",i);
-                    while(1);
+        /** sensor is at yuv420 mode. */
+        unsigned char *ptr =(unsigned char *) malloc(def_setting.width*def_setting.height*3/2);
+        if (ptr==NULL) {
+            printf("[ISP] Allocate isp buffer[%d] failed\n\r",i);
+            while(1);
+        }
+        isp_ctx.buf_item[i].slot_id = i;
+        isp_ctx.buf_item[i].y_addr = (uint32_t) ptr;
+        isp_ctx.buf_item[i].uv_addr = isp_ctx.buf_item[i].y_addr + def_setting.width*def_setting.height;
+        /** looks like this isp has ping-pong buffers. */
+        if (i<def_setting.isp_hw_slot) {
+            // config hw slot
+            //printf("\n\rconfig hw slot[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
+            isp_handle_buffer(isp_ctx.stream, &isp_ctx.buf_item[i], MODE_SETUP);
+        }
+        /** backup buffer. */
+        else {
+            // extra sw buffer
+            //printf("\n\rextra sw buffer[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
+            if(xQueueSend(isp_ctx.output_recycle, &isp_ctx.buf_item[i], 0)!= pdPASS) {
+                printf("[ISP] Queue send fail\n\r");
+                while(1);
             }
-            isp_ctx.buf_item[i].slot_id = i;
-            isp_ctx.buf_item[i].y_addr = (uint32_t) ptr;
-            isp_ctx.buf_item[i].uv_addr = isp_ctx.buf_item[i].y_addr + def_setting.width*def_setting.height;
-            /** looks like this isp has ping-pong buffers. */
-            if (i<def_setting.isp_hw_slot) {
-                    // config hw slot
-                    //printf("\n\rconfig hw slot[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
-                    isp_handle_buffer(isp_ctx.stream, &isp_ctx.buf_item[i], MODE_SETUP);
-            }
-            /** backup buffer. */
-            else {
-                    // extra sw buffer
-                    //printf("\n\rextra sw buffer[%d] y=%x, uv=%x\n\r",i,isp_ctx.buf_item[i].y_addr,isp_ctx.buf_item[i].uv_addr);
-                    if(xQueueSend(isp_ctx.output_recycle, &isp_ctx.buf_item[i], 0)!= pdPASS) {
-                            printf("[ISP] Queue send fail\n\r");
-                            while(1);
-                    }
-            }
+        }
     }
     
     isp_stream_apply(isp_ctx.stream);
@@ -266,7 +266,7 @@ PVOID sendVideoPackets(PVOID args)
          * get the isp buffe from the isr of isp engine.
         */
         if(xQueueReceive(isp_ctx.output_ready, &isp_buf, 10) != pdTRUE) {
-                continue;
+            continue;
         }
         
         // [10][H264] encode data
@@ -274,16 +274,16 @@ PVOID sendVideoPackets(PVOID args)
         video_buf.output_buffer_size = def_setting.output_buffer_size;
         video_buf.output_buffer = malloc(video_buf.output_buffer_size);
         if (video_buf.output_buffer== NULL) {
-                printf("Allocate output buffer fail\n\r");
-                continue;
+            printf("Allocate output buffer fail\n\r");
+            continue;
         }
         /** trigger the h264 engine. */
         ret = h264_encode_frame(h264_ctx, &isp_buf, &video_buf);
         if (ret != H264_OK) {
-                printf("\n\rh264_encode_frame err %d\n\r",ret);
-                if (video_buf.output_buffer != NULL)
-                        free(video_buf.output_buffer);
-                continue;
+            printf("\n\rh264_encode_frame err %d\n\r",ret);
+            if (video_buf.output_buffer != NULL)
+                free(video_buf.output_buffer);
+            continue;
         }
 
         // [11][ISP] put back isp buffer
@@ -310,14 +310,15 @@ PVOID sendVideoPackets(PVOID args)
         encoderStats.width = h264_parm.width;
         encoderStats.height = h264_parm.height;
         encoderStats.targetBitrate = h264_parm.bps;
-        frame.presentationTs = getEpochTimestampInHundredsOfNanos();
+        //frame.presentationTs = getEpochTimestampInHundredsOfNanos();
+        frame.presentationTs = isp_buf.timestamp * HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
         //printf("frame.presentationTs = %llu\n\r", frame.presentationTs);
 
         /* wait for skb resource release */
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
             continue; //skip this frame and wait for skb resource release.
-	}
-	
+        }
+    
         MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
         for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
             status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pVideoRtcRtpTransceiver, &frame);
@@ -347,9 +348,9 @@ CleanUp:
     isp_stream_destroy(isp_ctx.stream);
     
     for (int i=0; i<ISP_SW_BUF_NUM; i++ ){
-	unsigned char* ptr = (unsigned char*) isp_ctx.buf_item[i].y_addr;
-	if (ptr) 
-          free(ptr);
+    unsigned char* ptr = (unsigned char*) isp_ctx.buf_item[i].y_addr;
+    if (ptr) 
+        free(ptr);
     }
   
     return (PVOID)(ULONG_PTR) retStatus;
@@ -386,6 +387,11 @@ extern short decodeU(uint8_t u_val);
 xQueueHandle audio_queue;
 xQueueHandle audio_queue_recv;
 
+typedef struct audio_buf_s{
+    uint8_t *data_buf;
+    uint32_t timestamp;
+}audio_buf_t;
+
 void audio_tx_complete_irq(u32 arg, u8 *pbuf){}
 
 void audio_rx_complete_irq(u32 arg, u8 *pbuf)
@@ -396,11 +402,15 @@ void audio_rx_complete_irq(u32 arg, u8 *pbuf)
         dbg_printf("rx page error !!! \r\n");
     }
     
+    audio_buf_t au_buf;
+    au_buf.timestamp = xTaskGetTickCountFromISR();
+    au_buf.data_buf = pbuf;
+    
     BaseType_t xHigherPriorityTaskWoken;
     
-    if( xQueueSendFromISR(audio_queue, (void *)pbuf, &xHigherPriorityTaskWoken) != pdTRUE){
-      //printf("\n\rAudio queue full.\n\r");
-    } 
+    if( xQueueSendFromISR(audio_queue, (void *)&au_buf, &xHigherPriorityTaskWoken) != pdTRUE){
+        //printf("\n\rAudio queue full.\n\r");
+    }
     
     if( xHigherPriorityTaskWoken)
       taskYIELD ();
@@ -438,7 +448,7 @@ PVOID sendAudioPackets(PVOID args)
     audio_tx_irq_handler(&audio_obj, (audio_irq_handler)audio_tx_complete_irq, (u32)&audio_obj);
     
     //Create a queue to receive the RX buffer from audio_in
-    audio_queue = xQueueCreate(6, TX_PAGE_SIZE);
+    audio_queue = xQueueCreate(6, sizeof(audio_buf_t));
     xQueueReset(audio_queue);
     
     //Audio TX and RX Start
@@ -454,7 +464,7 @@ PVOID sendAudioPackets(PVOID args)
     OpusEncoder *opus_encoder;
     int err;
     //Create a new opus encoder state
-    opus_encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);	
+    opus_encoder = opus_encoder_create(SAMPLE_RATE, CHANNELS, APPLICATION, &err);   
     //Perform a CTL function on an Opus encoder.
     opus_encoder_ctl(opus_encoder, OPUS_SET_FORCE_CHANNELS(2));
     opus_encoder_ctl(opus_encoder, OPUS_SET_COMPLEXITY(1));
@@ -466,60 +476,63 @@ PVOID sendAudioPackets(PVOID args)
     short buf_16bit[TX_PAGE_SIZE/2];
     unsigned char buf_8bit[TX_PAGE_SIZE/2];
     opus_int32 compressedBytes;
+    audio_buf_t audio_buf;
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
     {
-      if(xQueueReceive(audio_queue, (void*)buf_16bit, 100) == pdTRUE)
-      {
-        //Do noise suppression & automatic gain control
-        NS_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
-        AGC_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
+        if(xQueueReceive(audio_queue, (void*)&audio_buf, 100) == pdTRUE)
+        {
+            memcpy((void*)buf_16bit, (void*)audio_buf.data_buf, TX_PAGE_SIZE);
+            //Do noise suppression & automatic gain control
+            //NS_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
+            //AGC_process(TX_PAGE_SIZE/2, (int16_t*)buf_16bit);
 
 #if AUDIO_OPUS
-        //Encode the data with OPUS encoder
-        compressedBytes = opus_encode(opus_encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
-        frame.size = compressedBytes;
+            //Encode the data with OPUS encoder
+            compressedBytes = opus_encode(opus_encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
+            frame.size = compressedBytes;
 #elif AUDIO_G711_MULAW
-        //Encode the data with G711 MULAW encoder
-        for (int j = 0; j < TX_PAGE_SIZE/2; j++){
-            buf_8bit[j] = encodeU(buf_16bit[j]);
-        }
-        frame.size = TX_PAGE_SIZE/2;
+            //Encode the data with G711 MULAW encoder
+            for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                buf_8bit[j] = encodeU(buf_16bit[j]);
+            }
+            frame.size = TX_PAGE_SIZE/2;
 #elif AUDIO_G711_ALAW  
-        //Encode the data with G711 ALAW encoder
-        for (int j = 0; j < TX_PAGE_SIZE/2; j++){
-            buf_8bit[j] = encodeA(buf_16bit[j]);
+            //Encode the data with G711 ALAW encoder
+            for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                buf_8bit[j] = encodeA(buf_16bit[j]);
+            }
+            frame.size = TX_PAGE_SIZE/2;
+#endif
+
+            // buf_8bit contain the encoded data
         }
-        frame.size = TX_PAGE_SIZE/2;
-#endif
-        
-        // buf_8bit contain the encoded data
-      }
-      else
-       continue;
+        else
+            continue;
 
-      frame.frameData = buf_8bit;
-      frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
+        frame.frameData = buf_8bit;
+        //frame.presentationTs += SAMPLE_AUDIO_FRAME_DURATION;
+        frame.presentationTs = audio_buf.timestamp * HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
 
-      // wait for skb resource release
-      if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
-          //skip this frame and wait for skb resource release.
-          continue;
-      }
-      
-      MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
-      for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
-          status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pAudioRtcRtpTransceiver, &frame);
-          if (status != STATUS_SRTP_NOT_READY_YET) {
-              if (status != STATUS_SUCCESS) {
-#ifdef VERBOSE
-                  printf("writeFrame() failed with 0x%08x\n", status);
-#endif
-              }
-          }
-      }
-      MUTEX_UNLOCK(pSampleConfiguration->streamingSessionListReadLock);
-      //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
+        // wait for skb resource release
+        if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
+            //skip this frame and wait for skb resource release.
+            continue;
+        }
+
+        MUTEX_LOCK(pSampleConfiguration->streamingSessionListReadLock);
+        for (i = 0; i < pSampleConfiguration->streamingSessionCount; ++i) {
+            status = writeFrame(pSampleConfiguration->sampleStreamingSessionList[i]->pAudioRtcRtpTransceiver, &frame);
+            if (status != STATUS_SRTP_NOT_READY_YET) {
+                if (status != STATUS_SUCCESS) {
+                    #ifdef VERBOSE
+                    printf("writeFrame() failed with 0x%08x\n", status);
+                    #endif
+                }
+            }
+        }
+        MUTEX_UNLOCK(pSampleConfiguration->streamingSessionListReadLock);
+        //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
     }
 
 CleanUp:
@@ -565,31 +578,31 @@ PVOID sampleReceiveAudioFrame(PVOID args)
     
     while (!ATOMIC_LOAD_BOOL(&pSampleStreamingSession->terminateFlag)) 
     {
-      if(xQueueReceive(audio_queue_recv, (void*)buf_g711_recv, 0) == pdTRUE)
-      {
-          #if AUDIO_G711_MULAW
-              //Decode the data with G711 MULAW decoder
-              for (int j = 0; j < TX_PAGE_SIZE/2; j++){
-                  buf_16bit_dec[j] = decodeU(buf_g711_recv[j]);
-              }
-          #elif AUDIO_G711_ALAW 
-              //Decode the data with G711 ALAW decoder
-              for (int j = 0; j < TX_PAGE_SIZE/2; j++){
-                  buf_16bit_dec[j] = decodeA(buf_g711_recv[j]);
-              }
-          #endif
-          
-          ptx_addre = audio_get_tx_page_adr(&audio_obj);
-          memcpy((void*)ptx_addre, (void*)buf_16bit_dec, TX_PAGE_SIZE);
-          audio_set_tx_page(&audio_obj, ptx_addre); // loopback -> can hear the sound from audio jack on amebapro
-      }
-      else
-        continue;
+        if(xQueueReceive(audio_queue_recv, (void*)buf_g711_recv, 0) == pdTRUE)
+        {
+            #if AUDIO_G711_MULAW
+            //Decode the data with G711 MULAW decoder
+            for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                buf_16bit_dec[j] = decodeU(buf_g711_recv[j]);
+            }
+            #elif AUDIO_G711_ALAW 
+            //Decode the data with G711 ALAW decoder
+            for (int j = 0; j < TX_PAGE_SIZE/2; j++){
+                buf_16bit_dec[j] = decodeA(buf_g711_recv[j]);
+            }
+            #endif
 
-      time_val = time_last - time_start;
-      vTaskDelay(20 - time_val%20);
-      time_last = xTaskGetTickCount();
-      //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
+            ptx_addre = audio_get_tx_page_adr(&audio_obj);
+            memcpy((void*)ptx_addre, (void*)buf_16bit_dec, TX_PAGE_SIZE);
+            audio_set_tx_page(&audio_obj, ptx_addre); // loopback -> can hear the sound from audio jack on amebapro
+        }
+        else
+            continue;
+
+        time_val = time_last - time_start;
+        vTaskDelay(20 - time_val%20);
+        time_last = xTaskGetTickCount();
+        //THREAD_SLEEP(SAMPLE_AUDIO_FRAME_DURATION);
     }
 
 CleanUp:
@@ -606,7 +619,7 @@ VOID sampleFrameHandler(UINT64 customData, PFrame pFrame)
     memcpy((void*)buf_8bit_recv, (void*)pFrame->frameData, pFrame->size);    
     
     if( xQueueSendFromISR(audio_queue_recv, (void *)buf_8bit_recv, NULL) != pdTRUE){
-      DLOGV("\n\rAudio_sound queue full.\n\r");
+        DLOGV("\n\rAudio_sound queue full.\n\r");
     } 
 
     PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) customData;
@@ -639,8 +652,8 @@ void example_kvs_webrtc_thread(void* param){
 
     res = fatfs_sd_init();
     if(res < 0){
-            printf("fatfs_sd_init fail (%d)\n\r", res);
-            goto fail;
+        printf("fatfs_sd_init fail (%d)\n\r", res);
+        goto fail;
     }
     fatfs_sd_get_param(&fatfs_sd);
 
