@@ -23,7 +23,7 @@ Cygwin: asdk-6.4.1-cygwin-newlib-build-2778-i686
 To check out this repostiory:
 
 ```
-git clone --recurse-submodules https://github.com/HungTseLee/ambpro_sdk.git
+git clone --recurse-submodules https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro.git
 ```
 
 If you already have a checkout, run the following command to sync submodules:
@@ -155,6 +155,6 @@ Please copy it to your SD card.
 
 ## Running WebRTC Test Page Locally  
 Refer the link from **AWS labs**, using the WebRTC SDK Test Page to validate the demo  
-https://github.com/ycyang1229/amazon-kinesis-video-streams-webrtc-sdk-js/tree/test4porting  
+https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-js  
 you have to clone the above project and follow the step in **Development** part to run the test page  
 

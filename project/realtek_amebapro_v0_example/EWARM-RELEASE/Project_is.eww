@@ -7,15 +7,6 @@
         <path>$WS_DIR$\lib_kvs_Webrtc.ewp</path>
     </project>
     <project>
-        <path>$WS_DIR$\lib_opus.ewp</path>
-    </project>
-    <project>
-        <path>$WS_DIR$\lib_opusenc.ewp</path>
-    </project>
-    <project>
-        <path>$WS_DIR$\lib_opusfile.ewp</path>
-    </project>
-    <project>
         <path>$WS_DIR$\lib_webrtc_pic.ewp</path>
     </project>
     <project>
