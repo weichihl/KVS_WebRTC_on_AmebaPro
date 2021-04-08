@@ -136,7 +136,6 @@ PVOID sendVideoPackets(PVOID args)
     Frame frame;
     STATUS status;
     UINT32 i;
-    vTaskDelay(3000);
     MEMSET(&encoderStats, 0x00, SIZEOF(RtcEncoderStats));
 
     u8 start_transfer = 0;
@@ -416,8 +415,6 @@ PVOID sendAudioPackets(PVOID args)
     Frame frame;
     UINT32 i;
     STATUS status;
-    
-    vTaskDelay(3000);
 
     if (pSampleConfiguration == NULL) {
         printf("[KVS Master] sendAudioPackets(): operation returned status code: 0x%08x \n", STATUS_NULL_ARG);
@@ -630,11 +627,8 @@ UCHAR* ameba_get_ip(void){
     return wifi_ip;
 }
 
-MUTEX log_in_order_mutex;
 
 void example_kvs_webrtc_thread(void* param){
-
-    log_in_order_mutex = defaultCreateMutex(FALSE);
 
     FRESULT res; 
 
@@ -655,9 +649,10 @@ void example_kvs_webrtc_thread(void* param){
     }
     printf( "wifi connected\r\n" );
 
-    //vTaskDelay(3000);
     sntp_init();
-    vTaskDelay(3000);
+    while( getEpochTimestampInHundredsOfNanos() < 10000000000000000ULL ){
+        vTaskDelay( 200 / portTICK_PERIOD_MS );
+    }
 
     STATUS retStatus = STATUS_SUCCESS;
     PSampleConfiguration pSampleConfiguration = NULL;
@@ -780,8 +775,6 @@ CleanUp:
         }
     }
     printf("[KVS Master] Cleanup done\n\r");
-
-    defaultFreeMutex(log_in_order_mutex);
 
 fail:
     fatfs_sd_close();

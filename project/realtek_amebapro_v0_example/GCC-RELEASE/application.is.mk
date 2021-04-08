@@ -217,6 +217,7 @@ INCLUDES += -I../../../lib_amazon/libwebsockets/lib/tls/mbedtls/wrapper/include/
 INCLUDES += -I../../../lib_amazon/libwebsockets/lib/tls/mbedtls/wrapper/include/openssl
 INCLUDES += -I../../../lib_amazon/libwebsockets/lib/tls/mbedtls/wrapper/include/platform
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-webrtc-sdk-c/src/include
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include
 INCLUDES += -I../../../component/common/audio/libogg-1.3.3
 INCLUDES += -I../../../component/common/audio/libogg-1.3.3/include
 INCLUDES += -I../../../component/common/audio/opus-1.3.1
@@ -485,7 +486,7 @@ SRC_C += ../../../component/common/network/mDNS/mDNSPlatform.c
 
 #ssl
 #mbedtls
-SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/aes.c
+SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/aes_alt.c
 SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/aesni.c
 SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/arc4.c
 SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/aria.c
@@ -568,11 +569,14 @@ SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/xtea.c
 
 #ssl_ram_map
 SRC_C += ../../../component/common/network/ssl/ssl_ram_map/rom/rom_ssl_ram_map.c
-#SRC_C += ../../../component/common/network/ssl/ssl_func_stubs/ssl_func_stubs.c
+SRC_C += ../../../component/common/network/ssl/ssl_func_stubs/ssl_func_stubs.c
 
 #websocket
 SRC_C += ../../../component/common/network/websocket/wsclient_tls.c
 SRC_C += ../../../component/common/network/websocket/wsserver_tls.c
+
+#rtw_opt_skbuf
+SRC_C += ../../../component/common/drivers/wlan/realtek/src/core/option/rtw_opt_skbuf.c
 
 #os
 #freertos
@@ -703,8 +707,9 @@ SRC_C += ../../../component/common/example/xml/example_xml.c
 SRC_C += ../../../component/common/example/std_file/example_std_file.c
 SRC_C += ../../../component/common/example/wlan_scenario/example_wlan_scenario.c
 SRC_C += ../../../component/common/example/pppoe/example_pppoe.c
-SRC_C += ../../../component/common/example/kvs_amazon/Common.c
-SRC_C += ../../../component/common/example/kvs_amazon/example_kvs.c
+SRC_C += ../../../component/common/example/kvs_webrtc/Common.c
+SRC_C += ../../../component/common/example/kvs_webrtc/example_kvs_webrtc.c
+SRC_C += ../../../component/common/example/kvs_producer/example_kvs_producer.c
 
 
 
@@ -857,7 +862,7 @@ LIBFLAGS += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/lib/lib/h
 LIBFLAGS += -L../../../component/soc/realtek/8195b/misc/bsp/lib/common/GCC/
 all: LIBFLAGS += -l_codec -l_dct -l_faac -l_h264 -l_haac -l_http -l_mmf -l_muxer -l_p2p -l_rtsp -l_sdcard -l_soc_is -l_speex -l_usbd -l_wlan -l_wps -l_qr_code -l_mdns -l_tftp
 mp: LIBFLAGS += -l_codec -l_dct -l_faac -l_h264 -l_haac -l_http -l_mmf -l_muxer -l_p2p -l_rtsp -l_sdcard -l_soc_is -l_speex -l_usbd -l_wlan_mp -l_wps -l_qr_code -l_mdns -l_tftp
-all: LIBFLAGS += -lrtstream -lrtscamkit -lrtsv4l2 -lrtsisp -lrtsosd -l_kvs_webrtc -l_webrtc_producer_c -lsrtp2 -lwebsockets -l_opus -l_opusenc -l_opusfile
+all: LIBFLAGS += -lrtstream -lrtscamkit -lrtsv4l2 -lrtsisp -lrtsosd -l_kvs_webrtc -l_webrtc_producer_c -lsrtp2 -lwebsockets -l_opus -l_opusenc -l_opusfile -l_kvs_producer
 #-l_webrtc_pic 
 LIBFLAGS += -Wl,-u,ram_start -Wl,-u,cinit_start
 

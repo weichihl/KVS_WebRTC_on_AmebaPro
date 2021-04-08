@@ -52,8 +52,8 @@
 #define VIDEO_FPS                           30
 //#define VIDEO_WIDTH                         1920
 //#define VIDEO_HEIGHT                        1080
-#define VIDEO_WIDTH                         1920
-#define VIDEO_HEIGHT                        1080
+#define VIDEO_WIDTH                         1280
+#define VIDEO_HEIGHT                        720
 #define VIDEO_NAME                          "my video"
 
 #if HAS_AUDIO

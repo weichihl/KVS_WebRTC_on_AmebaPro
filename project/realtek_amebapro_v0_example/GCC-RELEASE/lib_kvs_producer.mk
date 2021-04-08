@@ -39,10 +39,9 @@ INFO_DIR=$(TARGET)/Debug/info
 
 INCLUDES =
 INCLUDES += -I../inc
-INCLUDES += -I../../../lib_amazon/iar_include
-INCLUDES += -I../../../lib_amazon/libsrtp/crypto/include
-INCLUDES += -I../../../lib_amazon/libsrtp/include
-INCLUDES += -I../../../lib_amazon/libsrtp
+INCLUDES += -I../../../component/common/network/ssl/mbedtls-2.16.4/include_
+INCLUDES += -I../../../component/common/network/ssl/mbedtls-2.16.6/include
+INCLUDES += -I../../../component/common/network/ssl/ssl_ram_map/rom
 INCLUDES += -I../../../component/os/freertos
 INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/include
 INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/GCC/ARM_RTL8195B
@@ -70,49 +69,47 @@ INCLUDES += -I../../../component/common/network/lwip/lwip_v2.0.2/src/include
 INCLUDES += -I../../../component/common/network/lwip/lwip_v2.0.2/src/include/lwip
 INCLUDES += -I../../../component/common/network/lwip/lwip_v2.0.2/port/realtek
 INCLUDES += -I../../../component/common/network/lwip/lwip_v2.0.2/port/realtek/freertos
-INCLUDES += -I../../../component/common/network/ssl/mbedtls-2.16.6/include
-INCLUDES += -I../../../component/common/network/ssl/ssl_ram_map/rom
+INCLUDES += -I../../../component/common/file_system/fatfs
+INCLUDES += -I../../../component/common/file_system/fatfs/r0.14
+INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/posix/lib/include
+INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/posix/lib/FreeRTOS-Plus-POSIX/include/portable/realtek/rtl8195
+INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/posix/lib/FreeRTOS-Plus-POSIX/include
+INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/posix/lib/include/private
+INCLUDES += -I../../../component/os/freertos/freertos_v10.0.0/portable/GCC/ARM_RTL8195B
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/include
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/interface
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include
+INCLUDES += -I../../../lib_amazon/iar_include
 
 
 # Source file list
 # -------------------------------------------------------------------
 
 SRC_C =
+##coreHTTP
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/core_http_client.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser/http_parser.c
+##parson
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson/parson.c
+##producer
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/aws_signer_v4.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/iot_credential_provider.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/json_helper.c
+SRC_C += ../../../lib_amazon/iar_port/kvs_port_freertos.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/kvs_rest_api.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/mkv_generator.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/network_api.c
 
-##crypto
-#cipher
-SRC_C += ../../../lib_amazon/libsrtp/crypto/cipher/aes.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/cipher/aes_gcm_mbedtls.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/cipher/aes_icm_mbedtls.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/cipher/cipher.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/cipher/null_cipher.c
-#hash
-SRC_C += ../../../lib_amazon/libsrtp/crypto/hash/auth.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/hash/hmac.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/hash/hmac_mbedtls.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/hash/null_auth.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/hash/sha1.c
-#kernal
-SRC_C += ../../../lib_amazon/libsrtp/crypto/kernel/alloc.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/kernel/crypto_kernel.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/kernel/err.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/kernel/key.c
-#math
-SRC_C += ../../../lib_amazon/libsrtp/crypto/math/datatypes.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/math/stat.c
-#reply
-SRC_C += ../../../lib_amazon/libsrtp/crypto/replay/rdb.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/replay/rdbx.c
-SRC_C += ../../../lib_amazon/libsrtp/crypto/replay/ut_sim.c
-##srtp
-SRC_C += ../../../lib_amazon/libsrtp/srtp/ekt.c
-SRC_C += ../../../lib_amazon/libsrtp/srtp/srtp.c
+
 
 # User CFLAGS
 # -------------------------------------------------------------------
 USER_CFLAGS =
-USER_CFLAGS += -DHAVE_CONFIG_H
-USER_CFLAGS += -DKVS_PLAT_RTK_FREERTOS
+USER_CFLAGS += -DENABLE_LOG_ERROR
+USER_CFLAGS += -DENABLE_LOG_WARN
+USER_CFLAGS += -DENABLE_LOG_INFO
 
 # Generate obj list
 # -------------------------------------------------------------------

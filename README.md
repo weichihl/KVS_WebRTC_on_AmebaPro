@@ -59,7 +59,7 @@ cd project/realtek_amebapro_v0_example/GCC-RELEASE
 ```
 To build the library and the example by running make in the directory
 ```
-make
+make -f Makefile_amazon_kvs all
 ```
 If somehow it built failed, you can try to type `make clean` and then redo the make procedure.  
 After successfully build, there should be a directory named “application_is” created under GCC-RELEASE/ directory.  
