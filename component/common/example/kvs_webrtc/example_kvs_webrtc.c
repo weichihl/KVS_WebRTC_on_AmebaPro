@@ -68,13 +68,13 @@ struct h264_kvs_def_setting {
 #define ISP_SW_BUF_NUM  4
 
 struct h264_kvs_def_setting def_setting = {
-    .height = VIDEO_1080P_HEIGHT,
-    .width = VIDEO_1080P_WIDTH,
+    .height = KVS_VIDEO_HEIGHT,
+    .width = KVS_VIDEO_WIDTH,
     .rcMode = H264_RC_MODE_CBR,
     .bitrate = 1*1024*1024,
     .fps = 15,
     .gopLen = 30,
-    .output_buffer_size = VIDEO_1080P_HEIGHT*VIDEO_1080P_WIDTH,
+    .output_buffer_size = KVS_VIDEO_OUTPUT_BUFFER_SIZE,
     .isp_stream_id = 0,
     .isp_hw_slot = 2,
     .isp_format = ISP_FORMAT_YUV420_SEMIPLANAR,
