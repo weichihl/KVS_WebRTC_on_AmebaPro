@@ -63,6 +63,11 @@ git submodule update --init
 > All examples provided by RTK exist in folder: SDK_path/common/example. Open `platform_opts.h` to specify the exampleto run.  
 > For example, if users are going to use KVS WebRTC, compile flag CONFIG_EXAMPLE_KVS_WEBRTC should be set to 1, which means  
 > `#define CONFIG_EXAMPLE_KVS_WEBRTC 1`  
+> 
+> ### Choose Image Sensor  
+> Please check image sensor module name is correct in “sensor.h” located in \project\realtek_amebapro_v0_example\inc
+> For example, if I use the sensor model IMX307, the SENSOR_USE should be defined as SENSOR_IMX307.
+> <p align="center"> <img src="photo/sensor_selection.png" alt="test image size" height="65%" width="65%"></p>  
 
   
 ## Build The Project  
