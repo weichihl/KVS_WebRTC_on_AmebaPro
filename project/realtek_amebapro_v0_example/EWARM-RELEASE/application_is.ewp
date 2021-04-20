@@ -1227,6 +1227,9 @@
             <name>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\MemMang\heap_4_2.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\src\isp_boot_config.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\utilities\source\ram\libc_wrap.c</name>
         </file>
         <configuration>

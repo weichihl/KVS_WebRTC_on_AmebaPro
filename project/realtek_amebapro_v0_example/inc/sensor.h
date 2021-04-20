@@ -32,28 +32,31 @@
  =================================================================================================================+
 @endcode
 */
-
 #define SENSOR_OV2735   		0x01
 #define SENSOR_SC2232   		0x02
-#define SENSOR_HM2140   	0x03
 #define SENSOR_IMX307   		0x04
-#define SENSOR_SC4236       0x05
+#define SENSOR_PS5260   		0x0C
 #define SENSOR_GC2053       0x06
+#define SENSOR_PS5270   		0x0F
+#define SENSOR_ALL				0xff
+
+#define SENSOR_HM2140   	0x03
+#define SENSOR_SC4236       0x05
 #define SENSOR_OV2740       0x07
 #define SENSOR_GL3004       0x08
 #define SENSOR_JXF37          0x09
 #define SENSOR_SC2232H   	0x0A
 #define SENSOR_SC2239   		0x0B
-#define SENSOR_PS5260   		0x0C
 #define SENSOR_GC1054   		0x0D
 #define SENSOR_PS5268   		0x0E
-#define SENSOR_PS5270   		0x0F
+
 #define SENSOR_OV5640   		0x10
-#define SENSOR_ALL				0xff
+
    
    
 #define LIGHT_SENSOR_AP1522D  	0x01
 #define LIGHT_SENSOR_AL3042   	0x02
+#define LIGHT_SENSOR_AP1511B  	0x03
 
 #define ISP_FW_FLASH   0x00
 #define ISP_FW_DRAW    0x01
@@ -67,7 +70,7 @@
 #define SENSOR_USE      	SENSOR_IMX307
 #define SENSOR_AUTO_SEL         ISP_AUTO_SEL_ENABLE //Enalbe Auto select 
 #if SENSOR_AUTO_SEL == 0X01 && SENSOR_USE == SENSOR_ALL
-static const unsigned char sen_id[0x08]={SENSOR_GC1054,SENSOR_SC2232,SENSOR_JXF37,SENSOR_GC2053,SENSOR_ALL};//It need match with the above selection, it will scan the sequence from the array.
+static const unsigned char sen_id[0x08]={SENSOR_OV2735,SENSOR_SC2232,SENSOR_IMX307,SENSOR_PS5260,SENSOR_GC2053,SENSOR_PS5270,SENSOR_ALL};//It need match with the above selection, it will scan the sequence from the array.
 #endif
 //#define LENS_USE      		LENS_YT3320
 #define SENSOR_FPS			30
@@ -128,7 +131,7 @@ static const unsigned char sen_id[0x08]={SENSOR_GC1054,SENSOR_SC2232,SENSOR_JXF3
 #elif (SENSOR_USE ==  SENSOR_SC4236  || SENSOR_DEFAULT == SENSOR_SC4236)
   #define SENSOR_CLK_USE ISP_FREQ_27
 #elif (SENSOR_USE ==  SENSOR_GC2053  || SENSOR_DEFAULT == SENSOR_GC2053)
-  #define SENSOR_CLK_USE ISP_FREQ_27
+  #define SENSOR_CLK_USE ISP_FREQ_24
 #elif (SENSOR_USE ==  SENSOR_OV2740   || SENSOR_DEFAULT == SENSOR_OV2740)
   #define SENSOR_CLK_USE ISP_FREQ_24
 #elif (SENSOR_USE ==  SENSOR_GL3004   || SENSOR_DEFAULT == SENSOR_GL3004)

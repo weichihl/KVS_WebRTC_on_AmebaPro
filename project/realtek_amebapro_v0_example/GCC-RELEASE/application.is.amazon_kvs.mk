@@ -755,6 +755,7 @@ SRC_C += ../src/main.c
 CINIT_C += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/source/ram/hal_timer.c
 CINIT_C += ../../../component/os/freertos/freertos_v10.0.0/portable/MemMang/heap_4_2.c
 CINIT_C += ../../../component/soc/realtek/8195b/misc/utilities/source/ram/libc_wrap.c
+CINIT_C += ../../../project/realtek_amebapro_v0_example/src/isp_boot_config.c
 
 #SRAM
 # -------------------------------------------------------------------

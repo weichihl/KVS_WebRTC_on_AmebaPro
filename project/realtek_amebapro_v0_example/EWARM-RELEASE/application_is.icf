@@ -144,8 +144,8 @@ keep { block CINIT_ENTRY };
 define block CINIT with fixed order
 {
 	block CINIT_ENTRY,
-	//section .text* object rt7M*.a,
-	//section .text* object m7M*.a,
+	section .text* object rt7M*.a,
+	section .text* object m7M*.a,
 	section .cinit.text*,
 	section .cinit.rodata*,
 	section .cinit.data*,
@@ -353,8 +353,8 @@ place at start of VECTORS_region
 
 define block ERAM_TEXT with fixed order
 {
-	section .text* object rt7M*.a,
-	section .text* object m7M*.a,
+//	section .text* object rt7M*.a,
+//	section .text* object m7M*.a,
     section .sdram.text*, 
     section .lpddr.text*,
     section .psram.text*,

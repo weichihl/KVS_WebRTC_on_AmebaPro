@@ -5,6 +5,30 @@
  ******************************************************************************/
 #include "example_media_framework.h"
 
+#ifdef ENABLE_WRTC_PEER_MMFV2
+wrtc_peer_params_t wrtc_peer_a_params = {
+	.type = AVMEDIA_TYPE_AUDIO,
+	.u = {
+		.a = {
+			.codec_id   = AV_CODEC_ID_PCMU,
+			.channel    = 1,
+			.samplerate = 8000
+		}
+	}
+};
+
+wrtc_peer_params_t wrtc_peer_v_params = {
+	.type = AVMEDIA_TYPE_VIDEO,
+	.u = {
+		.v = {
+			.codec_id = AV_CODEC_ID_H264,
+			.fps      = V1_FPS,
+			.bps      = V1_BITRATE
+		}
+	}
+};
+#endif
+
 isp_params_t isp_v1_params = {
 	.width    = V1_WIDTH, 
 	.height   = V1_HEIGHT,
@@ -73,7 +97,8 @@ CINIT_DATA_SECTION isp_boot_stream_t isp_boot_stream = {
         .isp_user_space_size = 0,
 #endif
 #if SENSOR_USE == SENSOR_ALL
-        .isp_multi_sensor = SENSOR_DEFAULT  
+        .isp_multi_sensor = SENSOR_DEFAULT,
+        .isp_sensor_auto_sel_flag = SENSOR_AUTO_SEL
 #else
         .isp_multi_sensor = 0
 #endif
@@ -197,7 +222,12 @@ audio_params_t audio_params = {
 	.word_length = WL_16BIT,
 	.mic_gain    = MIC_40DB,
 	.channel     = 1,
-	.enable_aec  = 1
+	.enable_aec  = 1,
+	/*
+	.enable_ns   = 3,	// 0 off, 1 spk 2 mic 3 spk+mic
+	.enable_agc  = 3,	// 0 off, 1 spk 2 mic 3 spk+mic
+	.enable_vad  = 1
+	*/
 };
 #endif
 
@@ -498,3 +528,12 @@ mm_context_t* httpfs_ctx        = NULL;
 
 mm_siso_t* siso_audio_dup          = NULL;
 mm_context_t* dup_ctx           = NULL;
+
+#ifdef ENABLE_WRTC_PEER_MMFV2
+mm_context_t* mmwrtc_peer_ctx            = NULL;
+mm_context_t* mmwrtc_rtp_ctx             = NULL;
+mm_siso_t* siso_g711_wrtc_peer           = NULL;
+mm_siso_t* siso_audio_g711               = NULL;
+mm_miso_t* miso_h264_g711_wrtc_peer      = NULL;
+#endif
+

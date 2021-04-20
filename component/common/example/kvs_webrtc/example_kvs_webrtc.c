@@ -110,7 +110,7 @@ void isp_frame_cb(void* p)
     }else{
         /** this should be take care. */
         info->isp_overflow_flag = 0;
-        ISP_DBG_ERROR("isp overflow = %d\r\n",cfg->isp_id);
+        ISP_DBG_INFO("isp overflow = %d\r\n",cfg->isp_id);
     }
     
     if(is_output_ready){

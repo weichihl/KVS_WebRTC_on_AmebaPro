@@ -18,9 +18,16 @@
 
 #include "module_isp.h"
 #include "isp_api.h"
+#include "isp_cmd_api.h"
+#include "sys_api_ext.h"
 
 #include "isp_boot.h"
 #include "sensor.h"
+
+#include "flash_api.h"
+#include "device_lock.h"
+
+#define ISP_BOOT_ADDR 0x60000
 
 extern isp_boot_cfg_t isp_boot_cfg_global;
 //-----------------------------------------------------------------------------
@@ -51,6 +58,7 @@ void isp_frame_complete_cb(void* p)
     }else{
         info->isp_overflow_flag = 0;
         ISP_DBG_INFO("isp overflow = %d\r\n",params->stream_id);
+        //printf("[Z]isp overflow = %d\r\n",params->stream_id);
     }
 
 #if ISP_DEBUG_SHOW
@@ -108,50 +116,52 @@ void isp_frame_complete_cb(void* p)
         taskYIELD ();
 }
 
-#if ISP_AUTO_SEL_ENABLE
+#if SENSOR_AUTO_SEL
 
-void SNR_Clock_Switch(int on)
+static void SNR_Clock_Switch(int on)
 {
         int value = on;
-        isp_set_memory(&value,SENSOR_CLOCK_SWITCH_REG,1);
+        isp_set_memory((unsigned char *)&value,SENSOR_CLOCK_SWITCH_REG,1);
         vTaskDelay(10);
 }
 
-void SetGPIOVal(int pin_num,int output)
+static void SetGPIOVal(int pin_num,int output)
 {
 	isp_set_gpio_dir(pin_num,SENSOR_GPIO_OUTPUT);
 	isp_set_gpio_value(pin_num,output);
 }
-void SensorPowerControl(int on,int delayms)
+static void SensorPowerControl(int on,int delayms)
 {
 	isp_set_gpio_dir(SENSOR_POWER_ENABLE_PIN,SENSOR_GPIO_OUTPUT);
 	isp_set_gpio_value(SENSOR_POWER_ENABLE_PIN,on);
 	vTaskDelay(delayms);
 }
-void SetGPIODir(int pin_num,int dir)
+static void SetGPIODir(int pin_num,int dir)
 {
 	isp_set_gpio_dir(pin_num,dir);
 }
 
-void Delay(int ms)
+static void Delay(int ms)
 {
 	vTaskDelay(ms);
 }
-void uDelay(int u)
+static void uDelay(int u)
 {
         hal_delay_us(u);
 }
 
-void usDelay(int u)
+static void usDelay(int u)
 {
         hal_delay_us(u);
 }
 
-void WaitTimeOut_Delay(int ms)
+static void WaitTimeOut_Delay(int ms)
 {
         vTaskDelay(ms);
 }
-void isp_jxf_37_power_on()
+
+
+static void isp_jxf_37_power_on()
 {
 	SetGPIOVal(SENSOR_POWER_DONE_PIN,SENSOR_PIN_HIGH);
 	SetGPIOVal(SENSOR_RESET_PIN,SENSOR_PIN_HIGH); 
@@ -166,8 +176,7 @@ void isp_jxf_37_power_on()
 	Delay(1);
 	SetGPIOVal(SENSOR_POWER_DONE_PIN,SENSOR_PIN_LOW);
 }
-
-void isp_gc_1054_power_on()
+static void isp_gc_1054_power_on()
 {
 	SetGPIOVal(SENSOR_RESET_PIN,SENSOR_PIN_LOW);
 	SetGPIOVal(SENSOR_POWER_DONE_PIN,SENSOR_PIN_HIGH);
@@ -180,8 +189,7 @@ void isp_gc_1054_power_on()
 	SetGPIOVal(SENSOR_RESET_PIN,SENSOR_PIN_HIGH);
 	WaitTimeOut_Delay(1);
 }
-
-void isp_ps_5270_power_on()
+static void isp_ps_5270_power_on()
 {
 	SNR_Clock_Switch(CLOCK_SWITCH_OFF);
 	SetGPIOVal(SENSOR_POWER_DONE_PIN,SENSOR_PIN_LOW);
@@ -196,8 +204,7 @@ void isp_ps_5270_power_on()
 	SNR_Clock_Switch(CLOCK_SWITCH_ON);
 	Delay(3);
 }
-
-void isp_gc_2053_power_on()
+static void isp_gc_2053_power_on()
 {
         SetGPIODir(0,1);
         SetGPIODir(1,1);
@@ -213,7 +220,7 @@ void isp_gc_2053_power_on()
         WaitTimeOut_Delay(1);
 }
 
-void isp_sc_2232_power_on()
+static void isp_sc_2232_power_on()
 {
 	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
 	uDelay(1);
@@ -231,7 +238,104 @@ void isp_sc_2232_power_on()
 	WaitTimeOut_Delay(1);
 }
 
-int isp_get_sensor_clock(int sensor_id)
+static void isp_hm_2140_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SetGPIOVal(0,1);
+	SNR_Clock_Switch(SWITCH_ON);
+	SetGPIOVal(0,0);
+	Delay(1);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);	
+	Delay(1);	
+	SetGPIOVal(0,1);
+	Delay(1);
+}
+
+static void isp_imx_307_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SNR_Clock_Switch(SWITCH_OFF);
+	SensorPowerControl(SWITCH_OFF,EN_DELAYTIME);
+	SetGPIODir(0,1); //aDD
+	SetGPIODir(1,1);//ADD
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	uDelay(1);
+	SetGPIOVal(0,1);
+	SetGPIOVal(1,1);
+	SNR_Clock_Switch(SWITCH_ON);
+	SetGPIOVal(0,1);
+	SetGPIOVal(1,1);
+}
+
+static void isp_ov_2740_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SetGPIODir(0,1);
+	SetGPIODir(1,1);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	Delay(1);
+	SetGPIOVal(1,1);
+	Delay(11);
+	SNR_Clock_Switch(SWITCH_ON);
+	Delay(2);
+	SetGPIOVal(0,1);
+}
+
+static void isp_sc_2239_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SetGPIOVal(0,0);
+	SetGPIODir(1,1);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	Delay(5); //t3
+	SetGPIOVal(0,1);
+	Delay(5); //t4
+	SetGPIOVal(1,1);
+	Delay(1);//t5
+	SNR_Clock_Switch(SWITCH_ON);
+}
+
+static void isp_ps_5260_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SNR_Clock_Switch(CLOCK_SWITCH_OFF);
+	SetGPIOVal(1,0);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	usDelay(100);
+	SetGPIOVal(0,0);
+	usDelay(100);
+	SetGPIOVal(0,1);
+	usDelay(100);
+	SNR_Clock_Switch(SWITCH_ON);
+	Delay(1);
+}
+
+static void isp_ps_5268_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SetGPIOVal(1,0);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	usDelay(1);
+	SNR_Clock_Switch(SWITCH_ON);
+	SetGPIOVal(0,0);
+	Delay(5);
+	SetGPIOVal(0,1);
+	usDelay(100);
+}
+
+static void isp_ov_5640_power_on()
+{
+	printf("function: %s \r\n", __FUNCTION__);
+	SetGPIOVal(1,0);
+	SensorPowerControl(SWITCH_ON,EN_DELAYTIME);
+	usDelay(1);
+	SNR_Clock_Switch(SWITCH_ON);
+	SetGPIOVal(0,0);
+	Delay(100);
+	SetGPIOVal(0,1);
+	usDelay(100);
+}
+static int isp_get_sensor_clock(int sensor_id)
 {
 	int snesor_clock = 0;
 	if(sensor_id== SENSOR_OV2735)
@@ -273,7 +377,7 @@ int isp_get_sensor_clock(int sensor_id)
 	return snesor_clock;
 }
 
-int isp_video_get_clock_pin(int SensorName,int *clock, int *pin){
+static int isp_video_get_clock_pin(int SensorName,int *clock, int *pin){
         *clock = isp_get_sensor_clock(SensorName);
         *pin = ISP_PIN_SEL_S1;//Normal the pin is s1
         if(*clock <0)
@@ -289,13 +393,13 @@ int isp_video_sensor_check(int SensorName){
 	if(SensorName == SENSOR_SC2232){
 		
 		unsigned char sendor_id[2];
-#if ISP_AUTO_SEL_ENABLE                
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE            
                 isp_sc_2232_power_on();
 #endif
 		sendor_id[0] = isp_i2c_read_byte(0x3107);
 		sendor_id[1] = isp_i2c_read_byte(0x3108);
 		
-		if(sendor_id[0] == 0x22 || sendor_id[1] == 0x32){
+		if(sendor_id[0] == 0x22 && sendor_id[1] == 0x32){
 			return 0;
 		}else{
 			printf("it is not SC2232!,please check sensor.h and isp.bin!\n\r");
@@ -310,7 +414,7 @@ int isp_video_sensor_check(int SensorName){
 		sendor_id[0] = 	isp_i2c_read_byte(0x02);
 		sendor_id[1] = 	isp_i2c_read_byte(0x03);
 		
-		if(sendor_id[0]== 0x27 || sendor_id[1]== 0x35 ){
+		if(sendor_id[0]== 0x27 && sendor_id[1]== 0x35 ){
 			return 0;
 		}else{
 			printf("it is not OV2735!,please check sensor.h and isp.bin\n\r");
@@ -318,26 +422,34 @@ int isp_video_sensor_check(int SensorName){
 		}
 	}else if(SensorName == SENSOR_HM2140){//check HM2140 register
 		
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE               
+	isp_hm_2140_power_on();
+#endif
 		unsigned char sendor_id[2];
 
 		sendor_id[0] = 	isp_i2c_read_byte(0x0000);
 		sendor_id[1] = 	isp_i2c_read_byte(0x0001);
 		
-		if(sendor_id[0]== 0x21 || sendor_id[1]== 0x40 ){
+		if(sendor_id[0]== 0x21 && sendor_id[1]== 0x40 ){
 			return 0;
 		}else{
 			printf("%x %x, it is not HM2410!,please check sensor.h and isp.bin\n\r", sendor_id[0], sendor_id[1]);
 			return -1;
 		}
 	}else if (SensorName == SENSOR_IMX307){
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE                 
+	isp_imx_307_power_on();
+#endif	
 		unsigned char sendor_id[2];
 		
-		sendor_id[0] = 	isp_i2c_read_byte(0x309E);
-		sendor_id[1] = 	isp_i2c_read_byte(0x309F);
-		if(sendor_id[0]== 0x4a || sendor_id[1]== 0x4a ){
+		//sendor_id[0] = 	isp_i2c_read_byte(0x309E);
+		//sendor_id[1] = 	isp_i2c_read_byte(0x309F);
+		sendor_id[0] = 	isp_i2c_read_byte(0x3004);
+		sendor_id[1] = 	isp_i2c_read_byte(0x3008);
+		printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
+		if(sendor_id[0]== 0x10 && sendor_id[1]== 0xA0 ){
 			return 0;
 		}else{
-			printf("%x %x, it is not IMX307!,please check sensor.h and isp.bin\n\r", sendor_id[0], sendor_id[1]);
 			return -1;
 		}		
 	
@@ -349,7 +461,7 @@ int isp_video_sensor_check(int SensorName){
 		sendor_id[0] = isp_i2c_read_byte(0x3107);
 		sendor_id[1] = isp_i2c_read_byte(0x3108);
 		
-		if(sendor_id[0] == 0x32 || sendor_id[1] == 0x35){
+		if(sendor_id[0] == 0x32 && sendor_id[1] == 0x35){
 			return 0;
 		}else{
 			printf("it is not SC4236!,please check sensor.h and isp.bin!\n\r");
@@ -360,14 +472,14 @@ int isp_video_sensor_check(int SensorName){
 	}else if(SensorName == SENSOR_GC2053){
 		
 		unsigned char sendor_id[2];
-#if ISP_AUTO_SEL_ENABLE
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
                 isp_gc_2053_power_on();
 #endif
 
 		sendor_id[0] = isp_i2c_read_byte(0xF0);
 		sendor_id[1] = isp_i2c_read_byte(0xF1);
 		
-		if(sendor_id[0] == 0x20 || sendor_id[1] == 0x53){
+		if(sendor_id[0] == 0x20 && sendor_id[1] == 0x53){
 			return 0;
 		}else{
 			printf("it is not GC2053!,please check sensor.h and isp.bin!\n\r");
@@ -376,13 +488,15 @@ int isp_video_sensor_check(int SensorName){
 	
 	
 	}else if(SensorName == SENSOR_OV2740){
-		
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE 
+                isp_ov_2740_power_on();
+#endif
 		unsigned char sendor_id[2];
 
 		sendor_id[0] = isp_i2c_read_byte(0x300B);
 		sendor_id[1] = isp_i2c_read_byte(0x300C);
 		
-		if(sendor_id[0] == 0x27 || sendor_id[1] == 0x40){
+		if(sendor_id[0] == 0x27 && sendor_id[1] == 0x40){
 			return 0;
 		}else{
 			printf("it is not OV2740!,please check sensor.h and isp.bin!\n\r");
@@ -394,13 +508,13 @@ int isp_video_sensor_check(int SensorName){
 		
 		unsigned char sendor_id[2];
                 
-#if ISP_AUTO_SEL_ENABLE
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
                 isp_jxf_37_power_on();
 #endif
 
 		sendor_id[0] = 	isp_i2c_read_byte(0x0A);
 		sendor_id[1] = 	isp_i2c_read_byte(0x0B);
-		if(sendor_id[0] == 0x0F || sendor_id[1] == 0x37){
+		if(sendor_id[0] == 0x0F && sendor_id[1] == 0x37){
 			return 0;
 		}else{
 			printf("it is not JXF37!,please check sensor.h and isp.bin!\n\r");
@@ -414,7 +528,7 @@ int isp_video_sensor_check(int SensorName){
 
 		sendor_id[0] = isp_i2c_read_byte(0x3107);
 		sendor_id[1] = isp_i2c_read_byte(0x3108);
-		if(sendor_id[0] == 0xCB || sendor_id[1] == 0x07){
+		if(sendor_id[0] == 0xCB && sendor_id[1] == 0x07){
 			return 0;
 		}else{
 			printf("it is not SC2232H!,please check sensor.h and isp.bin!\n\r");
@@ -427,7 +541,7 @@ int isp_video_sensor_check(int SensorName){
 
 		sendor_id[0] = isp_i2c_read_byte(0x0A50);
 		sendor_id[1] = isp_i2c_read_byte(0x0A51);
-		if(sendor_id[0] == 0x30 || sendor_id[1] == 0x04){
+		if(sendor_id[0] == 0x30 && sendor_id[1] == 0x04){
 			printf("Sensor ID Check : Sensor is GL3004!\n\r");
 			return 0;
 		}else{
@@ -436,12 +550,15 @@ int isp_video_sensor_check(int SensorName){
 		}
 	}
 	else if(SensorName == SENSOR_SC2239){
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
+	isp_sc_2239_power_on();
+#endif		
 		
 		unsigned char sendor_id[2];
 
 		sendor_id[0] = isp_i2c_read_byte(0x3107);
 		sendor_id[1] = isp_i2c_read_byte(0x3108);
-		if(sendor_id[0] == 0xCB || sendor_id[1] == 0x10){
+		if(sendor_id[0] == 0xCB && sendor_id[1] == 0x10){
 			return 0;
 		}else{
 			printf("it is not SC2239!,please check sensor.h and isp.bin!\n\r");
@@ -449,12 +566,15 @@ int isp_video_sensor_check(int SensorName){
 		}
 	}
 	else if(SensorName == SENSOR_PS5260){
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
+	isp_ps_5260_power_on();
+#endif
 		unsigned char sendor_id[2];
 		isp_i2c_write_byte(0xef, 0x00);
 		sendor_id[0] = isp_i2c_read_byte(0x00);
 		sendor_id[1] = isp_i2c_read_byte(0x01);
-		if(sendor_id[0] == 0x52 || sendor_id[1] == 0x60){
-			printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
+		printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
+		if(sendor_id[0] == 0x52 && sendor_id[1] == 0x60){
 			return 0;
 		}else{
 			printf("it is not PS5260!,please check sensor.h and isp.bin!\n\r");
@@ -465,7 +585,7 @@ int isp_video_sensor_check(int SensorName){
 		
 		unsigned char sendor_id[2];
                 
-#if ISP_AUTO_SEL_ENABLE
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
                 isp_gc_1054_power_on();
 #endif
 
@@ -473,7 +593,7 @@ int isp_video_sensor_check(int SensorName){
 		sendor_id[1] = isp_i2c_read_byte(0xF1);
 		printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
 		
-		if(sendor_id[0] == 0x10 || sendor_id[1] == 0x54){
+		if(sendor_id[0] == 0x10 && sendor_id[1] == 0x54){
 			return 0;
 		}else{
 			printf("it is not GC1054!,please check sensor.h and isp.bin!\n\r");
@@ -483,10 +603,13 @@ int isp_video_sensor_check(int SensorName){
 	
 	}
 	else if(SensorName == SENSOR_PS5268){
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
+	isp_ps_5268_power_on();
+#endif
 		unsigned char sendor_id[2];
 		sendor_id[0] = isp_i2c_read_byte(0x0100);
 		sendor_id[1] = isp_i2c_read_byte(0x0101);
-		if(sendor_id[0] == 0x52 || sendor_id[1] == 0x68){
+		if(sendor_id[0] == 0x52 && sendor_id[1] == 0x68){
 			printf("[PS5268] sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
 			return 0;
 		}else{
@@ -496,14 +619,14 @@ int isp_video_sensor_check(int SensorName){
 	}
 	else if(SensorName == SENSOR_PS5270){
 		unsigned char sendor_id[2];
-#if ISP_AUTO_SEL_ENABLE
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
                 isp_ps_5270_power_on();
 #endif
 		isp_i2c_write_byte(0xef, 0x00);
 		sendor_id[0] = isp_i2c_read_byte(0x00);
 		sendor_id[1] = isp_i2c_read_byte(0x01);
 		printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
-		if(sendor_id[0] == 0x52 || sendor_id[1] == 0x70){
+		if(sendor_id[0] == 0x52 && sendor_id[1] == 0x70){
 			return 0;
 		}else{
 			printf("it is not PS5270!,please check sensor.h and isp.bin!\n\r");
@@ -511,11 +634,14 @@ int isp_video_sensor_check(int SensorName){
 		}
 	}
 	else if(SensorName == SENSOR_OV5640){
+#if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
+	isp_ov_5640_power_on();
+#endif
 		unsigned char sendor_id[2];
 		sendor_id[0] = isp_i2c_read_byte(0x300A);
 		sendor_id[1] = isp_i2c_read_byte(0x300B);
 		printf("sendor_id[0]=0x%x, sendor_id[1]=0x%x\n\r", sendor_id[0], sendor_id[1]);
-		if(sendor_id[0] == 0x56 || sendor_id[1] == 0x40){
+		if(sendor_id[0] == 0x56 && sendor_id[1] == 0x40){
 			return 0;
 		}else{
 			printf("it is not OV5640!,please check sensor.h and isp.bin!\n\r");
@@ -534,6 +660,7 @@ int isp_control(void *p, int cmd, int arg)
     isp_cfg_t cfg;
     mm_context_t *mctx = (mm_context_t*)ctx->parent;
     mm_queue_item_t* tmp_item;
+	int temp;
 
     switch(cmd){
     case CMD_ISP_SET_PARAMS:
@@ -614,7 +741,7 @@ int isp_control(void *p, int cmd, int arg)
 			rt_printf("new resolution %dx%d is larger than buffer configuration %dx%d\n\r", ctx->params.width, ctx->params.height, ctx->buf_width, ctx->buf_height);
 			return -1;
 		}
-                int temp = arg;
+                temp = arg;
 		arg = ctx->params.stream_id;	// use old stream id
 		ctx->stream = isp_stream_destroy(ctx->stream);
                 arg = temp;
@@ -631,7 +758,7 @@ int isp_control(void *p, int cmd, int arg)
 		cfg.fps = ctx->params.fps;
 		cfg.bayer_type = ctx->params.bayer_type;
 		cfg.hw_slot_num = ctx->params.slot_num;
-                cfg.boot_mode = ctx->params.boot_mode;
+    cfg.boot_mode = ctx->params.boot_mode;
 		
 		ctx->stream = isp_stream_create(&cfg);
 		if(!ctx->stream){
@@ -693,6 +820,52 @@ void* isp_destroy(void* p)
     return NULL;
 }
 
+#ifndef ISP_FW_LOCATION
+#define ISP_FW_LOCATION 0x601000
+#endif
+
+#define ISP_USER_LOCATION 0x700000
+
+int isp_get_id(void)
+{
+	flash_t flash;
+	unsigned char type[4] = {0};
+	device_mutex_lock(RT_DEV_LOCK_FLASH);
+	flash_stream_read(&flash, ISP_FW_LOCATION, sizeof(type), (uint8_t *) type);
+	device_mutex_unlock(RT_DEV_LOCK_FLASH);
+	//printf("ISP %c %c %c %x %x %x\r\n",type[0],type[1],type[2],type[0],type[1],type[2]);
+	if(type[0] == 'I' && type[1] == 'S' && type[2] == 'P'){
+		return type[3];
+	}else{
+		return 0xff;
+	}
+}
+
+int isp_set_sensor(int sensor_id)
+{
+	flash_t flash;
+	int value = 0;
+	unsigned char status[4] = {0};
+	value = isp_get_id();
+	status[0]='I';status[1]='S';status[2]='P';status[3]=sensor_id;
+	
+	if(value != sensor_id){
+		device_mutex_lock(RT_DEV_LOCK_FLASH);
+		flash_erase_sector(&flash, ISP_FW_LOCATION);
+		flash_stream_write(&flash, ISP_FW_LOCATION, sizeof(status), (uint8_t *) status);
+		device_mutex_unlock(RT_DEV_LOCK_FLASH);
+                printf("Store the sensor id %d %d\r\n",value,sensor_id);
+	}else{
+                printf("The sensor id is the same\r\n");
+        }
+	return 0;
+}
+
+int isp_user_callback(void *parm)
+{
+    //isp_set_flip(3);
+	return 0;
+}
 
 void* isp_create(void* parent)
 {
@@ -711,6 +884,7 @@ void* isp_create(void* parent)
     isp_init_cfg.fps = SENSOR_FPS;
     isp_init_cfg.isp_fw_location = ISP_FW_LOCATION;
     isp_init_cfg.isp_fw_space = ISP_FW_SPACE;
+    isp_init_cfg.user_isp_callback = isp_user_callback;
 #if ISP_FW_SPACE == ISP_FW_USERSPACE
     isp_init_cfg.isp_user_space_addr = SENSOR_FW_USER_ADDR;
     isp_init_cfg.isp_user_space_size = SENSOR_FW_USER_SIZE;
@@ -738,7 +912,12 @@ void* isp_create(void* parent)
     isp_init_cfg.isp_InitExposureTime = InitExposureTimeAtNormalMode;
     ret = video_subsys_init(&isp_init_cfg);
 #if SENSOR_AUTO_SEL == ISP_AUTO_SEL_ENABLE
-    printf("The sensor is %d clock = %d\r\n",isp_init_cfg.isp_multi_sensor,isp_init_cfg.clk);
+    if(ret < 0){
+      printf("can't get the correct id\r\n");
+    }else{
+      printf("The sensor is %d clock = %d\r\n",isp_init_cfg.isp_multi_sensor,isp_init_cfg.clk);
+    }
+    //isp_set_sensor(isp_init_cfg.isp_multi_sensor); //Please stored the sensor id at the last, ot it will affluence the isp.
 #endif
     if(ret < 0)
         goto isp_create_fail;

@@ -12,7 +12,7 @@ sensor_generate(){
 	if [ "$result" != "" ]; then
 	sensor=$(echo $LINE | awk '{print $2}' | sed 's/[ /\r\n].*//g')
 	sensor_index=$(echo $LINE | awk '{print $3}' | sed 's/[ /\r\n].*//g')
-	sensor=$(echo $sensor | tr '[:upper:]' '[:lower:]')
+	sensor=$(echo $sensor | tr '[:lower:]' '[:upper:]')
 	echo "$sensor,$sensor_index"
 	if [ "$sensor" = "SENSOR_ALL" ]; then
 	break
@@ -42,7 +42,7 @@ else
 	#;                      Auto Select ISP firmware by Sensor                     #
 	#;*****************************************************************************#
 	sensor=$(grep "define SENSOR_USE" 	"$inc_path/sensor.h" | gawk '{print $3}' | sed 's/SENSOR_//g' | sed 's/[ /\r\n].*//g')
-	sensor=$(echo $sensor | tr '[:upper:]' '[:lower:]')
+	sensor=$(echo $sensor | tr '[:lower:]' '[:upper:]')
 	if [ "$sensor" = "ALL" ]; then
 	sensor_generate
 	echo "ALL"

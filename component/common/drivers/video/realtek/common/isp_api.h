@@ -49,13 +49,13 @@ extern int InitExposureTimeAtNormalMode;
 				if (ConfigDebugMmfErr&_MMF_DBG_ISP_)						\
 					ISP_PRINTK("\n\r" ISP_ERR_PREFIX __VA_ARGS__);			\
 			}while(0)
-                          
+#ifndef ISP_DBG_INFO
 #define ISP_DBG_INFO(...)													\
 			do {															\
 				if (ConfigDebugMmfInfo&_MMF_DBG_ISP_)						\
 					ISP_PRINTK("\n\r" ISP_INFO_PREFIX __VA_ARGS__);			\
 			}while(0)
-
+#endif
 // for h264 encoder (V1)
 // TODO: Remove this after V2 stable
 struct isp_info{
@@ -85,6 +85,7 @@ typedef struct isp_init_cfg_s {
         int isp_sensor_auto_sel_flag;//0:Disable 1:Enable 
         int (*check_sensor_id)(int);//0: successful -1: fail
         int (*get_sensor_clock_pin)(int,int*,int*);//sensor id,clock,pin
+        int (*user_isp_callback)(void *parm);//Execute the isp command before the start preview
 } isp_init_cfg_t;
 
 typedef struct isp_cfg_s{

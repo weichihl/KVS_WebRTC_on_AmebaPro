@@ -55,6 +55,11 @@ typedef struct isp_boot_stream_cfg{
         uint32_t isp_fw_space;
         uint32_t isp_user_space_addr;
         uint32_t isp_user_space_size;
+        uint8_t sensor_table[8];//Support 8 sensor , the end flag need to set the 0xff
+        int32_t isp_sensor_auto_sel_flag;//0:Disable 1:Enable 
+        int32_t (*check_sensor_id)(int);//0: successful -1: fail
+        int32_t (*get_sensor_clock_pin)(int,int*,int*);//sensor id,clock,pin
+        int32_t (*user_isp_callback)(void *parm);//Execute the isp command before the start preview
 }isp_boot_stream_t;
 
 typedef struct isp_boot_cfg{
@@ -64,5 +69,19 @@ typedef struct isp_boot_cfg{
 	uint32_t mcu_fw_addr;
         uint8_t *isp_addr;
 }isp_boot_cfg_t;
+
+int isp_boot_get_gpio_value(int index,char *value);
+int isp_boot_get_gpio_dir(int index,char *direct);
+int isp_boot_set_gpio_value(int index,char value);
+int isp_boot_set_gpio_dir(int index,char direct);
+void isp_boot_set_memory(unsigned char *xbuf,unsigned short xmem_addr,unsigned int len);
+uint8_t isp_boot_i2c_read_byte(int addr);
+uint8_t isp_boot_i2c_write_byte(int addr, uint8_t data);
+
+void isp_boot_set_gray_mode(int a_dValue);
+void isp_boot_set_flip_mode(int a_dValue);
+void isp_boot_set_IR_mode(int a_dValue);
+void isp_boot_set_awb_gain(unsigned int rgain,unsigned int ggain,unsigned int bgain);
+void isp_boot_set_exposure_time(unsigned int value,unsigned int gain);
 
 #endif
