@@ -163,7 +163,13 @@ PVOID sendVideoPackets(PVOID args)
     isp_init_cfg.isp_fw_location = ISP_FW_LOCATION;
     
     video_subsys_init(&isp_init_cfg);
-
+#if CONFIG_LIGHT_SENSOR
+	init_sensor_service();
+#else
+	ir_cut_init(NULL);
+	ir_cut_enable(1);
+#endif
+    
     /**
      * setup the sw module of h264 engine.
     */
