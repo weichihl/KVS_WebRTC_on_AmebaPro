@@ -65,18 +65,18 @@ struct h264_kvs_def_setting {
     uint32_t isp_format;
 };
 
-#define ISP_SW_BUF_NUM  4
+#define ISP_SW_BUF_NUM  3    // set 2 for 15fps, set 3 for 30fps
 
 struct h264_kvs_def_setting def_setting = {
     .height = KVS_VIDEO_HEIGHT,
     .width = KVS_VIDEO_WIDTH,
     .rcMode = H264_RC_MODE_CBR,
     .bitrate = 1*1024*1024,
-    .fps = 15,
+    .fps = 30,
     .gopLen = 30,
     .output_buffer_size = KVS_VIDEO_OUTPUT_BUFFER_SIZE,
     .isp_stream_id = 0,
-    .isp_hw_slot = 2,
+    .isp_hw_slot = 1,
     .isp_format = ISP_FORMAT_YUV420_SEMIPLANAR,
 };
 
@@ -320,6 +320,9 @@ PVOID sendVideoPackets(PVOID args)
 
         /* wait for skb resource release */
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
+            if (video_buf.output_buffer != NULL){
+                free(video_buf.output_buffer);
+            }
             continue; //skip this frame and wait for skb resource release.
         }
     
@@ -363,7 +366,9 @@ CleanUp:
 /////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio /////////////// Audio ///////
 
 #include "audio_api.h"
+#if !(AUDIO_G711_MULAW || AUDIO_G711_ALAW)
 #include "opusenc.h"
+#endif
 #include "AEC.h"
 
 audio_t audio_obj;
@@ -479,7 +484,6 @@ PVOID sendAudioPackets(PVOID args)
     
     short buf_16bit[TX_PAGE_SIZE/2];
     unsigned char buf_8bit[TX_PAGE_SIZE/2];
-    opus_int32 compressedBytes;
     audio_buf_t audio_buf;
 
     while (!ATOMIC_LOAD_BOOL(&pSampleConfiguration->appTerminateFlag)) 
@@ -493,8 +497,7 @@ PVOID sendAudioPackets(PVOID args)
 
 #if AUDIO_OPUS
             //Encode the data with OPUS encoder
-            compressedBytes = opus_encode(opus_encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
-            frame.size = compressedBytes;
+            frame.size = opus_encode(opus_encoder, buf_16bit, TX_PAGE_SIZE/2, buf_8bit, TX_PAGE_SIZE/2);
 #elif AUDIO_G711_MULAW
             //Encode the data with G711 MULAW encoder
             for (int j = 0; j < TX_PAGE_SIZE/2; j++){

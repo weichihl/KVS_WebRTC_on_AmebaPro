@@ -25,7 +25,7 @@
 #include "kvs_port.h"
 #include "iot_credential_provider.h"
 
-#define ISP_SW_BUF_NUM      4
+#define ISP_SW_BUF_NUM      3    // set 2 for 15fps, set 3 for 30fps
 #define KVS_QUEUE_DEPTH     ( 20 )
 
 static xQueueHandle kvsProducerVideoQueue;
@@ -34,8 +34,8 @@ static xQueueHandle kvsProducerAudioQueue;
 #endif
 
 #define ISP_STREAM_ID       0
-#define ISP_HW_SLOT         2
-#define VIDEO_OUTPUT_BUFFER_SIZE    ( VIDEO_HEIGHT * VIDEO_WIDTH / 4 )
+#define ISP_HW_SLOT         1
+#define VIDEO_OUTPUT_BUFFER_SIZE    ( VIDEO_HEIGHT * VIDEO_WIDTH / 10 )
 
 typedef struct isp_s
 {
@@ -207,8 +207,8 @@ void camera_thread(void *param)
     h264_parm.height = VIDEO_HEIGHT;
     h264_parm.width = VIDEO_WIDTH;
     h264_parm.rcMode = H264_RC_MODE_CBR;
-    h264_parm.bps = 1024 * 1024;
-    h264_parm.ratenum = 30;
+    h264_parm.bps = 1 * 1024 * 1024;
+    h264_parm.ratenum = VIDEO_FPS;
     h264_parm.gopLen = 30;
     
     ret = h264_set_parm(h264_ctx, &h264_parm);
