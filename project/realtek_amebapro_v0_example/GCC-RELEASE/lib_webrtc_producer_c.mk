@@ -79,36 +79,6 @@ INCLUDES += -I../../../component/common/file_system/fatfs
 
 SRC_C =
 
-#state
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/state/src/State.c
-#utils
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Allocators.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Atomics.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Base64.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/BitField.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/BitReader.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Crc32.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Directory.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/DoubleLinkedList.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/DynamicLibrary.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Endianness.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/FileIo.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/FileLogger.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/HashTable.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Hex.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/InstrumentedAllocators.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Logger.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Mutex.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Semaphore.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/SingleLinkedList.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/StackQueue.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/String.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Tags.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Thread.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Time.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/TimerQueue.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-pic/src/utils/src/Version.c
-
 #lws
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Lws/LwsCall.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Lws/LwsIotCredentialProvider.c
@@ -121,7 +91,7 @@ SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/RequestInfo.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/StaticCredentialProvider.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Util.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Version_c.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-c/src/source/Common/Version.c
 
 # User CFLAGS
 # -------------------------------------------------------------------
