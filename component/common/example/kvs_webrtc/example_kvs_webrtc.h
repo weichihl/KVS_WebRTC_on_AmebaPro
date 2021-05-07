@@ -10,6 +10,9 @@ void example_kvs_webrtc(void);
 /* Setting your signaling channel name */
 #define KVS_WEBRTC_CHANNEL_NAME "My_KVS_Signaling_Channel"
 
+/* Cert path */
+#define TEMP_CERT_PATH "0://cert.pem"
+
 /* log level */
 #define KVS_WEBRTC_LOG_LEVEL    LOG_LEVEL_WARN  //LOG_LEVEL_VERBOSE
 

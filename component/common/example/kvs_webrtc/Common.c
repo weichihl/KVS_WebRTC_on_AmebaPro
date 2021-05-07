@@ -203,7 +203,7 @@ STATUS sendSignalingMessage(PSampleStreamingSession pSampleStreamingSession, PSi
 
     MUTEX_LOCK(pSampleStreamingSession->pSampleConfiguration->signalingSendMessageLock);
     locked = TRUE;
-    CHK_STATUS(signalingClientSendMessageSync(pSampleStreamingSession->pSampleConfiguration->signalingClientHandle, pMessage));
+    CHK_STATUS(signalingClientSendMessage(pSampleStreamingSession->pSampleConfiguration->signalingClientHandle, pMessage));
 
 CleanUp:
 
@@ -591,26 +591,19 @@ STATUS traverseDirectoryPEMFileScan(UINT64 customData, DIR_ENTRY_TYPES entryType
     return STATUS_SUCCESS;
 }
 
-#define TEMP_CERT_PATH "0://cert.pem"
 STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
 {
     STATUS retStatus = STATUS_SUCCESS;
     struct stat pathStat;
-    PCHAR pCertName = NULL;
+    CHAR certName[MAX_PATH_LEN];
     PSampleConfiguration pSampleConfiguration = *ppSampleConfiguration;
 
-    CHK(NULL != (pCertName = (PCHAR) MEMALLOC(MAX_PATH_LEN)), STATUS_NOT_ENOUGH_MEMORY);
-    MEMSET(pCertName, 0x0, MAX_PATH_LEN);
+    MEMSET(certName, 0x0, ARRAY_SIZE(certName));
 //#ifdef KVSWEBRTC_HAVE_GETENV
-//    pSampleConfiguration->pCaCertPath = GETENV(CACERT_PATH_ENV_VAR);
+//    pSampleConfiguration->pCaCertPath = getenv(CACERT_PATH_ENV_VAR);
 //#else
 //    pSampleConfiguration->pCaCertPath = NULL;
 //#endif
-    //pSampleConfiguration->pCaCertPath = "D:/SDK_from_Git/AmebaPro_Amazon_WebRTC/ambpro_sdk/component/common/example/kvs_amazon/cert.pem"; //./cert.pem
-    //extern fatfs_sd_params_t fatfs_sd;
-    //char path[64];
-    //snprintf(path, sizeof(path), "%s%s", fatfs_sd.drv, "/cert.pem");
-    //pSampleConfiguration->pCaCertPath = path;
     pSampleConfiguration->pCaCertPath = TEMP_CERT_PATH;
     printf("cert path:%s \n", pSampleConfiguration->pCaCertPath);
     {
@@ -632,10 +625,10 @@ STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
         CHK(0 == FSTAT(pSampleConfiguration->pCaCertPath, &pathStat), STATUS_DIRECTORY_ENTRY_STAT_ERROR);
 
         if (S_ISDIR(pathStat.st_mode)) {
-            CHK_STATUS(traverseDirectory(pSampleConfiguration->pCaCertPath, (UINT64) pCertName, /* iterate */ FALSE, traverseDirectoryPEMFileScan));
+            CHK_STATUS(traverseDirectory(pSampleConfiguration->pCaCertPath, (UINT64) &certName, /* iterate */ FALSE, traverseDirectoryPEMFileScan));
 
-            if (pCertName[0] != 0x0) {
-                STRCAT(pSampleConfiguration->pCaCertPath, pCertName);
+            if (certName[0] != 0x0) {
+                STRCAT(pSampleConfiguration->pCaCertPath, certName);
             } else {
                 DLOGW("Cert not found in path set...checking if CMake detected a path\n");
                 CHK_ERR(STRNLEN(DEFAULT_KVS_CACERT_PATH, MAX_PATH_LEN) > 0, STATUS_INVALID_OPERATION, "No ca cert path given (error:%s)",
@@ -648,7 +641,7 @@ STATUS lookForSslCert(PSampleConfiguration* ppSampleConfiguration)
     #endif
     printf("look for ssl cert successfully\n");
 CleanUp:
-    SAFE_MEMFREE(pCertName);
+
     CHK_LOG_ERR(retStatus);
     return retStatus;
 }
@@ -657,9 +650,9 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
                                  PSampleConfiguration* ppSampleConfiguration)
 {
     STATUS retStatus = STATUS_SUCCESS;
-    PCHAR pAccessKey = NULL, pSecretKey = NULL, pSessionToken = NULL, pLogLevel = NULL;
+    PCHAR pAccessKey = NULL, pSecretKey = NULL, pSessionToken, pLogLevel;
     PSampleConfiguration pSampleConfiguration = NULL;
-    UINT32 logLevel = LOG_LEVEL_VERBOSE;
+    UINT32 logLevel = LOG_LEVEL_DEBUG;
 
     CHK(ppSampleConfiguration != NULL, STATUS_NULL_ARG);
 
@@ -674,14 +667,17 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
     pSessionToken = GETENV(SESSION_TOKEN_ENV_VAR);
     pSampleConfiguration->enableFileLogging = FALSE;
     #if 0
-    if (NULL != GETENV(ENABLE_FILE_LOGGING)) {
+    if (NULL != getenv(ENABLE_FILE_LOGGING)) {
         pSampleConfiguration->enableFileLogging = TRUE;
     }
     #endif
-
-    if ((pSampleConfiguration->channelInfo.pRegion = GETENV(DEFAULT_REGION_ENV_VAR)) == NULL) {
+#ifdef KVSWEBRTC_HAVE_GETENV
+    if ((pSampleConfiguration->channelInfo.pRegion = getenv(DEFAULT_REGION_ENV_VAR)) == NULL) {
         pSampleConfiguration->channelInfo.pRegion = DEFAULT_AWS_REGION;
     }
+#else
+    pSampleConfiguration->channelInfo.pRegion = DEFAULT_AWS_REGION;
+#endif
 
     CHK_STATUS(lookForSslCert(&pSampleConfiguration));
 
@@ -771,10 +767,10 @@ STATUS logSignalingClientStats(PSignalingClientMetrics pSignalingClientMetrics)
     DLOGD("Number of runtime errors in the session: %d", pSignalingClientMetrics->signalingClientStats.numberOfRuntimeErrors);
     DLOGD("Signaling client uptime: %" PRIu64 " ms",
           (pSignalingClientMetrics->signalingClientStats.connectionDuration / HUNDREDS_OF_NANOS_IN_A_MILLISECOND));
-    // This gives the EMA of the createChannel, describeChannel, getChannelEndpoint and deleteChannel calls
+    // This gives the EMA of the signalingCreateChannel, signalingDescribeChannel, signalingGetChannelEndpoint and signalingDeleteChannel calls
     DLOGD("Control Plane API call latency: %" PRIu64 " ms",
           (pSignalingClientMetrics->signalingClientStats.cpApiCallLatency / HUNDREDS_OF_NANOS_IN_A_MILLISECOND));
-    // This gives the EMA of the getIceConfig() call.
+    // This gives the EMA of the signalingGetIceConfig() call.
     DLOGD("Data Plane API call latency: %" PRIu64 " ms",
           (pSignalingClientMetrics->signalingClientStats.dpApiCallLatency / HUNDREDS_OF_NANOS_IN_A_MILLISECOND));
 CleanUp:
@@ -1007,8 +1003,8 @@ STATUS sessionCleanupWait(PSampleConfiguration pSampleConfiguration)
 
         // Check if we need to re-create the signaling client on-the-fly
         if (ATOMIC_LOAD_BOOL(&pSampleConfiguration->recreateSignalingClient) &&
-            STATUS_SUCCEEDED(freeSignalingClient(&pSampleConfiguration->signalingClientHandle)) &&
-            STATUS_SUCCEEDED(createSignalingClientSync(&pSampleConfiguration->clientInfo, &pSampleConfiguration->channelInfo,
+            STATUS_SUCCEEDED(signalingClientFree(&pSampleConfiguration->signalingClientHandle)) &&
+            STATUS_SUCCEEDED(signalingClientCreate(&pSampleConfiguration->clientInfo, &pSampleConfiguration->channelInfo,
                                                        &pSampleConfiguration->signalingClientCallbacks, pSampleConfiguration->pCredentialProvider,
                                                        &pSampleConfiguration->signalingClientHandle))) {
             // Re-set the variable again
@@ -1019,7 +1015,7 @@ STATUS sessionCleanupWait(PSampleConfiguration pSampleConfiguration)
         if (IS_VALID_SIGNALING_CLIENT_HANDLE(pSampleConfiguration->signalingClientHandle)) {
             CHK_STATUS(signalingClientGetCurrentState(pSampleConfiguration->signalingClientHandle, &signalingClientState));
             if (signalingClientState == SIGNALING_CLIENT_STATE_READY) {
-                UNUSED_PARAM(signalingClientConnectSync(pSampleConfiguration->signalingClientHandle));
+                UNUSED_PARAM(signalingClientConnect(pSampleConfiguration->signalingClientHandle));
             }
         }
 
