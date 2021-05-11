@@ -11,7 +11,7 @@ Please follow the instructions for various options
 		--> FF_MAX_SS to 512  for SD card in ffconf.h to define the maximum sector size supported
 		--> FF_USE_MKFS to 0 in ffconf.h  
 
-	3. Configure AWS KVS service setting in example_kvs_producer.h.
+	3. Configure AWS KVS service setting in example_kvs_webrtc.h.
         
 
 [Supported List] 
