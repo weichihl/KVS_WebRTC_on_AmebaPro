@@ -3126,9 +3126,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_kvs_producer.a</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_mdns.a</name>

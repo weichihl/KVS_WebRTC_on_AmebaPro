@@ -400,6 +400,7 @@
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\parson</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\llhttp\include</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1076,11 +1077,11 @@
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IarchiveOutput</name>
-                    <state>D:\SDK_from_Git\WebRTC_Public\KVS_WebRTC_on_AmebaPro\project\realtek_amebapro_v0_example\EWARM-RELEASE\Debug\Exe\lib_kvs_producer.a</state>
+                    <state>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\$PROJ_FNAME$.a</state>
                 </option>
             </data>
         </settings>
@@ -2148,21 +2149,30 @@
         </file>
     </group>
     <group>
+        <name>llhttp</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\llhttp\src\api.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\llhttp\src\http.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\llhttp\src\llhttp.c</name>
+        </file>
+    </group>
+    <group>
         <name>parson</name>
-        <excluded>
-            <configuration>Debug</configuration>
-        </excluded>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\parson\parson.c</name>
         </file>
     </group>
     <group>
         <name>producer</name>
-        <excluded>
-            <configuration>Debug</configuration>
-        </excluded>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\aws_signer_v4.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\http_helper.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\iot_credential_provider.c</name>

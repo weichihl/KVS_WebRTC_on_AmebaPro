@@ -1,3 +1,6 @@
+#include "platform_opts.h"
+#if CONFIG_EXAMPLE_KVS_WEBRTC
+
 #define LOG_CLASS "WebRtcSamples"
 #include "Samples.h"
 #include "fatfs_wrap.h"
@@ -1235,3 +1238,5 @@ uint64_t getEpochTimestampInHundredsOfNanos( void* pTick )
 
     return timestamp;
 }
+
+#endif  /* CONFIG_EXAMPLE_KVS_WEBRTC */

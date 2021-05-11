@@ -1,24 +1,21 @@
 [submodule "lib_amazon/amazon-kinesis-video-streams-pic"]
 	path = lib_amazon/amazon-kinesis-video-streams-pic
 	url = https://github.com/HungTseLee/amazon-kinesis-video-streams-pic.git
-	branch = webrtc-on-freertos
 [submodule "lib_amazon/amazon-kinesis-video-streams-producer-c"]
 	path = lib_amazon/amazon-kinesis-video-streams-producer-c
 	url = https://github.com/HungTseLee/amazon-kinesis-video-streams-producer-c.git
-	branch = webrtc-on-freertos
 [submodule "lib_amazon/amazon-kinesis-video-streams-webrtc-sdk-c"]
 	path = lib_amazon/amazon-kinesis-video-streams-webrtc-sdk-c
 	url = https://github.com/HungTseLee/amazon-kinesis-video-streams-webrtc-sdk-c.git
-	branch = webrtc-on-freertos
 [submodule "lib_amazon/libwebsockets"]
 	path = lib_amazon/libwebsockets
 	url = https://github.com/HungTseLee/libwebsockets.git
-	branch = webrtc-on-freertos
 [submodule "lib_amazon/libsrtp"]
 	path = lib_amazon/libsrtp
 	url = https://github.com/HungTseLee/libsrtp.git
-	branch = webrtc-on-freertos
 [submodule "lib_amazon/libusrsctp"]
 	path = lib_amazon/libusrsctp
 	url = https://github.com/HungTseLee/usrsctp.git
-	branch = esp-porting
+[submodule "lib_amazon/amazon-kinesis-video-streams-producer-embedded-c"]
+	path = lib_amazon/amazon-kinesis-video-streams-producer-embedded-c
+	url = https://github.com/aws-samples/amazon-kinesis-video-streams-producer-embedded-c.git

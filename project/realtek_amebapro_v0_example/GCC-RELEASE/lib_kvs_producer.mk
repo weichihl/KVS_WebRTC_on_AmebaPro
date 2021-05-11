@@ -82,6 +82,7 @@ INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include
 INCLUDES += -I../../../lib_amazon/gcc_include
+INCLUDES += -I../../../lib_amazon/llhttp/include
 
 
 # Source file list
@@ -89,12 +90,17 @@ INCLUDES += -I../../../lib_amazon/gcc_include
 
 SRC_C =
 ##coreHTTP
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/core_http_client.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser/http_parser.c
+#SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/core_http_client.c
+#SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser/http_parser.c
+##llhttp
+SRC_C += ../../../lib_amazon/llhttp/src/api.c
+SRC_C += ../../../lib_amazon/llhttp/src/http.c
+SRC_C += ../../../lib_amazon/llhttp/src/llhttp.c
 ##parson
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson/parson.c
 ##producer
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/aws_signer_v4.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/http_helper.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/iot_credential_provider.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/json_helper.c
 SRC_C += ../../../lib_amazon/iar_port/kvs_port_freertos.c
