@@ -4253,6 +4253,9 @@
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_producer\example_kvs_producer.c</name>
                 </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_producer\kvs_producer.c</name>
+                </file>
                 <configuration>
                     <name>Debug</name>
                     <settings>

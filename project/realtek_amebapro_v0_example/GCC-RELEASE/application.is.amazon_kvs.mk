@@ -709,6 +709,7 @@ SRC_C += ../../../component/common/example/wlan_scenario/example_wlan_scenario.c
 SRC_C += ../../../component/common/example/pppoe/example_pppoe.c
 SRC_C += ../../../component/common/example/kvs_webrtc/Common.c
 SRC_C += ../../../component/common/example/kvs_webrtc/example_kvs_webrtc.c
+SRC_C += ../../../component/common/example/kvs_producer/kvs_producer.c
 SRC_C += ../../../component/common/example/kvs_producer/example_kvs_producer.c
 
 

@@ -401,6 +401,9 @@
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\llhttp\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\inc</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\deps\umock-c\inc</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\deps\azure-macro-utils-c\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2137,6 +2140,42 @@
         </settings>
     </configuration>
     <group>
+        <name>c-utility</name>
+        <group>
+            <name>pal</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\pal\freertos\lock.c</name>
+            </file>
+        </group>
+        <group>
+            <name>src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\buffer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\consolelogger.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\crt_abstractions.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\doublylinkedlist.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\httpheaders.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\map.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\strings.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\libraries\3rdparty\c-utility\src\xlogging.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>coreHTTP</name>
         <excluded>
             <configuration>Debug</configuration>
@@ -2184,13 +2223,22 @@
             <name>$PROJ_DIR$\..\..\..\lib_amazon\iar_port\kvs_port_freertos.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\kvs_rest_api.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\mkv_generator.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\network_api.c</name>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\nalu.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\netio.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\restapi.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\sps_decode.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\source\stream.c</name>
         </file>
     </group>
 </project>

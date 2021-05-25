@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,79 +13,54 @@
  * permissions and limitations under the License.
  */
 
+#include <inttypes.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
-#include "kvs_port.h"
-#include "kvs_errors.h"
+#include "kvs/errors.h"
+#include "kvs/port.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-
-void sleepInMs( uint32_t ms )
+int platformInit(void)
 {
-    vTaskDelay( ms / portTICK_PERIOD_MS  );
+    int xRes = KVS_ERRNO_NONE;
+
+    srand(time(NULL));
+
+    return xRes;
 }
 
-int32_t getTimeInIso8601( char *pBuf, uint32_t uBufSize )
+int getTimeInIso8601( char *pBuf, size_t uBufSize )
 {
-    int32_t retStatus = KVS_STATUS_SUCCEEDED;
-    time_t timeUtcNow = { 0 };
+    int xRes = KVS_ERRNO_NONE;
+    time_t xTimeUtcNow = { 0 };
 
-    if( pBuf == NULL || uBufSize < DATE_TIME_ISO_8601_FORMAT_STRING_SIZE )
+    if (pBuf == NULL || uBufSize < DATE_TIME_ISO_8601_FORMAT_STRING_SIZE)
     {
-        retStatus = KVS_STATUS_INVALID_ARG;
+        xRes = KVS_ERRNO_FAIL;
     }
     else
     {
-        timeUtcNow = time( NULL );
-        strftime( pBuf, DATE_TIME_ISO_8601_FORMAT_STRING_SIZE, "%Y%m%dT%H%M%SZ", gmtime( &timeUtcNow ) );
+        xTimeUtcNow = time( NULL );
+        strftime(pBuf, DATE_TIME_ISO_8601_FORMAT_STRING_SIZE, "%Y%m%dT%H%M%SZ", gmtime(&xTimeUtcNow));
     }
 
-    return retStatus;
+    return xRes;
 }
 
 uint64_t getEpochTimestampInMs( void )
 {
-    uint64_t timestamp;
+    uint64_t timestamp = 0;
 
-    long sec;
-    long usec;
-    unsigned int tick;
-    unsigned int tickDiff;
-
-	sntp_get_lasttime(&sec, &usec, &tick);
-
-    tickDiff = xTaskGetTickCount() - tick;
-
-    sec += tickDiff / configTICK_RATE_HZ;
-    usec += ( ( tickDiff % configTICK_RATE_HZ ) / portTICK_RATE_MS ) * 1000;
-
-    if ( usec >= 1000000 )
-    {
-        usec -= 1000000;
-        sec ++;
-    }
-
-    timestamp = (uint64_t)sec * 1000 + usec / 1000;
+    struct timeval tv;
+    gettimeofday( &tv, NULL );
+    timestamp = (uint64_t)(tv.tv_sec) * 1000 + (uint64_t)(tv.tv_usec) / 1000;
 
     return timestamp;
 }
 
 uint8_t getRandomNumber( void )
 {
-    uint8_t number;
-
-    rtw_get_random_bytes( &number, 1 );
-
-    return number;
-}
-
-void * sysMalloc( size_t size )
-{
-    return ( void * )malloc( size );
-}
-
-void sysFree( void * ptr )
-{
-    free( ptr );
+    return (uint8_t)rand();
 }

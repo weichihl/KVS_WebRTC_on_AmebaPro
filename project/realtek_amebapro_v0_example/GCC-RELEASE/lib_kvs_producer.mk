@@ -81,14 +81,29 @@ INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/parson
 INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include
-INCLUDES += -I../../../lib_amazon/gcc_include
+INCLUDES += -I../../../lib_amazon/iar_include
 INCLUDES += -I../../../lib_amazon/llhttp/include
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/inc
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/deps/umock-c/inc
+INCLUDES += -I../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/deps/azure-macro-utils-c/inc
 
 
 # Source file list
 # -------------------------------------------------------------------
 
 SRC_C =
+##c-utility
+#pal
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/pal/freertos/lock.c
+#src
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/buffer.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/consolelogger.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/crt_abstractions.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/doublylinkedlist.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/httpheaders.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/map.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/strings.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/3rdparty/c-utility/src/xlogging.c
 ##coreHTTP
 #SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/core_http_client.c
 #SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/libraries/aws/coreHTTP/source/dependency/3rdparty/http_parser/http_parser.c
@@ -104,9 +119,13 @@ SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/sr
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/iot_credential_provider.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/json_helper.c
 SRC_C += ../../../lib_amazon/iar_port/kvs_port_freertos.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/kvs_rest_api.c
 SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/mkv_generator.c
-SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/network_api.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/nalu.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/netio.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/restapi.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/sps_decode.c
+SRC_C += ../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/source/stream.c
+
 
 
 
