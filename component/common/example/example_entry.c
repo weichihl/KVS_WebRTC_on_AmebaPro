@@ -321,6 +321,14 @@
 #include <audio_to_aac/example_audio_to_aac.h>
 #endif
 
+#if (CONFIG_EXAMPLE_AMAZON_FREERTOS)
+#include <amazon_freertos/example_amazon_freertos.h>
+#endif
+
+#if (CONFIG_EXAMPLE_AMAZON_AFQP_TESTS)
+#include <amazon_afqp_tests/example_amazon_afqp_tests.h>
+#endif
+
 /*
 	Preprocessor of example
 */
@@ -756,6 +764,14 @@ example_hilink();
 
 #if CONFIG_EXAMPLE_AUDIO_TO_AAC
         example_audio_to_aac();
+#endif
+
+#if (CONFIG_EXAMPLE_AMAZON_FREERTOS)
+	example_amazon_freertos();
+#endif
+
+#if (CONFIG_EXAMPLE_AMAZON_AFQP_TESTS)
+	example_amazon_afqp_tests();
 #endif
         
 }
