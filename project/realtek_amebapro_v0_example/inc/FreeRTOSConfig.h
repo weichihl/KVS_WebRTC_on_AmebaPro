@@ -222,5 +222,9 @@ files. */
     //#define traceTASK_SWITCHED_IN()     do{if(pxCurrentTCB) bprintf("<%s\n\r", pxCurrentTCB->pcTaskName);}while(0)    
 #endif /* __IAR_SYSTEMS_ASM__ */
 
+#define configLOGGING_MAX_MESSAGE_LENGTH            512
+#define configLOGGING_INCLUDE_TIME_AND_TASK_NAME    1
+#define configPRINT_STRING( X )         printf( X )
+
 #endif /* FREERTOS_CONFIG_H */
 

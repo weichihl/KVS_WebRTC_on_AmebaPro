@@ -628,7 +628,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 
 /* For KVS WebRTC example*/
-#define CONFIG_EXAMPLE_KVS_WEBRTC               1
+#define CONFIG_EXAMPLE_KVS_WEBRTC               0
 #if CONFIG_EXAMPLE_KVS_WEBRTC
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN
@@ -657,3 +657,8 @@ in lwip_opt.h for support uart adapter*/
 
 /* For audio to AAC eample*/
 #define CONFIG_EXAMPLE_AUDIO_TO_AAC             0
+
+/* For Amazon FreeRTOS SDK example */
+#define CONFIG_EXAMPLE_AMAZON_FREERTOS          1
+
+#define CONFIG_EXAMPLE_AMAZON_AFQP_TESTS        0

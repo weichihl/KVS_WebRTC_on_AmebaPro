@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspace>
+    <project>
+        <path>$WS_DIR$\application_is_LTS.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\lib_kvs_Webrtc.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\lib_webrtc_pic.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\lib_webrtc_producer_c.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\libsrtp2.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\libusrsctp.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\libwebsockets.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\lib_kvs_producer.ewp</path>
+    </project>
+    <batchBuild />
+</workspace>
