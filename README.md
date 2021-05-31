@@ -57,7 +57,7 @@ This project is going to demonstrate how to use KVS Producer and WebRTC on Ameba
     <td><img src="photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px /></td>
     <td align=Left>1. Upload image from AmebaPro to S3<BR>2. Trigger Lambda function to do object detection<BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework</td>
     <td>
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/edit/main/README.md">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.0.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green"/>
       </a>
     </td>
