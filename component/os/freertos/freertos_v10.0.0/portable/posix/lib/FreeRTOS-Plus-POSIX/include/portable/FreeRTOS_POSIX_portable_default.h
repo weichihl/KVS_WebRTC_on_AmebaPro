@@ -144,4 +144,14 @@
 #endif
 /**@} */
 
+#if !defined (__ICCARM__)       /* add by Kevin */
+    #undef posixconfigENABLE_CLOCKID_T
+    #undef posixconfigENABLE_MODE_T
+    #undef posixconfigENABLE_TIMER_T
+
+    #define posixconfigENABLE_CLOCKID_T               0
+    #define posixconfigENABLE_MODE_T                  0
+    #define posixconfigENABLE_TIMER_T                 0
+#endif
+
 #endif /* ifndef _FREERTOS_POSIX_PORTABLE_DEFAULT_H_ */
