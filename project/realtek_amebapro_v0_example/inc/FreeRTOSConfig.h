@@ -225,6 +225,7 @@ files. */
 #define configLOGGING_MAX_MESSAGE_LENGTH            512
 #define configLOGGING_INCLUDE_TIME_AND_TASK_NAME    1
 #define configPRINT_STRING( X )         printf( X )
+#define iotconfigUSE_PORT_SPECIFIC_HOOKS
 
 #endif /* FREERTOS_CONFIG_H */
 
