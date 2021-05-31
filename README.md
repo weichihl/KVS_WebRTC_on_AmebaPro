@@ -40,8 +40,8 @@ This project is going to demonstrate how to use KVS Producer and WebRTC on Ameba
 &nbsp; AmebaPro(WebRTC master) + Viewer(WebRTC Client) = real-time communication, 1-way video & 2-way audio  
 <table style="width:100%; table-layout:fixed">
   <tr>
-    <td><img src="photo/p2p.jpg" valign="middle" alt="test image size" height=224px width=435px /></td>
-    <td align=Left>1. AmebaPro start a signaling channel to run as a master<BR>2. Use the browser to run as a viewer and start P2P connection</td>
+    <td><img src="photo/p2p.jpg" valign="middle" alt="test image size" height=206px width=400px /></td>
+    <td align=Left>1. AmebaPro start a signaling channel (master)<BR>2. Browser run as a viewer (client)<BR>3. Start a P2P connection</td>
     <td>
       <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_WebRTC_Getting_Started_Guide_v1.0.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green"/>
@@ -50,10 +50,24 @@ This project is going to demonstrate how to use KVS Producer and WebRTC on Ameba
   </tr>
 </table>
 
+### :bulb: Object Detection
+&nbsp; AmebaPro(image uploader) + Rekognition(AWS AI) = object detection and classification :cloud:  
+<table style="width:100%; table-layout:fixed">
+  <tr>
+    <td><img src="photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px /></td>
+    <td align=Left>1. Upload image from AmebaPro to S3<BR>2. Trigger Lambda function to do object detection<BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework</td>
+    <td>
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/edit/main/README.md">
+        <img src="https://img.shields.io/badge/-Getting%20Started-green"/>
+      </a>
+    </td>
+  </tr>
+</table>  
 
 ## Demo code  
 :pencil2: **KVS WebRTC** &nbsp; &nbsp; :point_right: &nbsp; &nbsp; `project/component/common/example/kvs_webrtc`  
 :pencil2: **KVS Producer** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/example/kvs_producer`  
+:pencil2: **S3 file upload** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP`  
 
 
 ## IDE/toolchain Requirement
