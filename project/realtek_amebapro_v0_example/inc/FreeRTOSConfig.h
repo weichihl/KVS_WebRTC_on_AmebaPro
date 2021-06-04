@@ -207,8 +207,14 @@ files. */
 
 	/* Normal assert() semantics without relying on the provision of an assert.h
 	header file. */
-	extern void vAssertCalled( uint32_t ulLine, const char *pcFile );
-	#define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __LINE__, __FILE__ )
+        #if defined(AMAZON_FREERTOS_ENABLE_UNIT_TESTS)
+            /* Unity includes for testing. */
+            #include "unity_internals.h"
+            #define configASSERT(x)	if( ( x ) == 0 )  TEST_ABORT()
+        #else
+            extern void vAssertCalled( uint32_t ulLine, const char *pcFile );
+            #define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __LINE__, __FILE__ )
+        #endif
 	
 	// _memxxx proto-type?
 	//#define memcpy _memcpy

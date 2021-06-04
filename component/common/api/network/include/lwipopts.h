@@ -418,9 +418,11 @@ Certain platform allows computing and verifying the IP, UDP, TCP and ICMP checks
 
 /* Extra options for lwip_v2.0.2 which should not affect lwip_v1.4.1 */
 #define LWIP_TCPIP_CORE_LOCKING         0
+#define ERRNO   1
 #define LWIP_TCPIP_TIMEOUT              1
 #define LWIP_SO_RCVTIMEO                1
-#define LWIP_SOCKET_SET_ERRNO           0
+#define LWIP_SO_SNDTIMEO                1
+#define LWIP_SOCKET_SET_ERRNO           1
 #undef LWIP_DEBUG
 #define LWIP_RAW                        1
 #define LWIP_AUTOIP                     1
