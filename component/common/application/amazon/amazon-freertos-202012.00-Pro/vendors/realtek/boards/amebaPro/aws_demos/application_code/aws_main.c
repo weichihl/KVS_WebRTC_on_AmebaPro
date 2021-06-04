@@ -496,7 +496,7 @@ void vApplicationIdleHook( void )
  * @brief User defined assertion call. This function is plugged into configASSERT.
  * See FreeRTOSConfig.h to define configASSERT to something different.
  */
-#if 0
+#if 1
 void vAssertCalled(uint32_t ulLine,
 	const char * pcFile)
 {
