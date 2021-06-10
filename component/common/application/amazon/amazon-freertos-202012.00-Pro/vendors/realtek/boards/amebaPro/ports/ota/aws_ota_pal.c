@@ -97,6 +97,22 @@ int16_t prvPAL_WriteBlock_rtl8721d(OTA_FileContext_t *C, int32_t iOffset, uint8_
 OTA_Err_t prvPAL_ActivateNewImage_rtl8721d(void);
 OTA_Err_t prvPAL_SetPlatformImageState_rtl8721d (OTA_ImageState_t eState);
 OTA_PAL_ImageState_t prvPAL_GetPlatformImageState_rtl8721d( void );
+#elif defined(CONFIG_PLATFORM_8710C)
+OTA_Err_t prvPAL_Abort_amebaZ2(OTA_FileContext_t *C);
+OTA_Err_t prvPAL_CreateFileForRx_amebaZ2(OTA_FileContext_t *C);
+OTA_Err_t prvPAL_CloseFile_amebaZ2(OTA_FileContext_t *C);
+int16_t prvPAL_WriteBlock_amebaZ2(OTA_FileContext_t *C, int32_t iOffset, uint8_t* pacData, uint32_t iBlockSize);
+OTA_Err_t prvPAL_ActivateNewImage_amebaZ2(void);
+OTA_Err_t prvPAL_SetPlatformImageState_amebaZ2 (OTA_ImageState_t eState);
+OTA_PAL_ImageState_t prvPAL_GetPlatformImageState_amebaZ2( void );
+#elif defined(CONFIG_PLATFORM_8195B) /* AmebaPro */
+OTA_Err_t prvPAL_Abort_amebaPro(OTA_FileContext_t *C);
+OTA_Err_t prvPAL_CreateFileForRx_amebaPro(OTA_FileContext_t *C);
+OTA_Err_t prvPAL_CloseFile_amebaPro(OTA_FileContext_t *C);
+int16_t prvPAL_WriteBlock_amebaPro(OTA_FileContext_t *C, int32_t iOffset, uint8_t* pacData, uint32_t iBlockSize);
+OTA_Err_t prvPAL_ActivateNewImage_amebaPro(void);
+OTA_Err_t prvPAL_SetPlatformImageState_amebaPro (OTA_ImageState_t eState);
+OTA_PAL_ImageState_t prvPAL_GetPlatformImageState_amebaPro( void );
 #else
 #error "This platform is not supported!"
 #endif
@@ -104,14 +120,14 @@ OTA_PAL_ImageState_t prvPAL_GetPlatformImageState_rtl8721d( void );
 OTA_Err_t prvPAL_CreateFileForRx( OTA_FileContext_t * const C )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_CreateFileForRx" );
-	return prvPAL_CreateFileForRx_rtl8721d(C) == pdTRUE?kOTA_Err_None:kOTA_Err_RxFileCreateFailed;
+	return prvPAL_CreateFileForRx_amebaPro(C) == pdTRUE?kOTA_Err_None:kOTA_Err_RxFileCreateFailed;
 }
 /*-----------------------------------------------------------*/
 
 OTA_Err_t prvPAL_Abort( OTA_FileContext_t * const C )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_Abort" );
-	return prvPAL_Abort_rtl8721d(C);
+	return prvPAL_Abort_amebaPro(C);
 }
 /*-----------------------------------------------------------*/
 
@@ -122,14 +138,14 @@ int16_t prvPAL_WriteBlock( OTA_FileContext_t * const C,
                            uint32_t ulBlockSize )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_WriteBlock" );
-	return prvPAL_WriteBlock_rtl8721d(C, ulOffset, pacData, ulBlockSize);
+	return prvPAL_WriteBlock_amebaPro(C, ulOffset, pacData, ulBlockSize);
 }
 /*-----------------------------------------------------------*/
 
 OTA_Err_t prvPAL_CloseFile( OTA_FileContext_t * const C )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_CloseFile" );
-	return prvPAL_CloseFile_rtl8721d(C);
+	return prvPAL_CloseFile_amebaPro(C);
 }
 /*-----------------------------------------------------------*/
 
@@ -137,7 +153,7 @@ OTA_Err_t prvPAL_CloseFile( OTA_FileContext_t * const C )
 static OTA_Err_t prvPAL_CheckFileSignature( OTA_FileContext_t * const C )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_CheckFileSignature" );
-    return prvPAL_CheckFileSignature_rtl8721d(C);
+    return prvPAL_CheckFileSignature_amebaPro(C);
 }
 /*-----------------------------------------------------------*/
 
@@ -145,35 +161,35 @@ static uint8_t * prvPAL_ReadAndAssumeCertificate( const uint8_t * const pucCertN
                                                   uint32_t * const ulSignerCertSize )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_ReadAndAssumeCertificate" );
-    return (uint8_t *) prvPAL_ReadAndAssumeCertificate_rtl8721d( pucCertName, ulSignerCertSize);
+    return (uint8_t *) prvPAL_ReadAndAssumeCertificate_amebaPro( pucCertName, ulSignerCertSize);
 }
 /*-----------------------------------------------------------*/
 
 OTA_Err_t prvPAL_ResetDevice( void )
 {
     DEFINE_OTA_METHOD_NAME("prvPAL_ResetDevice");
-	return prvPAL_ResetDevice_rtl8721d();
+	return prvPAL_ResetDevice_amebaPro();
 }
 /*-----------------------------------------------------------*/
 
 OTA_Err_t prvPAL_ActivateNewImage( void )
 {
     DEFINE_OTA_METHOD_NAME("prvPAL_ActivateNewImage");
-	return prvPAL_ActivateNewImage_rtl8721d();
+	return prvPAL_ActivateNewImage_amebaPro();
 }
 /*-----------------------------------------------------------*/
 
 OTA_Err_t prvPAL_SetPlatformImageState( OTA_ImageState_t eState )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_SetPlatformImageState" );
-	return prvPAL_SetPlatformImageState_rtl8721d(eState);
+	return prvPAL_SetPlatformImageState_amebaPro(eState);
 }
 /*-----------------------------------------------------------*/
 
 OTA_PAL_ImageState_t prvPAL_GetPlatformImageState( void )
 {
     DEFINE_OTA_METHOD_NAME( "prvPAL_GetPlatformImageState" );
-	return prvPAL_GetPlatformImageState_rtl8721d();
+	return prvPAL_GetPlatformImageState_amebaPro();
 }
 /*-----------------------------------------------------------*/
 
