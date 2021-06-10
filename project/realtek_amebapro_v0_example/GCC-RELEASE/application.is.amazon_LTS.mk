@@ -736,6 +736,8 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 #network_manager
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/network_manager/aws_iot_demo_network.c
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/network_manager/aws_iot_network_manager.c
+#ota
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/ota/aws_iot_ota_update_demo.c
 
 ##libraries
 ##3rdparty
@@ -959,6 +961,8 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/pkcs11/core_pkcs11_pal.c
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/secure_sockets/iot_secure_sockets.c
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/wifi/iot_wifi.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_amebapro.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_pal.c
 
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_demos/application_code/aws_main.c
 #SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_tests/application_code/aws_test_main.c
