@@ -34,7 +34,7 @@
 /**
  * @brief The number of words allocated to the stack for the OTA agent.
  */
-#define otaconfigSTACK_SIZE                     830U    /* FIX ME. */
+#define otaconfigSTACK_SIZE                     2048U    /* FIX ME. */
 
 /**
  * @brief Log base 2 of the size of the file data block message (excluding the header).
@@ -59,7 +59,7 @@
 /**
  * @brief The OTA agent task priority. Normally it runs at a low priority.
  */
-#define otaconfigAGENT_PRIORITY                 tskIDLE_PRIORITY + 1   /* FIX ME. */
+#define otaconfigAGENT_PRIORITY                 tskIDLE_PRIORITY + 3   /* FIX ME. */
 
 /**
  * @brief The maximum allowed length of the thing name used by the OTA agent.
@@ -100,7 +100,7 @@
  * This configurations parameter sets the maximum number of static data buffers used by
  * the OTA agent for job and file data blocks received.
  */
-#define otaconfigMAX_NUM_OTA_DATA_BUFFERS       4U
+#define otaconfigMAX_NUM_OTA_DATA_BUFFERS       16U
 
 /**
  * @brief Allow update to same or lower version.

@@ -3077,6 +3077,12 @@
                     <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\network_manager\aws_iot_network_manager.c</name>
                 </file>
             </group>
+            <group>
+                <name>ota</name>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\ota\aws_iot_ota_update_demo.c</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>libraries</name>
@@ -3675,6 +3681,15 @@
                     <excluded>
                         <configuration>Debug</configuration>
                     </excluded>
+                    <group>
+                        <name>ota</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\test\aws_test_ota_agent.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\test\aws_test_ota_pal.c</name>
+                        </file>
+                    </group>
                     <file>
                         <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\tls\test\iot_test_tls.c</name>
                     </file>
@@ -3721,6 +3736,12 @@
             <name>vendor</name>
             <group>
                 <name>port</name>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_amebapro.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_pal.c</name>
+                </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\pkcs11\core_pkcs11_pal.c</name>
                 </file>
@@ -3778,6 +3799,7 @@
                         <state>CONFIG_FATFS_WRAPPER=1</state>
                         <state>UNITY_INCLUDE_CONFIG_H_____</state>
                         <state>AMAZON_FREERTOS_ENABLE_UNIT_TESTS_____</state>
+                        <state>FREERTOS_ENABLE_UNIT_TESTS___</state>
                         <state>MBEDTLS_CONFIG_FILE="aws_mbedtls_config.h"</state>
                     </option>
                     <option>
@@ -4066,6 +4088,7 @@
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\device_shadow_for_aws\source\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreJSON\source\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\mqtt_demo_helpers</state>
+                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\test</state>
                     </option>
                     <option>
                         <name>CCStdIncCheck</name>

@@ -48,20 +48,20 @@
  *
  *  These defines are used in iot_demo_runner.h for demo selection */
 
-//#define CONFIG_CORE_MQTT_MUTUAL_AUTH_DEMO_ENABLED
+#define CONFIG_CORE_MQTT_MUTUAL_AUTH_DEMO_ENABLED
 //#define CONFIG_OTA_UPDATE_DEMO_ENABLED
 //#define CONFIG_DEVICE_SHADOW_DEMO_ENABLED
-#define CONFIG_CORE_HTTP_S3_UPLOAD_DEMO_ENABLED
+//#define CONFIG_CORE_HTTP_S3_UPLOAD_DEMO_ENABLED
 //#define CONFIG_CORE_HTTP_MUTUAL_AUTH_DEMO_ENABLED
 
 /* Default configuration for all demos. Individual demos can override these below */
 #define democonfigDEMO_STACKSIZE    ( configMINIMAL_STACK_SIZE * 16 )
-#define democonfigDEMO_PRIORITY     ( tskIDLE_PRIORITY + 3 )
+#define democonfigDEMO_PRIORITY     ( tskIDLE_PRIORITY + 1 )
 #define democonfigNETWORK_TYPES     ( AWSIOT_NETWORK_TYPE_WIFI )
 
 /* Timeout used when performing MQTT operations that do not need extra time
  * to perform a TLS negotiation. */
-#define democonfigMQTT_TIMEOUT                                       pdMS_TO_TICKS( 1000 )  //300
+#define democonfigMQTT_TIMEOUT                                       pdMS_TO_TICKS( 300 )
 
 /* Timeout used when establishing a connection, which required TLS
  * negotiation. */
@@ -72,7 +72,7 @@
 #define democonfigMQTT_ECHO_TASK_PRIORITY                            ( tskIDLE_PRIORITY )
 
 /* IoT simple subscribe/publish example task parameters. */
-#define democonfigMQTT_SUB_PUB_TASK_STACK_SIZE                       ( configMINIMAL_STACK_SIZE * 16 )
+#define democonfigMQTT_SUB_PUB_TASK_STACK_SIZE                       ( configMINIMAL_STACK_SIZE * 5 )
 #define democonfigMQTT_SUB_PUB_TASK_PRIORITY                         ( tskIDLE_PRIORITY )
 
 /* Greengrass discovery example task parameters. */
