@@ -475,7 +475,7 @@
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_utils</state>
-                    <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\libraries\3rdparty\mbedtls_config</state>
+                    <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_config</state>
                     <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls\include</state>
                 </option>
                 <option>
@@ -2535,7 +2535,7 @@
                         <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_utils</state>
-                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\libraries\3rdparty\mbedtls_config</state>
+                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_config</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls\include</state>
                     </option>
                     <option>
@@ -3032,7 +3032,7 @@
                     <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreHTTP\http_demo_mutual_auth.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\demos\coreHTTP\http_demo_s3_upload.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreHTTP\http_demo_s3_upload.c</name>
                 </file>
             </group>
             <group>
@@ -3737,26 +3737,26 @@
             <group>
                 <name>port</name>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_amebapro.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_amebapro.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_pal.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\ports\ota\aws_ota_pal.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\pkcs11\core_pkcs11_pal.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\ports\pkcs11\core_pkcs11_pal.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\secure_sockets\iot_secure_sockets.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\ports\secure_sockets\iot_secure_sockets.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\ports\wifi\iot_wifi.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\ports\wifi\iot_wifi.c</name>
                 </file>
             </group>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\aws_demos\application_code\aws_main.c</name>
+                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_demos\application_code\aws_main.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\aws_tests\application_code\aws_test_main.c</name>
+                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_tests\application_code\aws_test_main.c</name>
                 <excluded>
                     <configuration>Debug</configuration>
                 </excluded>
@@ -4039,7 +4039,7 @@
                         <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\tests\include______</state>
-                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\aws_tests\config_files______</state>
+                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_tests\config_files______</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\utils\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\logging\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\wifi\include</state>
@@ -4062,7 +4062,7 @@
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\jsmn</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_utils</state>
-                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\libraries\3rdparty\mbedtls_config</state>
+                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_config</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\crypto\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\dev_mode_key_provisioning\include</state>
@@ -4083,7 +4083,7 @@
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\pkcs11_helpers</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\network_manager</state>
-                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00-Pro\vendors\realtek\boards\amebaPro\aws_demos\config_files</state>
+                        <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_demos\config_files</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\http_demo_helpers</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\device_shadow_for_aws\source\include</state>
                         <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreJSON\source\include</state>
@@ -4614,6 +4614,9 @@
                     <name>rtw_wpa_supplicant</name>
                     <file>
                         <name>$PROJ_DIR$\..\..\..\component\common\api\wifi\rtw_wpa_supplicant\src\crypto\tls_polarssl.c</name>
+                        <excluded>
+                            <configuration>Debug</configuration>
+                        </excluded>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\..\..\..\component\common\api\wifi\rtw_wpa_supplicant\wpa_supplicant\wifi_eap_config.c</name>
@@ -4725,6 +4728,9 @@
         </group>
         <group>
             <name>googlenest</name>
+            <excluded>
+                <configuration>Debug</configuration>
+            </excluded>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\application\google\google_tls.c</name>
             </file>
