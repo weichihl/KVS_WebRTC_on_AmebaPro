@@ -22,4 +22,4 @@
 [submodule "component/common/application/amazon/amazon-freertos-202012.00"]
 	path = component/common/application/amazon/amazon-freertos-202012.00
 	url = https://github.com/ambiot/amazon-freertos.git
-	branch = ambd-v202012.00-LTS
+	branch = amebaPro-5.2h-202012.00-LTS

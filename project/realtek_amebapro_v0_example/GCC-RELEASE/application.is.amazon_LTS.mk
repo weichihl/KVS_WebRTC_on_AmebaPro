@@ -237,7 +237,7 @@ INCLUDES += -I../../../lib_amazon/libusrsctp/usrsctplib
 INCLUDES += -I../../../lib_amazon/libusrsctp/usrsctplib/netinet
 INCLUDES += -I../../../lib_amazon/libusrsctp/usrsctplib/netinet6
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/tests/include________
-INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_tests/config_files______
+INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/aws_tests/config_files______
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/freertos_plus/standard/utils/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/logging/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/abstractions/wifi/include
@@ -261,7 +261,7 @@ INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-20201
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/freertos_plus/aws/ota/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/3rdparty/mbedtls_utils
 #INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/3rdparty/mbedtls_config
-INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/libraries/3rdparty/mbedtls_config
+INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/3rdparty/mbedtls_config
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/3rdparty/mbedtls/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/freertos_plus/standard/crypto/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/demos/dev_mode_key_provisioning/include
@@ -282,7 +282,7 @@ INCLUDES += -I../../../common/application/amazon/amazon-freertos-202012.00/demos
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/demos/common/pkcs11_helpers
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/demos/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/demos/network_manager
-INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_demos/config_files
+INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/aws_demos/config_files
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/demos/common/http_demo_helpers
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/device_shadow_for_aws/source/include
 INCLUDES += -I../../../component/common/application/amazon/amazon-freertos-202012.00/libraries/coreJSON/source/include
@@ -397,7 +397,7 @@ SRC_C += ../../../component/common/media/framework/snapshot_tftp_handler.c
 #api
 #wifi
 #rtw_wpa_supplicant
-SRC_C += ../../../component/common/api/wifi/rtw_wpa_supplicant/src/crypto/tls_polarssl.c
+#SRC_C += ../../../component/common/api/wifi/rtw_wpa_supplicant/src/crypto/tls_polarssl.c
 SRC_C += ../../../component/common/api/wifi/rtw_wpa_supplicant/wpa_supplicant/wifi_eap_config.c
 SRC_C += ../../../component/common/api/wifi/rtw_wpa_supplicant/wpa_supplicant/wifi_p2p_config.c
 SRC_C += ../../../component/common/api/wifi/rtw_wpa_supplicant/wpa_supplicant/wifi_wps_config.c
@@ -439,7 +439,7 @@ SRC_C += ../../../component/common/network/coap/sn_coap_parser.c
 SRC_C += ../../../component/common/network/coap/sn_coap_protocol.c
 
 #googlenest
-SRC_C += ../../../component/common/application/google/google_tls.c
+#SRC_C += ../../../component/common/application/google/google_tls.c
 
 #http
 SRC_C += ../../../component/common/network/httpc/httpc_tls.c
@@ -721,7 +721,7 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/common/pkcs11_helpers/pkcs11_helpers.c
 #coreHTTP
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP/http_demo_mutual_auth.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/demos/coreHTTP/http_demo_s3_upload.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP/http_demo_s3_upload.c
 #coreMQTT
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreMQTT/mqtt_demo_mutual_auth.c
 #demo_runner
@@ -958,14 +958,14 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 
 ##vendor
 #port
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/pkcs11/core_pkcs11_pal.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/secure_sockets/iot_secure_sockets.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/wifi/iot_wifi.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_amebapro.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_pal.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/ports/pkcs11/core_pkcs11_pal.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/ports/secure_sockets/iot_secure_sockets.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/ports/wifi/iot_wifi.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_amebapro.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/ports/ota/aws_ota_pal.c
 
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_demos/application_code/aws_main.c
-#SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00-Pro/vendors/realtek/boards/amebaPro/aws_tests/application_code/aws_test_main.c
+SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/aws_demos/application_code/aws_main.c
+#SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/aws_tests/application_code/aws_test_main.c
 #SRC_C += ../../../component/common/example/amazon_afqp_tests/example_amazon_afqp_tests.c
 SRC_C += ../../../component/common/example/amazon_freertos/example_amazon_freertos.c
 
