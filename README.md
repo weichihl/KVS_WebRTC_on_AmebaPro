@@ -55,19 +55,26 @@ This project is going to demonstrate how to use KVS Producer and WebRTC on Ameba
 <table style="width:100%; table-layout:fixed">
   <tr>
     <td><img src="photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px /></td>
-    <td align=Left>1. Upload image from AmebaPro to S3<BR>2. Trigger Lambda function to do object detection<BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework</td>
+    <td align=Left>1. Take a snapshot by camera sensor<BR>2. Upload image from AmebaPro to S3<BR>3. Trigger Lambda function to do object detection<BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework</td>
     <td>
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.0.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.1.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green"/>
       </a>
     </td>
   </tr>
 </table>  
+      
+### :bulb: FreeRTOS-LTS-v202012.00 Libraries
+&nbsp; AmebaPro can connect to AWS IoT with the long term support libraries maintained by Amazon.
+<a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_FreeRTOS-LTS_Getting_Started_Guide_v1.0.pdf">
+  <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle"/>
+</a>
 
 ## Demo code  
 :pencil2: **KVS WebRTC** &nbsp; &nbsp; :point_right: &nbsp; &nbsp; `project/component/common/example/kvs_webrtc`  
 :pencil2: **KVS Producer** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/example/kvs_producer`  
-:pencil2: **S3 file upload** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP`  
+:pencil2: **S3 file upload** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/application/amazon/JPEG_snapshot_s3_upload_example`  
+:pencil2: **FreeRTOS-LTS** &nbsp; &nbsp; :point_right: &nbsp; &nbsp;`project/component/common/application/amazon/amazon-freertos-202012.00/demos`  
 
 
 ## IDE/toolchain Requirement
