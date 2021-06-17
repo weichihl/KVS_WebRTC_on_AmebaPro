@@ -3032,7 +3032,7 @@
                     <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreHTTP\http_demo_mutual_auth.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreHTTP\http_demo_s3_upload.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\JPEG_snapshot_s3_upload_example\http_demo_s3_upload.c</name>
                 </file>
             </group>
             <group>

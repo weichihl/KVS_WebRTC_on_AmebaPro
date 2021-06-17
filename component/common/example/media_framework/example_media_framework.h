@@ -51,7 +51,8 @@
 #define V3_JPEG_STREAMING	1
 #define V3_JPEG_SNAPSHOT	2
 
-#define SNAPSHOT_TFTP_TYPE //The default setting is TFTP transfer. If undef the marco it will choose the sd transfer        
+//#define SNAPSHOT_TFTP_TYPE //The default setting is TFTP transfer.
+//#define SNAPSHOT_SD_TYPE   //choose the sd transfer
 
 #define USING_I2S_MIC           0
 
@@ -144,7 +145,7 @@
 //------------------------------------------------------------------------------
 // V3
 //------------------------------------------------------------------------------
-#define ENABLE_V3_JPEG						V3_JPEG_OFF
+#define ENABLE_V3_JPEG						V3_JPEG_SNAPSHOT
 #if ENABLE_V3_JPEG == V3_JPEG_STREAMING
 #define ENABLE_V3_SNAPSHOT_WHEN_STREAMING	0
 #endif
@@ -153,7 +154,7 @@
 #define V3_HW_SLOT							2
 #define V3_SW_SLOT							3
 // JPEG
-#define V3_JPEG_LEVEL						1 // quality level
+#define V3_JPEG_LEVEL						5 // quality level
 
 // ---------- End of Settings ----------
 
