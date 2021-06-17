@@ -37,7 +37,7 @@ void snapshot_setting()
 #endif
 #ifdef SNAPSHOT_TFTP_TYPE
 	jpeg_snapshot_create_tftp_thread();
-#else
+#elif SNAPSHOT_SD_TYPE
 	jpeg_snapshot_create_sd_thread();
 #endif
 }

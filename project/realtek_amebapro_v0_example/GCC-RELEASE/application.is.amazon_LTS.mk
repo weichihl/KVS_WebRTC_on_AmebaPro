@@ -721,7 +721,7 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/common/pkcs11_helpers/pkcs11_helpers.c
 #coreHTTP
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP/http_demo_mutual_auth.c
-SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreHTTP/http_demo_s3_upload.c
+SRC_C += ../../../component/common/application/amazon/JPEG_snapshot_s3_upload_example/http_demo_s3_upload.c
 #coreMQTT
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/demos/coreMQTT/mqtt_demo_mutual_auth.c
 #demo_runner
