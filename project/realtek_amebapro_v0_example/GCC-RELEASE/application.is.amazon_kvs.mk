@@ -882,13 +882,12 @@ prebuild:
 	@echo ===========================================================
 	@echo Prebuild
 	@echo ===========================================================
-	$(ELF2BIN) prebuild GCC xip_fw.ld FW
-
 ifeq ($(findstring Linux, $(OS)), Linux)
 	chmod 0774 ../../../component/soc/realtek/8195b/misc/iar_utility/elf2bin.linux
 	chmod 0774 ../../../component/soc/realtek/8195b/misc/iar_utility/checksum.linux
 	chmod 0774 ../../../component/soc/realtek/8195b/misc/gcc_utility/postbuild.sh
 endif
+	$(ELF2BIN) prebuild GCC xip_fw.ld FW
 
 
 # Compile

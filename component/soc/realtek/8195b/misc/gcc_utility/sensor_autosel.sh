@@ -42,7 +42,7 @@ else
 	#;                      Auto Select ISP firmware by Sensor                     #
 	#;*****************************************************************************#
 	sensor=$(grep "define SENSOR_USE" 	"$inc_path/sensor.h" | gawk '{print $3}' | sed 's/SENSOR_//g' | sed 's/[ /\r\n].*//g')
-	sensor=$(echo $sensor | tr '[:lower:]' '[:upper:]')
+	sensor=$(echo $sensor | tr '[:upper:]' '[:lower:]')
 	if [ "$sensor" = "ALL" ]; then
 	sensor_generate
 	echo "ALL"

@@ -92,8 +92,16 @@ To check out this repository:
 git clone --recurse-submodules https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro.git
 ```
 
-If you already have a checkout, run the following command to sync submodules:
+If you already have a checkout, run the following command to sync submodules recursively:
 
 ```
-git submodule update --init
+git submodule update --init --recursive
+```
+
+If there is GCC makefile error like: "No rule to make target …", it may mean that some codes have not been downloaded correctly.  
+Please run the above command again to download the missing codes.  
+
+If there is compile error with shell script in "component/soc/realtek/8195b/misc/gcc_utility/", you may need to run following command  
+```
+dos2unix component/soc/realtek/8195b/misc/gcc_utility/*
 ```
