@@ -137,13 +137,13 @@ int KvsVideoInitTrackInfo(VIDEO_BUFFER *pVideoBuf, Kvs_t *pKvs)
     uint8_t *pVideoCpdData = NULL;
     uint32_t uCpdLen = 0;
 
-    printf("Buf(%d):\r\n", pVideoBuf->output_size);
-    for (size_t i = 0; i<64; i++)
-    {
-        printf("%02X ", (pVideoBuf->output_buffer[i]) & 0xFF);
-        if ( ((i+1) % 16) == 0 ) printf("\r\n");
-    }
-    printf("\r\n");
+//    printf("Buf(%d):\r\n", pVideoBuf->output_size);
+//    for (size_t i = 0; i<64; i++)
+//    {
+//        printf("%02X ", (pVideoBuf->output_buffer[i]) & 0xFF);
+//        if ( ((i+1) % 16) == 0 ) printf("\r\n");
+//    }
+//    printf("\r\n");
 
     if (pVideoBuf == NULL || pKvs == NULL)
     {
@@ -171,7 +171,7 @@ int KvsVideoInitTrackInfo(VIDEO_BUFFER *pVideoBuf, Kvs_t *pKvs)
         pKvs->pVideoTrackInfo->uHeight = VIDEO_HEIGHT;
         pKvs->pVideoTrackInfo->pCodecPrivate = pVideoCpdData;
         pKvs->pVideoTrackInfo->uCodecPrivateLen = uCpdLen;
-        printf("w: %d h: %d\r\n", pKvs->pVideoTrackInfo->uWidth, pKvs->pVideoTrackInfo->uHeight);
+        printf("\r[Video resolution] w: %d h: %d\r\n", pKvs->pVideoTrackInfo->uWidth, pKvs->pVideoTrackInfo->uHeight);
     }
 
     return res;
