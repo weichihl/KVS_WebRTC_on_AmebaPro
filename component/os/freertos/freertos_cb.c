@@ -49,7 +49,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
      * configMINIMAL_STACK_SIZE is specified in words, not bytes. */
     *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
 }
-
+#endif
 
 void vAssertCalled( uint32_t ulLine, const char *pcfile )
 {
@@ -60,7 +60,7 @@ void vAssertCalled( uint32_t ulLine, const char *pcfile )
 	__disable_irq();
 	while(lock_assert);
 }
-#endif
+
 
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName )
 {

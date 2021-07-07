@@ -648,23 +648,21 @@ UCHAR* ameba_get_ip(void){
     return wifi_ip;
 }
 
-
-void example_kvs_webrtc_thread(void* param){
-
-    FRESULT res; 
-
-    printf("=== KVS Example ===\n\r");
-    
-    /* initialize HW crypto */
+static int amebapro_platform_init(void)
+{
+    /* initialize HW crypto, do this if mbedtls using AES hardware crypto */
     platform_set_malloc_free( (void*(*)( size_t ))calloc, vPortFree);
-
-    res = fatfs_sd_init();
+    
+    /* CRYPTO_Init -> Configure mbedtls to use FreeRTOS mutexes -> mbedtls_threading_set_alt(...) */
+    CRYPTO_Init();
+    
+    FRESULT res = fatfs_sd_init();
     if(res < 0){
         printf("fatfs_sd_init fail (%d)\n\r", res);
-        goto fail;
+        return -1;
     }
     fatfs_sd_get_param(&fatfs_sd);
-
+    
     while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS ){
         vTaskDelay( 200 / portTICK_PERIOD_MS );
     }
@@ -673,6 +671,19 @@ void example_kvs_webrtc_thread(void* param){
     sntp_init();
     while( getEpochTimestampInHundredsOfNanos(NULL) < 10000000000000000ULL ){
         vTaskDelay( 200 / portTICK_PERIOD_MS );
+    }
+    
+    return 0;
+}
+
+void example_kvs_webrtc_thread(void* param){
+
+    printf("=== KVS Example ===\n\r");
+    
+    // amebapro platform init
+    if (amebapro_platform_init() < 0) {
+        printf("platform init fail\n\r");
+        goto fail;
     }
 
     STATUS retStatus = STATUS_SUCCESS;

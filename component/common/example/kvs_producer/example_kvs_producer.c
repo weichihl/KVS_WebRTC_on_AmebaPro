@@ -11,6 +11,8 @@
 
 #include "wifi_conf.h"
 
+static void amebapro_platform_init(void);
+
 extern char log_buf[100];
 extern xSemaphoreHandle log_rx_interrupt_sema;
 static void kvs_init_thread( void * param )
@@ -31,9 +33,25 @@ static void kvs_init_thread( void * param )
     vTaskDelay( 1000 / portTICK_PERIOD_MS );
 #endif
 
-    // initialize HW crypto
-    platform_set_malloc_free( (void*(*)( size_t ))calloc, vPortFree);
+    // amebapro platform init
+    amebapro_platform_init();
 
+    // kvs produccer init
+    platformInit();
+
+    kvs_producer();
+
+    vTaskDelete(NULL);
+}
+
+static void amebapro_platform_init(void)
+{
+    /* initialize HW crypto, do this if mbedtls using AES hardware crypto */
+    platform_set_malloc_free( (void*(*)( size_t ))calloc, vPortFree);
+    
+    /* CRYPTO_Init -> Configure mbedtls to use FreeRTOS mutexes -> mbedtls_threading_set_alt(...) */
+    CRYPTO_Init();
+    
     while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS )
     {
         vTaskDelay( 200 / portTICK_PERIOD_MS );
@@ -46,12 +64,6 @@ static void kvs_init_thread( void * param )
         vTaskDelay( 200 / portTICK_PERIOD_MS );
         printf("waiting get epoch timer\r\n");
     }
-
-    platformInit();
-
-    kvs_producer();
-
-    vTaskDelete(NULL);
 }
 
 void example_kvs_producer( void )

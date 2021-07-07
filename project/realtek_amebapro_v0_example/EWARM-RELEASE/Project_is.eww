@@ -24,5 +24,8 @@
     <project>
         <path>$WS_DIR$\lib_kvs_producer.ewp</path>
     </project>
+    <project>
+        <path>$WS_DIR$\lib_amazon_LTS.ewp</path>
+    </project>
     <batchBuild />
 </workspace>
