@@ -70,6 +70,7 @@ typedef struct {
     volatile ATOMIC_BOOL interrupted;
     volatile ATOMIC_BOOL mediaThreadStarted;
     volatile ATOMIC_BOOL recreateSignalingClient;
+    volatile ATOMIC_BOOL connected;
     BOOL useTestSrc;
     ChannelInfo channelInfo;
     PCHAR pCaCertPath;
@@ -79,8 +80,7 @@ typedef struct {
     UINT32 audioBufferSize;
     PBYTE pVideoFrameBuffer;
     UINT32 videoBufferSize;
-    TID videoSenderTid;
-    TID audioSenderTid;
+    TID mediaSenderTid;
     TIMER_QUEUE_HANDLE timerQueueHandle;
     UINT32 iceCandidatePairStatsTimerId;
     SampleStreamingMediaType mediaType;//!< the control of video only, or video/audio.
