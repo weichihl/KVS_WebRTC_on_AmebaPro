@@ -4,8 +4,10 @@ This project is going to demonstrate how to use KVS Producer and WebRTC on Ameba
   <img src="https://img.shields.io/badge/Realtek%20IoT-AmebaPro-blue" valign="middle" alt="test image size" height="15%" width="15%"/>
 </a>  
 
-Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to communicate with AWS IoT core easily!  
+Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to communicate with AWS IoT core easily!
 [Version 202012.00](https://github.com/aws/amazon-freertos/tree/202012.00)
+
+You can review the [ChangeLog](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro#ChangeLog) before using the project.
 
 ## Brief Introduction to Amazon KVS and FreeRTOS-LTS  
 :blue_book: **Amazon Kinesis Video Streams**  
@@ -68,7 +70,7 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
     <td width=50%><img src="photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px/></td>
     <td align=Left width=50%>
       1. Take a snapshot by camera sensor<BR><BR>2. Upload image from AmebaPro to S3<BR><BR>3. Trigger Lambda function to do object detection<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.2.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
       <BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework
@@ -78,7 +80,7 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
       
 ### :bulb: FreeRTOS-LTS-v202012.00 Libraries
 &nbsp; AmebaPro can connect to AWS IoT with the long term support libraries maintained by Amazon.
-<a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_FreeRTOS-LTS_Getting_Started_Guide_v1.1.pdf">
+<a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_FreeRTOS-LTS_Getting_Started_Guide_v1.2.pdf">
   <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
 </a>  
 &nbsp; [FreeRTOS demos](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-next-steps.html): coreHTTP, coreMQTT, Over-the-air updates(OTA), AWS IoT Device Shadow...  
@@ -123,3 +125,9 @@ If there is compile error with shell script in "component/soc/realtek/8195b/misc
 ```
 dos2unix component/soc/realtek/8195b/misc/gcc_utility/*
 ```
+
+
+## ChangeLog
+* (Jul 12, 2021) Release version v2.0 for using KVS and LTS library on AmebaPro.
+* (Jul 09, 2021) Support Amazon FreeRTOS-LTS library and its demos. version 202012.00.<br>The branch: **AmebaPro-202012.00-LTS-dev** has been merged into **main**.
+* (May 12, 2021) Release version v1.0 for using KVS on AmebaPro.
