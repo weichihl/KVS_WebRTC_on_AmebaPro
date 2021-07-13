@@ -2630,12 +2630,6 @@
             <name>$PROJ_DIR$\..\..\..\component\common\mbed\targets\hal\rtl8195b\hal\rtl8195bh\flash_api.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\driver\flash_api_ext.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\disk_if\src\flash_fatfs.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\fwlib\hal-rtl8195b-hp\source\ram_s\hal_flash.c</name>
         </file>
         <configuration>
@@ -2973,45 +2967,6 @@
     </group>
     <group>
         <name>cmsis</name>
-        <group>
-            <name>dsp</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_add_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_bitreversal2.S</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_cfft_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_cfft_radix8_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\ComplexMathFunctions\arm_cmplx_mag_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\CommonTables\arm_common_tables.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\CommonTables\arm_const_structs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\StatisticsFunctions\arm_max_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_mult_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_rfft_fast_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_rfft_fast_init_f32.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_scale_f32.c</name>
-            </file>
-        </group>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\rtl8195b-hp\source\ram_s\app_start.c</name>
         </file>
@@ -3026,12 +2981,18 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_isp.c</name>
+            <excluded>
+                <configuration>Debug</configuration>
+            </excluded>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_lwip.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_media.c</name>
+            <excluded>
+                <configuration>Debug</configuration>
+            </excluded>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_qr_code.c</name>
@@ -3193,181 +3154,13 @@
     <group>
         <name>multimedia</name>
         <group>
-            <name>mmfv2</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_aac.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_aad.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_array.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_audio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_dual_uvcd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_dup.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_g711.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_h264.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_httpfs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_i2s.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_isp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_jpeg.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_mp4.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_opencv.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_rtp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_rtsp2.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_uvcd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_uvch.c</name>
-            </file>
-        </group>
-        <group>
-            <name>mmfv2_example</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_2way_audio_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_a_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_aac_array_rtsp_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_aacloop_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_audioloop_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av21_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av2_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av_dup_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av_mp4_httpfs_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av_mp4_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_av_rtsp_mp4_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_g711loop_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_h264_2way_audio_pcmu_doorbell_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_h264_2way_audio_pcmu_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_h264_array_rtsp_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_i2s_audio_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_joint_test_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_joint_test_rtsp_mp4_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_mp4_dual_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_param.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_pcmu_array_rtsp_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_rtp_aad_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_simo_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_v1_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_v1_param_change_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_v2_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\mmf2_example_v3_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\snapshot_setting.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_uvcd\usbd_dual_uvc_parm.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_uvcd\usbd_uvc_parm.c</name>
-            </file>
-        </group>
-        <group>
             <name>sensor</name>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\framework\sensor_service.c</name>
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\drivers\video\realtek\common\encoder_buffer_handler.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\common\media\framework\jpeg_snapshot.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\media\media_amebacam_broadcast.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\media\framework\mmf_command.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\media\framework\snapshot_sd_handler.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\media\framework\snapshot_tftp_handler.c</name>
         </file>
     </group>
     <group>
@@ -3413,45 +3206,6 @@
         </group>
         <group>
             <name>app</name>
-            <group>
-                <name>mqtt</name>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTClient\MQTTClient.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTConnectClient.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTConnectServer.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTDeserializePublish.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTFormat.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTClient\MQTTFreertos.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTPacket.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTSerializePublish.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTSubscribeClient.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTSubscribeServer.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTUnsubscribeClient.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\mqtt\MQTTPacket\MQTTUnsubscribeServer.c</name>
-                </file>
-            </group>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\platform\ota_8195b.c</name>
             </file>
@@ -3472,301 +3226,7 @@
             </file>
         </group>
         <group>
-            <name>coap</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\coap\sn_coap_ameba_port.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\coap\sn_coap_builder.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\coap\sn_coap_header_check.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\coap\sn_coap_parser.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\coap\sn_coap_protocol.c</name>
-            </file>
-        </group>
-        <group>
-            <name>googlenest</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\application\google\google_tls.c</name>
-            </file>
-        </group>
-        <group>
-            <name>http</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\httpc\httpc_tls.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\httpd\httpd_tls.c</name>
-            </file>
-        </group>
-        <group>
-            <name>mdns</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\mDNS\mDNSPlatform.c</name>
-            </file>
-        </group>
-        <group>
             <name>ssl</name>
-            <group>
-                <name>mbedtls</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\aes.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\aes_alt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\aesni.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\arc4.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\aria.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\asn1parse.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\asn1write.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\base64.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\bignum.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\blowfish.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\camellia.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ccm.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\certs.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\chacha20.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\chachapoly.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\cipher.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\cipher_wrap.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\cmac.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ctr_drbg.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\debug.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\des.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\dhm.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ecdh.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ecdsa.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ecjpake.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ecp.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ecp_curves.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\entropy.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\entropy_alt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\entropy_poll.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\error.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\gcm.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\havege.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\hkdf.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\hmac_drbg.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\md.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\md2.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\md4.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\md5.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\md_wrap.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\memory_buffer_alloc.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\net_sockets.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\nist_kw.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\oid.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\padlock.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pem.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pk.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pk_wrap.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pkcs11.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pkcs12.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pkcs5.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pkparse.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\pkwrite.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\platform.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\platform_alt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\platform_util.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\poly1305.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ripemd160.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\rsa.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\rsa_internal.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\sha1.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\sha256.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\sha512.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_cache.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_ciphersuites.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_cli.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_cookie.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_srv.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_ticket.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\ssl_tls.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\threading.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\timing.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\timing_alt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\version.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\version_features.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509_create.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509_crl.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509_crt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509_csr.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509write_crt.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\x509write_csr.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\network\ssl\mbedtls-2.16.4\library\xtea.c</name>
-                </file>
-            </group>
             <group>
                 <name>mbedtls_2.16.6</name>
                 <file>
@@ -4026,18 +3486,6 @@
                 </file>
             </group>
         </group>
-        <group>
-            <name>websocket</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\websocket\wsclient_tls.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\network\websocket\wsserver_tls.c</name>
-            </file>
-        </group>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\common\drivers\wlan\realtek\src\core\option\rtw_opt_skbuf.c</name>
         </file>
@@ -4197,27 +3645,6 @@
     </group>
     <group>
         <name>user</name>
-        <group>
-            <name>evalutaion_board</name>
-            <group>
-                <name>sensor_board_v1</name>
-                <file>
-                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\AL3042.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ambient_light_sensor.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ir_ctrl.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ir_cut.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\sensor_external_ctrl.c</name>
-                </file>
-            </group>
-        </group>
         <file>
             <name>$PROJ_DIR$\..\src\main.c</name>
         </file>
@@ -5559,201 +4986,18 @@
                 </configuration>
             </group>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_helix_aac\example_audio_helix_aac.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_helix_mp3\example_audio_helix_mp3.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_loop\example_audio_loop.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_aac\example_audio_to_aac.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\audio_to_g711\example_audio_to_g711.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\bcast\example_bcast.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\cJSON\example_cJSON.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\coap\example_coap.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\dct\example_dct.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\eap\example_eap.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\example_entry.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\fatfs\example_fatfs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\get_beacon_frame\example_get_beacon_frame.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\high_load_memory_use\example_high_load_memory_use.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\http_client\example_http_client.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\http_download\example_http_download.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\httpc\example_httpc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\httpd\example_httpd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_isp_osd_multi.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_mask.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\mcast\example_mcast.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_md.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\mdns\example_mdns.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_uvcd\example_media_dual_uvcd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_framework\example_media_framework.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_h264_to_sdcard\example_media_h264_to_sdcard.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_mp4_demuxer\example_media_mp4_demuxer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\media_uvcd\example_media_uvcd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\mqtt\example_mqtt.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\nonblock_connect\example_nonblock_connect.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\ota_http\example_ota_http.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\ota_sdcard\example_ota_sdcard.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\pppoe\example_pppoe.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\qr_code_scanner\example_qr_code_scanner.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\rarp\example_rarp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\sd_hot_plug\example_sd_hotplug.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\sdcard_upload_httpd\example_sdcard_upload_httpd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\sntp_showtime\example_sntp_showtime.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\socket_select\example_socket_select.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\socket_tcp_trx\example_socket_tcp_trx_1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\socket_tcp_trx\example_socket_tcp_trx_2.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\std_file\example_std_file.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\tcp_keepalive\example_tcp_keepalive.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\usb_dfu_ota\example_usb_dfu_ota.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\usb_mass_storage\example_usb_msc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\usbh_uvc\example_usbh_uvc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\wifi_mac_monitor\example_wifi_mac_monitor.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\wifi_roaming\example_wifi_roaming.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\wlan_fast_connect\example_wlan_fast_connect.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\websocket_server\example_ws_server.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\websocket_client\example_wsclient.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\example\xml\example_xml.c</name>
             </file>
         </group>
         <group>
             <name>FatFs</name>
             <group>
-                <name>disk_if</name>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\disk_if\src\sdcard.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\drivers\sdio\realtek\sdio_host\src\sdio_combine.c</name>
-                    <excluded>
-                        <configuration>Debug</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\disk_if\src\usbdisk.c</name>
-                </file>
-            </group>
-            <group>
                 <name>fatfs_ext</name>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\fatfs_ext\src\ff_driver.c</name>
-                </file>
-            </group>
-            <group>
-                <name>r0.10c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-                <group>
-                    <name>option</name>
-                    <file>
-                        <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.10c\src\option\ccsbcs.c</name>
-                    </file>
-                </group>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.10c\src\diskio.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.10c\src\ff.c</name>
                 </file>
             </group>
             <group>
@@ -5771,27 +5015,6 @@
                     <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\ffunicode.c</name>
                 </file>
             </group>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\fatfs_flash_api.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\fatfs_reent.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\fatfs_sdcard_api.c</name>
-            </file>
         </group>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\utilities\cJSON.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\utilities\http_client.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\utilities\xml.c</name>
-        </file>
     </group>
 </project>
