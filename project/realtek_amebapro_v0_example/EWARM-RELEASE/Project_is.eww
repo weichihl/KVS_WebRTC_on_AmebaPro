@@ -16,9 +16,6 @@
         <path>$WS_DIR$\libsrtp2.ewp</path>
     </project>
     <project>
-        <path>$WS_DIR$\libusrsctp.ewp</path>
-    </project>
-    <project>
         <path>$WS_DIR$\libwebsockets.ewp</path>
     </project>
     <project>
