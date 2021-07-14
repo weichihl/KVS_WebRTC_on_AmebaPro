@@ -301,27 +301,13 @@ ITCM_C =
 
 # -------------------------------------------------------------------
 #cmsis
-#dsp
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_add_f32.c
-SRC_ASM += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_bitreversal2.S
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_cfft_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_cfft_radix8_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/ComplexMathFunctions/arm_cmplx_mag_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/CommonTables/arm_common_tables.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/CommonTables/arm_const_structs.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/StatisticsFunctions/arm_max_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_mult_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_rfft_fast_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_rfft_fast_init_f32.c
-SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_scale_f32.c
-
 SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram_s/app_start.c
 SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram/mpu_config.c
 
 #console
-SRC_C += ../../../component/common/api/at_cmd/atcmd_isp.c
+#SRC_C += ../../../component/common/api/at_cmd/atcmd_isp.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_lwip.c
-SRC_C += ../../../component/common/api/at_cmd/atcmd_media.c
+#SRC_C += ../../../component/common/api/at_cmd/atcmd_media.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_sys.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_wifi.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_qr_code.c
@@ -331,64 +317,10 @@ SRC_C += ../../../component/soc/realtek/8195b/misc/driver/low_level_io.c
 SRC_C += ../../../component/soc/realtek/8195b/misc/driver/rtl_console.c
 
 #multimedia
-#mmfv2
-SRC_C += ../../../component/common/media/mmfv2/module_aac.c
-SRC_C += ../../../component/common/media/mmfv2/module_aad.c
-SRC_C += ../../../component/common/media/mmfv2/module_array.c
-SRC_C += ../../../component/common/media/mmfv2/module_audio.c
-SRC_C += ../../../component/common/media/mmfv2/module_g711.c
-SRC_C += ../../../component/common/media/mmfv2/module_h264.c
-SRC_C += ../../../component/common/media/mmfv2/module_i2s.c
-SRC_C += ../../../component/common/media/mmfv2/module_isp.c
-SRC_C += ../../../component/common/media/mmfv2/module_jpeg.c
-SRC_C += ../../../component/common/media/mmfv2/module_mp4.c
-SRC_C += ../../../component/common/media/mmfv2/module_rtp.c
-SRC_C += ../../../component/common/media/mmfv2/module_rtsp2.c
-SRC_C += ../../../component/common/media/mmfv2/module_uvcd.c
-SRC_C += ../../../component/common/media/mmfv2/module_httpfs.c
-SRC_C += ../../../component/common/media/mmfv2/module_dup.c
-
-#mmfv2_example
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_2way_audio_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_a_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_aac_array_rtsp_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_aacloop_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_audioloop_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av21_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av2_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av_mp4_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av_rtsp_mp4_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av_mp4_httpfs_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_g711loop_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_h264_2way_audio_pcmu_doorbell_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_h264_2way_audio_pcmu_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_h264_array_rtsp_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_i2s_audio_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_joint_test_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_joint_test_rtsp_mp4_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_param.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_pcmu_array_rtsp_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_rtp_aad_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_simo_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_v1_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_v1_param_change_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_v2_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_v3_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_av_dup_init.c
-SRC_C += ../../../component/common/example/media_framework/mmf2_example_mp4_dual_init.c
-SRC_C += ../../../component/common/example/media_framework/snapshot_setting.c
-#SRC_C += ../../../component/common/example/media_framework/example_media_framework_sd_detect.c
-SRC_C += ../../../component/common/example/media_uvcd/usbd_uvc_parm.c
 
 #sensor
 SRC_C += ../../../component/common/media/framework/sensor_service.c
-SRC_C += ../../../component/common/drivers/video/realtek/common/encoder_buffer_handler.c
 SRC_C += ../../../component/common/media/framework/jpeg_snapshot.c
-SRC_C += ../../../component/common/media/media_amebacam_broadcast.c
-SRC_C += ../../../component/common/media/framework/mmf_command.c
-SRC_C += ../../../component/common/media/framework/snapshot_sd_handler.c
-SRC_C += ../../../component/common/media/framework/snapshot_tftp_handler.c
 
 #network
 #api
@@ -406,20 +338,6 @@ SRC_C += ../../../component/common/api/wifi/wifi_util.c
 SRC_C += ../../../component/common/api/lwip_netconf.c
 
 #app
-#mqtt
-##Debug
-##SRC_C += ../../../component/common/application/mqtt/MQTTClient/MQTTClient.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTConnectClient.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTConnectServer.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTDeserializePublish.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTFormat.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTClient/MQTTFreertos.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTPacket.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTSerializePublish.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTSubscribeClient.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTSubscribeServer.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTUnsubscribeClient.c
-##SRC_C += ../../../component/common/application/mqtt/MQTTPacket/MQTTUnsubscribeServer.c
 
 SRC_C += ../../../component/soc/realtek/8195b/misc/platform/ota_8195b.c
 SRC_C += ../../../component/common/api/network/src/ping_test.c
@@ -427,20 +345,6 @@ SRC_C += ../../../component/common/utilities/ssl_client.c
 SRC_C += ../../../component/common/utilities/ssl_client_ext.c
 SRC_C += ../../../component/common/utilities/tcptest.c
 SRC_C += ../../../component/common/api/network/src/wlan_network.c
-
-#coap
-SRC_C += ../../../component/common/network/coap/sn_coap_ameba_port.c
-SRC_C += ../../../component/common/network/coap/sn_coap_builder.c
-SRC_C += ../../../component/common/network/coap/sn_coap_header_check.c
-SRC_C += ../../../component/common/network/coap/sn_coap_parser.c
-SRC_C += ../../../component/common/network/coap/sn_coap_protocol.c
-
-#googlenest
-SRC_C += ../../../component/common/application/google/google_tls.c
-
-#http
-SRC_C += ../../../component/common/network/httpc/httpc_tls.c
-SRC_C += ../../../component/common/network/httpd/httpd_tls.c
 
 #lwip
 #api
@@ -529,9 +433,6 @@ ITCM_C += ../../../component/common/network/lwip/lwip_v2.0.2/port/realtek/freert
 ITCM_C += ../../../component/common/network/dhcp/dhcps.c
 ITCM_C += ../../../component/common/network/sntp/sntp.c
 
-#mdns
-SRC_C += ../../../component/common/network/mDNS/mDNSPlatform.c
-
 #ssl
 #mbedtls
 SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/aes_alt.c
@@ -619,10 +520,6 @@ SRC_C += ../../../component/common/network/ssl/mbedtls-2.16.6/library/xtea.c
 SRC_C += ../../../component/common/network/ssl/ssl_ram_map/rom/rom_ssl_ram_map.c
 SRC_C += ../../../component/common/network/ssl/ssl_func_stubs/ssl_func_stubs.c
 
-#websocket
-SRC_C += ../../../component/common/network/websocket/wsclient_tls.c
-SRC_C += ../../../component/common/network/websocket/wsserver_tls.c
-
 #rtw_opt_skbuf
 SRC_C += ../../../component/common/drivers/wlan/realtek/src/core/option/rtw_opt_skbuf.c
 
@@ -708,53 +605,8 @@ SRC_C += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/source/ram/h
 
 #utilities
 #example
-SRC_C += ../../../component/common/example/bcast/example_bcast.c
-SRC_C += ../../../component/common/example/cJSON/example_cJSON.c
-SRC_C += ../../../component/common/example/coap/example_coap.c
-SRC_C += ../../../component/common/example/dct/example_dct.c
-SRC_C += ../../../component/common/example/eap/example_eap.c
 SRC_C += ../../../component/common/example/example_entry.c
-SRC_C += ../../../component/common/example/fatfs/example_fatfs.c
-SRC_C += ../../../component/common/example/std_file/example_std_file.c
-SRC_C += ../../../component/common/example/sd_hot_plug/example_sd_hotplug.c
-SRC_C += ../../../component/common/example/media_mp4_demuxer/example_media_mp4_demuxer.c
-SRC_C += ../../../component/common/example/get_beacon_frame/example_get_beacon_frame.c
-SRC_C += ../../../component/common/example/high_load_memory_use/example_high_load_memory_use.c
-SRC_C += ../../../component/common/example/http_client/example_http_client.c
-SRC_C += ../../../component/common/example/http_download/example_http_download.c
-SRC_C += ../../../component/common/example/httpc/example_httpc.c
-SRC_C += ../../../component/common/example/httpd/example_httpd.c
-SRC_C += ../../../component/common/example/isp/example_isp_osd_multi.c
-SRC_C += ../../../component/common/example/isp/example_md.c
-SRC_C += ../../../component/common/example/mcast/example_mcast.c
-SRC_C += ../../../component/common/example/mdns/example_mdns.c
-SRC_C += ../../../component/common/example/media_framework/example_media_framework.c
-SRC_C += ../../../component/common/example/media_h264_to_sdcard/example_media_h264_to_sdcard.c
-SRC_C += ../../../component/common/example/media_uvcd/example_media_uvcd.c
-SRC_C += ../../../component/common/example/mqtt/example_mqtt.c
-SRC_C += ../../../component/common/example/nonblock_connect/example_nonblock_connect.c
-SRC_C += ../../../component/common/example/ota_sdcard/example_ota_sdcard.c
-SRC_C += ../../../component/common/example/ota_http/example_ota_http.c
-SRC_C += ../../../component/common/example/usb_dfu_ota/example_usb_dfu_ota.c
-SRC_C += ../../../component/common/example/qr_code_scanner/example_qr_code_scanner.c
-SRC_C += ../../../component/common/example/rarp/example_rarp.c
-SRC_C += ../../../component/common/example/sdcard_upload_httpd/example_sdcard_upload_httpd.c
-SRC_C += ../../../component/common/example/sntp_showtime/example_sntp_showtime.c
-SRC_C += ../../../component/common/example/socket_select/example_socket_select.c
-SRC_C += ../../../component/common/example/socket_tcp_trx/example_socket_tcp_trx_1.c
-SRC_C += ../../../component/common/example/socket_tcp_trx/example_socket_tcp_trx_2.c
-SRC_C += ../../../component/common/example/tcp_keepalive/example_tcp_keepalive.c
-SRC_C += ../../../component/common/example/usb_mass_storage/example_usb_msc.c
-SRC_C += ../../../component/common/example/wifi_mac_monitor/example_wifi_mac_monitor.c
-SRC_C += ../../../component/common/example/wifi_roaming/example_wifi_roaming.c
 SRC_C += ../../../component/common/example/wlan_fast_connect/example_wlan_fast_connect.c
-##SRC_C += ../../../component/common/example/wowlan/example_wowlan.c
-SRC_C += ../../../component/common/example/websocket_server/example_ws_server.c
-SRC_C += ../../../component/common/example/websocket_client/example_wsclient.c
-SRC_C += ../../../component/common/example/xml/example_xml.c
-SRC_C += ../../../component/common/example/std_file/example_std_file.c
-SRC_C += ../../../component/common/example/wlan_scenario/example_wlan_scenario.c
-SRC_C += ../../../component/common/example/pppoe/example_pppoe.c
 SRC_C += ../../../component/common/example/kvs_webrtc/Common.c
 SRC_C += ../../../component/common/example/kvs_webrtc/example_kvs_webrtc.c
 SRC_C += ../../../component/common/example/kvs_producer/kvs_producer.c
@@ -789,40 +641,20 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 
 
 #FatFs
-#disk_if
-SRC_C += ../../../component/common/file_system/fatfs/disk_if/src/sdcard.c
-##SRC_C += ../../../component/common/drivers/sdio/realtek/sdio_host/src/sdio_combine.c
-##Debug
-SRC_C += ../../../component/common/file_system/fatfs/disk_if/src/usbdisk.c
 
 #fatfs_ext
 SRC_C += ../../../component/common/file_system/fatfs/fatfs_ext/src/ff_driver.c
 
-#r0.10c
+#r0.14c
 #option
-#SRC_C += ../../../component/common/file_system/fatfs/r0.10c/src/option/ccsbcs.c
 SRC_C += ../../../component/common/file_system/fatfs/r0.14/diskio.c
 SRC_C += ../../../component/common/file_system/fatfs/r0.14/ff.c
 SRC_C += ../../../component/common/file_system/fatfs/r0.14/ffsystem.c
 SRC_C += ../../../component/common/file_system/fatfs/r0.14/ffunicode.c
-SRC_C += ../../../component/common/file_system/fatfs/fatfs_flash_api.c
-SRC_C += ../../../component/common/file_system/fatfs/fatfs_reent.c
-SRC_C += ../../../component/common/file_system/fatfs/fatfs_sdcard_api.c
-SRC_C += ../../../component/common/utilities/cJSON.c
-SRC_C += ../../../component/common/utilities/http_client.c
-SRC_C += ../../../component/common/utilities/xml.c
 
 #user
-#evalutaion_board
-#sensor_board_v1
-SRC_C += ../src/eval/sensor_board_v1/AL3042.c
-SRC_C += ../src/eval/sensor_board_v1/ambient_light_sensor.c
-SRC_C += ../src/eval/sensor_board_v1/ir_ctrl.c
-SRC_C += ../src/eval/sensor_board_v1/ir_cut.c
-SRC_C += ../src/eval/sensor_board_v1/sensor_external_ctrl.c
-
 SRC_C += ../src/main.c
-##SRC_CPP = ../src/test.cpp
+
 
 #CINIT
 # -------------------------------------------------------------------
@@ -836,8 +668,6 @@ CINIT_C += ../../../project/realtek_amebapro_v0_example/src/isp_boot_config.c
 # -------------------------------------------------------------------
 #@SRAM
 SRAM_C += ../../../component/common/mbed/targets/hal/rtl8195b/hal/rtl8195bh/flash_api.c
-SRAM_C += ../../../component/soc/realtek/8195b/misc/driver/flash_api_ext.c
-SRAM_C += ../../../component/common/file_system/fatfs/disk_if/src/flash_fatfs.c
 SRAM_C += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/source/ram_s/hal_flash.c
 
 #ERAM
