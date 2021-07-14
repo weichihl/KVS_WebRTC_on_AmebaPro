@@ -7,7 +7,7 @@
 #include "tcpip.h"
 #include <dhcp/dhcps.h>
 #if CONFIG_WLAN
-#include <wlan/wlan_test_inc.h>
+//#include <wlan/wlan_test_inc.h>
 #include <wifi/wifi_conf.h>
 #include <wifi/wifi_util.h>
 #endif

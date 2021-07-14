@@ -3097,6 +3097,9 @@
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_faac.a</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_fatfs_r014.a</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_h264.a</name>
         </file>
         <file>
@@ -5065,6 +5068,9 @@
             </group>
             <group>
                 <name>r0.14</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\diskio.c</name>
                 </file>
