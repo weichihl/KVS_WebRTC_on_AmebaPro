@@ -6466,6 +6466,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\nonblock_connect\example_nonblock_connect.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\ota_http\example_ota_http.c</name>
