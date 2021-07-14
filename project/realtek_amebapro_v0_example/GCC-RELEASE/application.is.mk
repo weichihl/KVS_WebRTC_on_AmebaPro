@@ -301,6 +301,20 @@ ITCM_C =
 
 # -------------------------------------------------------------------
 #cmsis
+#dsp
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_add_f32.c
+SRC_ASM += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_bitreversal2.S
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_cfft_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_cfft_radix8_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/ComplexMathFunctions/arm_cmplx_mag_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/CommonTables/arm_common_tables.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/CommonTables/arm_const_structs.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/StatisticsFunctions/arm_max_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_mult_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_rfft_fast_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/TransformFunctions/arm_rfft_fast_init_f32.c
+SRC_C += ../../../component/soc/realtek/8195b/cmsis/cmsis-dsp/source/BasicMathFunctions/arm_scale_f32.c
+
 SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram_s/app_start.c
 SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram/mpu_config.c
 
@@ -653,6 +667,14 @@ SRC_C += ../../../component/common/file_system/fatfs/r0.14/ffsystem.c
 SRC_C += ../../../component/common/file_system/fatfs/r0.14/ffunicode.c
 
 #user
+#evalutaion_board
+#sensor_board_v1
+SRC_C += ../src/eval/sensor_board_v1/AL3042.c
+SRC_C += ../src/eval/sensor_board_v1/ambient_light_sensor.c
+SRC_C += ../src/eval/sensor_board_v1/ir_ctrl.c
+SRC_C += ../src/eval/sensor_board_v1/ir_cut.c
+SRC_C += ../src/eval/sensor_board_v1/sensor_external_ctrl.c
+
 SRC_C += ../src/main.c
 
 

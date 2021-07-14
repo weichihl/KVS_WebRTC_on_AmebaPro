@@ -2967,6 +2967,45 @@
     </group>
     <group>
         <name>cmsis</name>
+        <group>
+            <name>dsp</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_add_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_bitreversal2.S</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_cfft_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_cfft_radix8_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\ComplexMathFunctions\arm_cmplx_mag_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\CommonTables\arm_common_tables.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\CommonTables\arm_const_structs.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\StatisticsFunctions\arm_max_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_mult_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_rfft_fast_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\TransformFunctions\arm_rfft_fast_init_f32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\cmsis-dsp\source\BasicMathFunctions\arm_scale_f32.c</name>
+            </file>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\cmsis\rtl8195b-hp\source\ram_s\app_start.c</name>
         </file>
@@ -3645,6 +3684,27 @@
     </group>
     <group>
         <name>user</name>
+        <group>
+            <name>evalutaion_board</name>
+            <group>
+                <name>sensor_board_v1</name>
+                <file>
+                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\AL3042.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ambient_light_sensor.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ir_ctrl.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\ir_cut.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\src\eval\sensor_board_v1\sensor_external_ctrl.c</name>
+                </file>
+            </group>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\src\main.c</name>
         </file>
