@@ -3091,9 +3091,6 @@
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_codec.a</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_dct.a</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_faac.a</name>
         </file>
         <file>
@@ -3103,97 +3100,13 @@
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_h264.a</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_haac.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_hmp3.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_http.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_mdns.a</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_mmf.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_muxer.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_opus.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_opusenc.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_opusfile.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_p2p.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_qr_code.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_rtsp.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_sdcard.a</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_soc_is.a</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_speex.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_tftp.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_usbd.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_usbh.a</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_websocket.a</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wlan.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wlan_mp.a</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_wps.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\libAlgoObjDetectLib.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtscamkit.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtsisp.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtsosd.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtstream.a</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\librtsv4l2.a</name>
         </file>
     </group>
     <group>
@@ -5064,24 +4977,6 @@
                 <name>fatfs_ext</name>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\fatfs_ext\src\ff_driver.c</name>
-                </file>
-            </group>
-            <group>
-                <name>r0.14</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\diskio.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\ff.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\ffsystem.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\file_system\fatfs\r0.14\ffunicode.c</name>
                 </file>
             </group>
         </group>
