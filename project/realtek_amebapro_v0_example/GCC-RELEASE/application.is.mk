@@ -690,6 +690,7 @@ CINIT_C += ../../../project/realtek_amebapro_v0_example/src/isp_boot_config.c
 # -------------------------------------------------------------------
 #@SRAM
 SRAM_C += ../../../component/common/mbed/targets/hal/rtl8195b/hal/rtl8195bh/flash_api.c
+SRAM_C += ../../../component/soc/realtek/8195b/misc/driver/flash_api_ext.c
 SRAM_C += ../../../component/soc/realtek/8195b/fwlib/hal-rtl8195b-hp/source/ram_s/hal_flash.c
 
 #ERAM

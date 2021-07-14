@@ -2630,6 +2630,9 @@
             <name>$PROJ_DIR$\..\..\..\component\common\mbed\targets\hal\rtl8195b\hal\rtl8195bh\flash_api.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\driver\flash_api_ext.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\fwlib\hal-rtl8195b-hp\source\ram_s\hal_flash.c</name>
         </file>
         <configuration>
