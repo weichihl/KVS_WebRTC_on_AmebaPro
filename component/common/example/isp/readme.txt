@@ -1,1 +1,0 @@
-For how to use the example, you can refer to AN0301 Realtek AmebaPro multimedia framework v2.en

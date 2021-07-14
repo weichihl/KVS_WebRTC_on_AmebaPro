@@ -36,10 +36,10 @@ extern void at_transport_init(void);
 //extern void at_app_init(void);
 extern void at_mp_init(void);
 #ifdef CONFIG_PLATFORM_8195BHP
-extern void at_isp_init(void);
+//extern void at_isp_init(void);
 #endif
 #ifdef CONFIG_PLATFORM_8195BHP
-extern void at_media_init(void);
+//extern void at_media_init(void);
 #endif
 #if CONFIG_EXAMPLE_QR_CODE_SCANNER
 extern void at_qr_code_init(void);
@@ -96,11 +96,11 @@ log_init_t log_init_table[] = {
         
 #if   CONFIG_ISP
 #ifdef CONFIG_PLATFORM_8195BHP
-        at_isp_init,
+        //at_isp_init,
 #endif
 #endif
 #ifdef CONFIG_PLATFORM_8195BHP
-	at_media_init,
+	//at_media_init,
 #endif
 #if CONFIG_EXAMPLE_QR_CODE_SCANNER
 	at_qr_code_init,

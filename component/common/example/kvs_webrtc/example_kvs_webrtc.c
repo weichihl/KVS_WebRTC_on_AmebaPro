@@ -370,7 +370,7 @@ CleanUp:
 #if !(AUDIO_G711_MULAW || AUDIO_G711_ALAW)
 #include "opusenc.h"
 #endif
-#include "AEC.h"
+//#include "AEC.h"
 
 audio_t audio_obj;
 
@@ -466,8 +466,8 @@ PVOID sendAudioPackets(PVOID args)
     printf("\n\rAudio Start.\n\r");
     
     //Noise suppression init & automatic gain control init
-    NS_init(8000, 1);
-    AGC_init(8000, 1, 24, 0);
+    //NS_init(8000, 1);
+    //AGC_init(8000, 1, 24, 0);
 
 #if AUDIO_OPUS
     //Holds the state of the opus encoder
@@ -552,8 +552,8 @@ CleanUp:
 #if AUDIO_OPUS
     opus_encoder_destroy(opus_encoder);
 #endif
-    NS_destory();
-    AGC_destory();
+    //NS_destory();
+    //AGC_destory();
 
     return (PVOID)(ULONG_PTR) retStatus;
 }
@@ -657,12 +657,12 @@ static int amebapro_platform_init(void)
     /* CRYPTO_Init -> Configure mbedtls to use FreeRTOS mutexes -> mbedtls_threading_set_alt(...) */
     CRYPTO_Init();
     
-    FRESULT res = fatfs_sd_init();
-    if(res < 0){
-        printf("fatfs_sd_init fail (%d)\n\r", res);
-        return -1;
-    }
-    fatfs_sd_get_param(&fatfs_sd);
+//    FRESULT res = fatfs_sd_init();
+//    if(res < 0){
+//        printf("fatfs_sd_init fail (%d)\n\r", res);
+//        return -1;
+//    }
+//    fatfs_sd_get_param(&fatfs_sd);
     
     while( wifi_is_ready_to_transceive( RTW_STA_INTERFACE ) != RTW_SUCCESS ){
         vTaskDelay( 200 / portTICK_PERIOD_MS );
@@ -804,7 +804,7 @@ CleanUp:
     printf("[KVS Master] Cleanup done\n\r");
 
 fail:
-    fatfs_sd_close();
+//    fatfs_sd_close();
 
 exit:
     vTaskDelete(NULL);

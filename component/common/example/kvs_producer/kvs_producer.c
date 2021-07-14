@@ -19,12 +19,11 @@
 #include "h264_encoder.h"
 #include "isp_api.h"
 #include "h264_api.h"
-#include "mmf2_dbg.h"
 #include "sensor.h"
 
 #if ENABLE_AUDIO_TRACK
 #include "audio_api.h"
-#include "module_aac.h"
+#include "faac.h"
 #include "faac_api.h"
 #endif /* ENABLE_AUDIO_TRACK */
 

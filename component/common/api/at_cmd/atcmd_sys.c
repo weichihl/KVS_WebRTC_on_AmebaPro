@@ -40,7 +40,7 @@ static char cBuffer[512];
 #endif
 //#endif
 
-#define CONFIG_MMF_AUDIO_DEBUG 1
+//#define CONFIG_MMF_AUDIO_DEBUG 1
 #if defined(CONFIG_MMF_AUDIO_DEBUG)
 #include <audio_debug.h>
 void fATAD(void *arg)
