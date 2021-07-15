@@ -19,7 +19,7 @@
 [submodule "lib_amazon/amazon-kinesis-video-streams-producer-embedded-c"]
 	path = lib_amazon/amazon-kinesis-video-streams-producer-embedded-c
 	url = https://github.com/aws-samples/amazon-kinesis-video-streams-producer-embedded-c.git
-[submodule "component/common/application/amazon/amazon-freertos-202012.00"]
-	path = component/common/application/amazon/amazon-freertos-202012.00
+[submodule "lib_amazon/amazon-freertos-202012.00"]
+	path = lib_amazon/amazon-freertos-202012.00
 	url = https://github.com/ambiot/amazon-freertos.git
 	branch = amebaPro-5.2h-202012.00-LTS
