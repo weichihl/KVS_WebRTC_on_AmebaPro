@@ -37,10 +37,10 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
 &nbsp; AmebaPro(Producer) + Rekognition(AWS AI) = video cloud storage and content analytics :cloud:  
 <table width="100%" table-layout:fixed>
   <tr>
-    <td width=50%><img src="photo/face_detection.jpg" valign="middle" alt="test image size" height=233px width=400px/></td>
+    <td width=50%><img src="doc/photo/face_detection.jpg" valign="middle" alt="test image size" height=233px width=400px/></td>
     <td align=Left width=50%>
       1. Stream live video from AmebaPro to KVS<BR><BR>2. AI face detection by using AWS Rekognition API<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
     </td>
@@ -51,10 +51,10 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
 &nbsp; AmebaPro(WebRTC master) + Viewer(WebRTC Client) = real-time communication, 1-way video & 2-way audio  
 <table width="100%" table-layout:fixed>
   <tr>
-    <td width=50%><img src="photo/p2p.jpg" valign="middle" alt="test image size" height=206px width=400px/></td>
+    <td width=50%><img src="doc/photo/p2p.jpg" valign="middle" alt="test image size" height=206px width=400px/></td>
     <td align=Left width=50%>
       1. AmebaPro start a signaling channel, as a master<BR><BR>2. Browser run as a viewer (client)<BR><BR>3. Start a P2P connection<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_WebRTC_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AmebaPro_Amazon_KVS_WebRTC_Getting_Started_Guide_v1.1.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
     </td>
@@ -65,10 +65,10 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
 &nbsp; AmebaPro(image uploader) + Rekognition(AWS AI) = object detection and classification :cloud:  
 <table style="width:100%; table-layout:fixed">
   <tr>
-    <td width=50%><img src="photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px/></td>
+    <td width=50%><img src="doc/photo/object_detection.jpg" valign="middle" alt="test image size" height=225px width=400px/></td>
     <td align=Left width=50%>
       1. Take a snapshot by camera sensor<BR><BR>2. Upload image from AmebaPro to S3<BR><BR>3. Trigger Lambda function to do object detection<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AmebaPro_AWS_S3+Rekognition_Getting_Started_Guide_v1.1.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
       <BR><BR>Notes: Based on FreeRTOS-v202012-LTS framework
@@ -78,7 +78,7 @@ Amazon FreeRTOS-LTS libraries are supported on AmebaPro now, it can be used to c
       
 ### :bulb: FreeRTOS-LTS-v202012.00 Libraries
 &nbsp; AmebaPro can connect to AWS IoT with the long term support libraries maintained by Amazon.
-<a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_FreeRTOS-LTS_Getting_Started_Guide_v1.1.pdf">
+<a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AmebaPro_Amazon_FreeRTOS-LTS_Getting_Started_Guide_v1.1.pdf">
   <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
 </a>  
 &nbsp; [FreeRTOS demos](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-next-steps.html): coreHTTP, coreMQTT, Over-the-air updates(OTA), AWS IoT Device Shadow...  
