@@ -34,7 +34,7 @@ ram_is: toolchain
 	@$(MAKE) -f lib_kvs_producer.mk all -j4
 	@$(MAKE) -f lib_amazon_LTS.mk all -j4
 	rm -f ../../../component/soc/realtek/8195b/app/shell/cmd_shell.o ../../../component/soc/realtek/8195b/app/shell/cmd_shell.o ../../../component/soc/realtek/8195b/app/shell/cmd_shell.su
-	@$(MAKE) -f application.is.mk all -j4
+	@$(MAKE) -f application.is.mk all
 
 .PHONY: kvs_lib
 kvs_lib:

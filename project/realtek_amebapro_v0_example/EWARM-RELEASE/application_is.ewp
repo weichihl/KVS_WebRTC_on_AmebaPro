@@ -3019,27 +3019,6 @@
     <group>
         <name>console</name>
         <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_ethernet.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_isp.c</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_lwip.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_media.c</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_qr_code.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\..\component\common\api\at_cmd\atcmd_sys.c</name>
         </file>
         <file>
@@ -3169,15 +3148,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\api\network\src\ping_test.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\utilities\ssl_client.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\utilities\ssl_client_ext.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\component\common\utilities\tcptest.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\api\network\src\wlan_network.c</name>

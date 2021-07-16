@@ -319,12 +319,8 @@ SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram_s/app
 SRC_C += ../../../component/soc/realtek/8195b/cmsis/rtl8195b-hp/source/ram/mpu_config.c
 
 #console
-#SRC_C += ../../../component/common/api/at_cmd/atcmd_isp.c
-SRC_C += ../../../component/common/api/at_cmd/atcmd_lwip.c
-#SRC_C += ../../../component/common/api/at_cmd/atcmd_media.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_sys.c
 SRC_C += ../../../component/common/api/at_cmd/atcmd_wifi.c
-SRC_C += ../../../component/common/api/at_cmd/atcmd_qr_code.c
 SRC_C += ../../../component/soc/realtek/8195b/app/shell/cmd_shell.c
 SRC_C += ../../../component/soc/realtek/8195b/misc/driver/log_service.c
 SRC_C += ../../../component/soc/realtek/8195b/misc/driver/low_level_io.c
@@ -355,9 +351,6 @@ SRC_C += ../../../component/common/api/lwip_netconf.c
 
 SRC_C += ../../../component/soc/realtek/8195b/misc/platform/ota_8195b.c
 SRC_C += ../../../component/common/api/network/src/ping_test.c
-SRC_C += ../../../component/common/utilities/ssl_client.c
-SRC_C += ../../../component/common/utilities/ssl_client_ext.c
-SRC_C += ../../../component/common/utilities/tcptest.c
 SRC_C += ../../../component/common/api/network/src/wlan_network.c
 
 #lwip
