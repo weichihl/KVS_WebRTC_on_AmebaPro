@@ -628,7 +628,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 
 /* For KVS WebRTC example*/
-#define CONFIG_EXAMPLE_KVS_WEBRTC               1
+#define CONFIG_EXAMPLE_KVS_WEBRTC               0
 #if CONFIG_EXAMPLE_KVS_WEBRTC
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN
