@@ -1,8 +1,8 @@
-# Edge AI - human detection or face detetcion on AmebaPro
+# Edge AI - Human Detection on AmebaPro
 
-How to implement human detection or face detetcion on edge device (AmebaPro)
+How to implement human detection on edge device (AmebaPro)
 
-## Check the model of camera sensor 
+## Check the Model of Camera Sensor 
 
 Please check your camera sensor model, and define it in <AmebaPro_SDK>/project/realtek_amebapro_v0_example/inc/sensor.h.
 
@@ -19,7 +19,7 @@ Before run the example, you need to check the object detection is enabled in <Am
 #define CONFIG_EXAMPLE_OBJECT_DETECTION         1
 ```
 
-## Build project and flash image
+## Build project and Flash Image
 
 To build the example run the following command:
 
@@ -40,7 +40,7 @@ Make sure your AmebaPro is connected and powered on. Use the Realtek image tool 
 
 [How to use Realtek image tool? See section 1.3 in AmebaPro's application note](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/doc/AN0300%20Realtek%20AmebaPro%20application%20note.en.pdf)
 
-## Run the example and use VLC to validate the result  
+## Run the Example and Use VLC to Validate the Result  
 
 Reboot your device and check the logs.  
 
@@ -49,11 +49,11 @@ Then, open VLC and create a network stream with URL: rtsp://192.168.x.xx:554
 If everything works fine, you should see the object detection result on VLC player.
 
 
-### Additional settings
+### Additional Settings
 
-1. In object_detection_init.h, use the macro USE_SKYNET and USE_RTSP to select weither to stream with skynet or rtsp(default).  
+1. In object_detection_init.h, use the macro USE_RTSP to stream with rtsp.  
 
-2. In module_obj_detect, command "CMD_OBJ_DETECT_HUMAN" is set to detect human(default). "CMD_OBJ_DETECT_FACE" is set to detect face.  
+2. In module_obj_detect, command "CMD_OBJ_DETECT_HUMAN" is set to detect human.  
 
 3. With padding method, the last parameter of object_detection function in "module_obj_detect.c" should be set to 1.<br>
 ```
