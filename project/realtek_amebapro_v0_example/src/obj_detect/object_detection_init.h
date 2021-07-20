@@ -22,7 +22,6 @@ extern "C" {
 #define V2_HEIGHT 224//180
 
 #define USE_H264 1
-#define USE_SKYNET 0
 #define USE_RTSP 1
 
 #ifdef __cplusplus

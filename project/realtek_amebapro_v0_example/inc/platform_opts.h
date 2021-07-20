@@ -628,7 +628,7 @@ in lwip_opt.h for support uart adapter*/
 #endif
 
 /* For KVS WebRTC example*/
-#define CONFIG_EXAMPLE_KVS_WEBRTC               1
+#define CONFIG_EXAMPLE_KVS_WEBRTC               0
 #if CONFIG_EXAMPLE_KVS_WEBRTC
 #define CONFIG_FATFS_EN	1
 #if CONFIG_FATFS_EN
@@ -662,3 +662,6 @@ in lwip_opt.h for support uart adapter*/
 #define CONFIG_EXAMPLE_AMAZON_FREERTOS          0
 
 #define CONFIG_EXAMPLE_AMAZON_AFQP_TESTS        0
+
+/* For object detection example */
+#define CONFIG_EXAMPLE_OBJECT_DETECTION         0

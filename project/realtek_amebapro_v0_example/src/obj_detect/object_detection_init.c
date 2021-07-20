@@ -1,7 +1,6 @@
 #include "module_isp.h"
 #include "module_obj_detect.h"
 #include "module_h264.h"
-#include "module_skynet.h"
 #include "module_rtsp2.h"
 
 #include "mmf2_link.h"
@@ -225,28 +224,6 @@ void object_detection_init(void)
         } 
 #endif
           
-#if USE_SKYNET          
-          skynet_obj_detect_ctx = mm_module_open(&skynet_module);
-          if(skynet_obj_detect_ctx){
-                mm_module_ctrl(skynet_obj_detect_ctx, MM_CMD_SET_QUEUE_LEN, 3);
-                mm_module_ctrl(skynet_obj_detect_ctx, MM_CMD_INIT_QUEUE_ITEMS, MMQI_FLAG_DYNAMIC);
-                mm_module_ctrl(skynet_obj_detect_ctx, CMD_SKYNET_START, 0);
-                //mm_module_ctrl(skynet_obj_detect_ctx, CMD_SKYNET_START_WATCHDOG, 0);
-          }else{
-                rt_printf("Skynet open fail\n\r");
-                goto mmf2_example_skynet_fail;
-          }
-          
-        siso_h264_skynet_obj_detect = siso_create();
-        if(siso_h264_skynet_obj_detect){
-            siso_ctrl(siso_h264_skynet_obj_detect, MMIC_CMD_ADD_INPUT, (uint32_t)h264_obj_detect_ctx, 0);//h264_v1_ctx
-            siso_ctrl(siso_h264_skynet_obj_detect, MMIC_CMD_ADD_OUTPUT, (uint32_t)skynet_obj_detect_ctx, 0);       
-            siso_start(siso_h264_skynet_obj_detect);
-        }else{
-            rt_printf("siso1 open fail\n\r");
-                goto mmf2_example_skynet_fail;
-        }
-#endif//USE_SKYNET 
 #endif
         
 mmf2_example_skynet_fail:

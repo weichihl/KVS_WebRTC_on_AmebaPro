@@ -27,7 +27,7 @@ void obj_detect_thread(void *param)
    
         if(ctx->hold_image_address != NULL && ctx->params.width != 0 && ctx->params.height != 0){
             //without padding 0
-            object_detection(ctx->hold_image_address, ctx->params.width, ctx->params.height, 1, ctx->box.output_boxes, ctx->box.output_classes, ctx->box.output_scores, ctx->box.output_num_detections, 1);
+            object_detection(ctx->hold_image_address, ctx->params.width, ctx->params.height, 1, ctx->box.output_boxes, ctx->box.output_classes, ctx->box.output_scores, ctx->box.output_num_detections, 0);
         }
         //vTaskDelay(100);
     }
