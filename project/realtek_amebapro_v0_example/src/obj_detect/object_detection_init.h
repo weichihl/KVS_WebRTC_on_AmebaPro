@@ -23,6 +23,7 @@ extern "C" {
 
 #define USE_H264 1
 #define USE_RTSP 1
+#define USE_KVS_PRODUCER 0
 
 #ifdef __cplusplus
 }

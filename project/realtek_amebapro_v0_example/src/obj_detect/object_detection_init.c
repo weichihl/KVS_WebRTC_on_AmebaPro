@@ -2,6 +2,7 @@
 #include "module_obj_detect.h"
 #include "module_h264.h"
 #include "module_rtsp2.h"
+#include "module_kvs_producer.h"
 
 #include "mmf2_link.h"
 #include "mmf2_siso.h"
@@ -28,12 +29,14 @@ mm_context_t* obj_detect_ctx_v2         = NULL;
 mm_context_t* h264_obj_detect_ctx       = NULL;
 mm_context_t* skynet_obj_detect_ctx     = NULL;
 mm_context_t* rtsp2_obj_detect_ctx      = NULL;
+mm_context_t* kvs_producer_v1_ctx       = NULL;
 
 mm_siso_t* siso_isp_obj_detect          = NULL;
 mm_siso_t* siso_isp_obj_detect_v2       = NULL;
 mm_siso_t* siso_obj_detect_h264         = NULL;
 mm_siso_t* siso_h264_skynet_obj_detect  = NULL;
 mm_siso_t* siso_h264_rtsp2_obj_detect   = NULL;
+mm_siso_t* siso_h264_kvs_v1             = NULL;
 
 
 #define BLOCK_SIZE						1024*10
@@ -223,6 +226,27 @@ void object_detection_init(void)
             goto mmf2_example_skynet_fail;
         } 
 #endif
+
+#if USE_KVS_PRODUCER
+    kvs_producer_v1_ctx = mm_module_open(&kvs_producer_module);
+    if(kvs_producer_v1_ctx){
+        mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_APPLY, 0);
+    }else{
+        rt_printf("KVS open fail\n\r");
+        goto mmf2_example_skynet_fail;
+    }
+    
+    siso_h264_kvs_v1 = siso_create();
+    if(siso_h264_kvs_v1){
+        siso_ctrl(siso_h264_kvs_v1, MMIC_CMD_ADD_INPUT, (uint32_t)h264_obj_detect_ctx, 0);
+        siso_ctrl(siso_h264_kvs_v1, MMIC_CMD_ADD_OUTPUT, (uint32_t)kvs_producer_v1_ctx, 0);
+        siso_start(siso_h264_kvs_v1);
+    }else{
+        rt_printf("siso2 open fail\n\r");
+        goto mmf2_example_skynet_fail;
+    }
+
+#endif /* USE_KVS_PRODUCER */
           
 #endif
         
