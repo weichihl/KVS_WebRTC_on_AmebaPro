@@ -670,7 +670,6 @@ static BaseType_t prvVerifyS3ObjectFileSize( const TransportInterface_t * pxTran
  *
  */
 
-#include "media_framework/example_media_framework.h"
 #include "jpeg_snapshot.h"
 static VIDEO_BUFFER video_buf;
 

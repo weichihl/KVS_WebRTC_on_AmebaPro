@@ -473,6 +473,7 @@
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\include</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3260,6 +3261,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_jpeg.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_kvs_producer.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_mp4.c</name>
@@ -6448,6 +6452,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_isp_osd_multi.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_producer_mmf\example_kvs_producer_mmf.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_mask.c</name>

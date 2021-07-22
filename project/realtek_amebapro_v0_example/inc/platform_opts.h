@@ -640,6 +640,9 @@ in lwip_opt.h for support uart adapter*/
 /* For KVS Producer example*/
 #define CONFIG_EXAMPLE_KVS_PRODUCER             0
 
+/* For KVS Producer mmf module example*/
+#define CONFIG_EXAMPLE_KVS_PRODUCER_MMF         0
+
 /* For opus encoder eample*/
 #define CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE        0
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
