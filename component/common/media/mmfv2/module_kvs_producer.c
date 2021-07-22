@@ -21,14 +21,6 @@
 #include "../../example/kvs_producer/sample_config.h"
 #include "module_kvs_producer.h"
 
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-
-//#include "FreeRTOS.h"
-//#include "task.h"
-//#include "queue.h"
-//#include "semphr.h"
 #include "wifi_conf.h"
 
 /* Headers for video */
