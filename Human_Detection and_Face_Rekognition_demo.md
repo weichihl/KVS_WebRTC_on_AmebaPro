@@ -1,17 +1,19 @@
 # Edge AI + Cloud AI - Human Detection on AmebaPro and Face Detection on AWS Cloud
 
-## What can we get after integrating edge AI and cloud AI?
+## What can We Get After Integrating Edge AI and Cloud AI?
 
-We can detect the person on edge device and recognize the person by AWS Rekognition service, the following is our simple video demo (We use amebapro to shoot PC screen with a youtube video playing)
+We can detect the person on edge device and recognize the person by AWS Rekognition service, the following is our simple video demo (We use AmebaPro to shoot PC screen with a youtube video playing)
 
 * The **White Box** is the human detection result from AmebaPro   
 * The **Green Box** is the face detection result from AWS Rekognition  
 
-https://user-images.githubusercontent.com/56305789/126732342-833d8a8c-a49b-4d40-9e0c-ebb109c889d9.mp4  
+https://user-images.githubusercontent.com/56305789/126762071-dae24867-e60d-4cda-8d8a-98b2274fe6ee.mp4
 
-video src: https://www.youtube.com/watch?v=PbdM1db3JbY&ab_channel=WarnerMoviesOnDemand  
+https://user-images.githubusercontent.com/56305789/126761671-6fb2a1da-c486-42b6-836d-c9b81c262d93.mp4
 
-## How to integrate edge AI and cloud AI to implement human detection and face reconition
+video src: https://www.youtube.com/watch?v=Zv1fgmd1pr4&ab_channel=JonnyTechnology  
+
+## How to Integrate Edge AI and Cloud AI to Implement Human Detection and Face Recognition
 
 ### Check the Model of Camera Sensor 
 
@@ -50,7 +52,7 @@ After getting AWS account key, enter the key pair and stream name in <AmebaPro_S
 #define AWS_KVS_REGION                  "us-east-1"
 ```
 
-[How to get AWS account key? See section 2.3 in KVS user guide](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf)
+[How to get AWS account key? See section 2.3 in KVS producer user guide](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf)
 
 ### Build project and Flash Image
 
@@ -103,5 +105,13 @@ We shoud use AWS python API to do following things:
 
 then, draw the face detection boounding boxes on the video to get the final visualized result.
 
-Please refer the section 8 in KVS user guide:
+We provide a simple python code in <AmebaPro_SDK>component/common/example/kvs_producer/**producer_rekognition_test.py**. The python code is for reference only.  
+
+Please refer the section 8 in KVS producer user guide:
 [KVS Producer + Rekognition Example](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf)
+
+Note: you may need to specify the frame rate in producer_rekognition_test.py.  
+```
+...
+video_fps = 15;  #### set your kvs video frame rate here ####
+```
