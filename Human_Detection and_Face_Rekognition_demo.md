@@ -7,6 +7,10 @@ We can detect the person on edge device and recognize the person by AWS Rekognit
 * The **White Box** is the human detection result from AmebaPro   
 * The **Green Box** is the face detection result from AWS Rekognition  
 
+https://user-images.githubusercontent.com/56305789/126732342-833d8a8c-a49b-4d40-9e0c-ebb109c889d9.mp4  
+
+video src: https://www.youtube.com/watch?v=PbdM1db3JbY&ab_channel=WarnerMoviesOnDemand  
+
 https://user-images.githubusercontent.com/56305789/126762071-dae24867-e60d-4cda-8d8a-98b2274fe6ee.mp4
 
 https://user-images.githubusercontent.com/56305789/126761671-6fb2a1da-c486-42b6-836d-c9b81c262d93.mp4
