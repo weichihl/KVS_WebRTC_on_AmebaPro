@@ -2,9 +2,14 @@
 
 ## What can we get after integrating edge AI and cloud AI?
 
-We can detect the person on edge device and recognize the person by AWS Rekognition service, here is our simple video demo  
+We can detect the person on edge device and recognize the person by AWS Rekognition service, the following is our simple video demo (We use amebapro to shoot PC screen with a youtube video playing)
 
+* The **White Box** is the human detection result from AmebaPro   
+* The **Green Box** is the face detection result from AWS Rekognition  
 
+https://user-images.githubusercontent.com/56305789/126732342-833d8a8c-a49b-4d40-9e0c-ebb109c889d9.mp4  
+
+video src: https://www.youtube.com/watch?v=PbdM1db3JbY&ab_channel=WarnerMoviesOnDemand  
 
 ## How to integrate edge AI and cloud AI to implement human detection and face reconition
 
@@ -98,6 +103,5 @@ We shoud use AWS python API to do following things:
 
 then, draw the face detection boounding boxes on the video to get the final visualized result.
 
-Please refer the section 8 in KVS user guide:  
-
+Please refer the section 8 in KVS user guide:
 [KVS Producer + Rekognition Example](https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf)
