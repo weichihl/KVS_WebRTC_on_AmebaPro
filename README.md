@@ -91,6 +91,21 @@ You can review the [ChangeLog](https://github.com/HungTseLee/KVS_WebRTC_on_Ameba
   <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
 </a>
 
+### :bulb: Edge AI + Cloud AI - Human Detection + Face Detection  
+&nbsp; AmebaPro do human detection on edge and upload video to KVS to detect face by using Amazon Rekognition.
+<table style="width:100%; table-layout:fixed">
+  <tr>
+    <td width=50%>
+      <video src="https://user-images.githubusercontent.com/56305789/126761671-6fb2a1da-c486-42b6-836d-c9b81c262d93.mp4" height="225" width="400" controls></video>
+    </td>
+    <td align=Left width=50%>
+      1. Do the human detection on AmebaPro<BR><BR>2. Stream live video from AmebaPro to KVS<BR><BR>3. AI face detection by using AWS Rekognition API<BR><BR>&nbsp; :point_right: &nbsp;
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/Human_Detection%20and_Face_Rekognition_demo.md">
+        <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
+      </a>
+    </td>
+  </tr>
+</table>  
 
 ## Demo code  
 :pencil2: **KVS WebRTC** &nbsp; &nbsp;`project/component/common/example/kvs_webrtc`  
@@ -100,6 +115,8 @@ You can review the [ChangeLog](https://github.com/HungTseLee/KVS_WebRTC_on_Ameba
 :pencil2: **S3 file upload** &nbsp; &nbsp;`project/component/common/application/amazon/JPEG_snapshot_s3_upload_example`  
 
 :pencil2: **FreeRTOS-LTS** &nbsp; &nbsp;`project/component/common/application/amazon/amazon-freertos-202012.00/demos`  
+      
+:pencil2: **Edge AI - Human detection** &nbsp; &nbsp;`project/realtek_amebapro_v0_example/src/obj_detect`  
 
 
 ## IDE/toolchain Requirement
