@@ -347,6 +347,7 @@ SRC_C += ../../../component/common/media/mmfv2/module_rtsp2.c
 SRC_C += ../../../component/common/media/mmfv2/module_uvcd.c
 SRC_C += ../../../component/common/media/mmfv2/module_httpfs.c
 SRC_C += ../../../component/common/media/mmfv2/module_dup.c
+SRC_C += ../../../component/common/media/mmfv2/module_kvs_producer.c
 
 #mmfv2_example
 SRC_C += ../../../component/common/example/media_framework/mmf2_example_2way_audio_init.c
@@ -761,6 +762,7 @@ SRC_C += ../../../component/common/example/kvs_producer/kvs_producer.c
 SRC_C += ../../../component/common/example/kvs_producer/example_kvs_producer.c
 SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/vendors/realtek/boards/amebaPro/aws_demos/application_code/aws_main.c
 SRC_C += ../../../component/common/example/amazon_freertos/example_amazon_freertos.c
+SRC_C += ../../../component/common/example/kvs_producer_mmf/example_kvs_producer_mmf.c
 
 ##amazon_freertos_LTS - demos
 #common
