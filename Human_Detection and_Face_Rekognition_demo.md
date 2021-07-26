@@ -11,12 +11,6 @@ https://user-images.githubusercontent.com/56305789/126732342-833d8a8c-a49b-4d40-
 
 video src: https://www.youtube.com/watch?v=PbdM1db3JbY&ab_channel=WarnerMoviesOnDemand  
 
-https://user-images.githubusercontent.com/56305789/126762071-dae24867-e60d-4cda-8d8a-98b2274fe6ee.mp4
-
-https://user-images.githubusercontent.com/56305789/126761671-6fb2a1da-c486-42b6-836d-c9b81c262d93.mp4
-
-video src: https://www.youtube.com/watch?v=Zv1fgmd1pr4&ab_channel=JonnyTechnology  
-
 ## How to Integrate Edge AI and Cloud AI to Implement Human Detection and Face Recognition
 
 ### Check the Model of Camera Sensor 
