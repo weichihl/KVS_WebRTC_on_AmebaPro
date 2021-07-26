@@ -15,6 +15,7 @@
  * limitations under the License.
  *
  ******************************************************************************/
+#include "platform_opts.h"
 #if !CONFIG_EXAMPLE_KVS_PRODUCER
 
 /* Headers for example */
