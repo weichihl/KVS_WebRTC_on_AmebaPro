@@ -13,6 +13,7 @@
 #include "sensor_service.h"
 #include "object_detection_init.h"
 #include "platform_opts.h"
+#if CONFIG_EXAMPLE_OBJECT_DETECTION
 
 #include "hal_cache.h"
 
@@ -321,3 +322,4 @@ void example_object_detection(void) {
 		printf("\n\r%s xTaskCreate(skynet_thread) failed", __FUNCTION__);
 	}  
 }
+#endif /* CONFIG_EXAMPLE_OBJECT_DETECTION */
