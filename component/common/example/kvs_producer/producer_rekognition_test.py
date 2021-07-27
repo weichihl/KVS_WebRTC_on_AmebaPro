@@ -109,7 +109,7 @@ class KVS_Capture:
                 
                 if face_result_list:
                     #print(face_result_list)
-                    while (time.time()-face_result_list[0][1])>5:  #### delete old frames ####
+                    while (time.time()-face_result_list[0][1])>4.0:  #### delete old frames ####
                         face_result_list.pop(0)
                         if not face_result_list:
                             break
@@ -124,13 +124,14 @@ class KVS_Capture:
                                 pos_y = int(self.frame_height*face_result_pos[i]['DetectedFace']['BoundingBox']['Top'])
                                 x_end = pos_x + int(self.frame_width*face_result_pos[i]['DetectedFace']['BoundingBox']['Width'])
                                 y_end = pos_y + int(self.frame_height*face_result_pos[i]['DetectedFace']['BoundingBox']['Height'])
-                                cv2.rectangle(pop_img, (pos_x,pos_y), (x_end,y_end), (0,255,0), 4)
                                 
                                 if face_result_pos[i]['MatchedFaces']:
                                     # print(face_result_pos[i]['MatchedFaces'][0]['Face']['ExternalImageId'])
                                     cv2.putText(pop_img, face_result_pos[i]['MatchedFaces'][0]['Face']['ExternalImageId'], (pos_x, pos_y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,255,0), 2)
+                                    cv2.rectangle(pop_img, (pos_x,pos_y), (x_end,y_end), (0,255,0), 4)
                                 else:
-                                    cv2.putText(pop_img, 'unknown', (pos_x, pos_y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,255,0), 2)
+                                    cv2.putText(pop_img, 'unknown', (pos_x, pos_y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,255), 2)
+                                    cv2.rectangle(pop_img, (pos_x,pos_y), (x_end,y_end), (0,0,255), 4)
                 
                 now = time.time()
                 
