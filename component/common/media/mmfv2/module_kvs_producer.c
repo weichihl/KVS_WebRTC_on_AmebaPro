@@ -40,7 +40,7 @@
 #define ERRNO_NONE      0
 #define ERRNO_FAIL      __LINE__
 
-#define VIDEO_OUTPUT_BUFFER_SIZE    ( VIDEO_HEIGHT * VIDEO_WIDTH / 4 )
+#define VIDEO_OUTPUT_BUFFER_SIZE    ( VIDEO_HEIGHT * VIDEO_WIDTH / 10 )
 
 static void sleepInMs( uint32_t ms )
 {
@@ -124,7 +124,7 @@ static void sendVideoFrame(VIDEO_BUFFER *pBuffer, Kvs_t *pKvs)
             }
             else
             {
-                if (uMemTotal < 1000000)
+                if (uMemTotal < STREAM_MAX_BUFFERING_SIZE)
                 {
                     memcpy(xDataFrameIn.pData, pBuffer->output_buffer, uAvccLen);
                     xDataFrameIn.uDataLen = uAvccLen;

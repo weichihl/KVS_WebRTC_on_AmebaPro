@@ -13,6 +13,8 @@
 #define AWS_KVS_SERVICE                 "kinesisvideo"
 #define AWS_KVS_HOST                    AWS_KVS_SERVICE "." AWS_KVS_REGION ".amazonaws.com"
 
+#define STREAM_MAX_BUFFERING_SIZE       (1 * 1024 * 1024)
+
 /* KVS optional configuration */
 #define ENABLE_AUDIO_TRACK              1
 #define ENABLE_IOT_CREDENTIAL           0

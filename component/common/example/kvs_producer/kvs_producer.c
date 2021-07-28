@@ -216,7 +216,7 @@ static void sendVideoFrame(VIDEO_BUFFER *pBuffer, Kvs_t *pKvs)
             }
             else
             {
-                if (uMemTotal < 1000000)
+                if (uMemTotal < STREAM_MAX_BUFFERING_SIZE)
                 {
                     memcpy(xDataFrameIn.pData, pBuffer->output_buffer, uAvccLen);
                     xDataFrameIn.uDataLen = uAvccLen;
@@ -346,13 +346,13 @@ static void camera_thread(void *param)
     int enc_cnt = 0;
     while ( 1 )
     {
-        // [9][ISP] get isp data
+        // [ISP] get isp data
         isp_buf_t isp_buf;
         if(xQueueReceive(isp_ctx.output_ready, &isp_buf, 10) != pdTRUE) {
             continue;
         }
 
-        // [10][H264] encode data
+        // [H264] encode data
         video_buf.output_buffer_size = VIDEO_OUTPUT_BUFFER_SIZE;
         video_buf.output_buffer = malloc( VIDEO_OUTPUT_BUFFER_SIZE );
         if (video_buf.output_buffer== NULL) {
@@ -368,10 +368,10 @@ static void camera_thread(void *param)
         }
         enc_cnt++;
         
-        // [11][ISP] put back isp buffer
+        // [ISP] put back isp buffer
         xQueueSend(isp_ctx.output_recycle, &isp_buf, 10);
         
-        // [12][FATFS] write encoded data into sdcard
+        // send video frame
         if (start_recording)
         {
             sendVideoFrame(&video_buf, pKvs);
