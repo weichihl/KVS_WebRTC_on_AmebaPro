@@ -1,5 +1,5 @@
 #include "platform_opts.h"
-#if CONFIG_EXAMPLE_KVS_WEBRTC
+#if (CONFIG_EXAMPLE_KVS_WEBRTC || CONFIG_EXAMPLE_KVS_WEBRTC_MMF)
 
 #define LOG_CLASS "WebRtcSamples"
 #include "Samples.h"

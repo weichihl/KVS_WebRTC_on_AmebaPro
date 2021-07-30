@@ -637,6 +637,9 @@ in lwip_opt.h for support uart adapter*/
 #endif
 #endif
 
+/* For KVS WebRTC mmf module example*/
+#define CONFIG_EXAMPLE_KVS_WEBRTC_MMF           0
+
 /* For KVS Producer example*/
 #define CONFIG_EXAMPLE_KVS_PRODUCER             0
 

@@ -297,6 +297,10 @@
 #include <kvs_webrtc/example_kvs_webrtc.h>
 #endif
 
+#if CONFIG_EXAMPLE_KVS_WEBRTC_MMF
+#include <kvs_webrtc_mmf/example_kvs_webrtc_mmf.h>
+#endif
+
 #if CONFIG_EXAMPLE_KVS_PRODUCER
 #include <kvs_producer/example_kvs_producer.h>
 #endif
@@ -744,6 +748,10 @@ example_hilink();
         
 #if CONFIG_EXAMPLE_KVS_WEBRTC
 	example_kvs_webrtc();
+#endif
+
+#if CONFIG_EXAMPLE_KVS_WEBRTC_MMF
+	example_kvs_webrtc_mmf();
 #endif
 
 #if CONFIG_EXAMPLE_KVS_PRODUCER

@@ -474,6 +474,39 @@
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                     <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
                     <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-embedded-c\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\client\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\common\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\heap\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\state\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\trace\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\utils\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\view\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-pic\src\mkvgen\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-producer-c\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libsrtp\crypto\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libsrtp\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libsrtp</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\core</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\core-net</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\event-libs</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\event-libs\poll</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\plat\freertos</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\plat\freertos\esp32</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\roles</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\roles\h1</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\roles\h2</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\roles\http</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\roles\ws</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\system\smd</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\internal</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\openssl</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\libwebsockets\lib\tls\mbedtls\wrapper\include\platform</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\amazon-kinesis-video-streams-webrtc-sdk-c\src\include</state>
+                    <state>$PROJ_DIR$\..\..\..\lib_amazon\iar_include</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3264,6 +3297,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_kvs_producer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_kvs_webrtc.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_mp4.c</name>
@@ -6455,6 +6491,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_producer_mmf\example_kvs_producer_mmf.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_webrtc_mmf\example_kvs_webrtc_mmf.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_mask.c</name>
