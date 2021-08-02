@@ -33,7 +33,7 @@ void example_kvs_webrtc_mmf_thread(void *param)
     h264_v1_ctx = mm_module_open(&h264_module);
     if(h264_v1_ctx){
         mm_module_ctrl(h264_v1_ctx, CMD_H264_SET_PARAMS, (int)&h264_v1_params);
-        mm_module_ctrl(h264_v1_ctx, CMD_H264_BITRATE, (int)(1*1024*1024));
+        mm_module_ctrl(h264_v1_ctx, CMD_H264_BITRATE, (int)KVS_WEBRTC_BITRATE);
         mm_module_ctrl(h264_v1_ctx, MM_CMD_SET_QUEUE_LEN, V1_H264_QUEUE_LEN);
         mm_module_ctrl(h264_v1_ctx, MM_CMD_INIT_QUEUE_ITEMS, MMQI_FLAG_DYNAMIC);
         mm_module_ctrl(h264_v1_ctx, CMD_H264_INIT_MEM_POOL, 0);
