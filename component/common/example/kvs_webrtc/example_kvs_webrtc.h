@@ -4,14 +4,14 @@
 void example_kvs_webrtc(void);
 
 /* Enter your AWS KVS key here */
-#define KVS_WEBRTC_ACCESS_KEY   "XXXXXXXX"
-#define KVS_WEBRTC_SECRET_KEY   "XXXXXXXX"
+#define KVS_WEBRTC_ACCESS_KEY   "xxxxxxxxxxxxxxxxxxxx"
+#define KVS_WEBRTC_SECRET_KEY   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 /* Setting your signaling channel name */
-#define KVS_WEBRTC_CHANNEL_NAME "My_KVS_Signaling_Channel"
+#define KVS_WEBRTC_CHANNEL_NAME "xxxxxxxxxxxxxxxxxxxx"
 
 /* Cert path */
-#define TEMP_CERT_PATH "0://cert.pem"
+#define TEMP_CERT_PATH          "0://cert.pem"
 
 /* log level */
 #define KVS_WEBRTC_LOG_LEVEL    LOG_LEVEL_WARN  //LOG_LEVEL_VERBOSE
