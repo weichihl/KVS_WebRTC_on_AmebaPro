@@ -765,6 +765,7 @@ SRC_C += ../../../component/common/application/amazon/amazon-freertos-202012.00/
 SRC_C += ../../../component/common/example/amazon_freertos/example_amazon_freertos.c
 SRC_C += ../../../component/common/example/kvs_producer_mmf/example_kvs_producer_mmf.c
 SRC_C += ../../../component/common/example/kvs_webrtc_mmf/example_kvs_webrtc_mmf.c
+SRC_C += ../../../component/common/example/kvs_webrtc_producer_mmf/example_kvs_webrtc_producer_mmf.c
 
 ##amazon_freertos_LTS - demos
 #common

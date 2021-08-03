@@ -309,6 +309,10 @@
 #include <kvs_producer_mmf/example_kvs_producer_mmf.h>
 #endif
 
+#if CONFIG_EXAMPLE_KVS_WEBRTC_PRODUCER_MMF
+#include <kvs_webrtc_producer_mmf/example_kvs_webrtc_producer_mmf.h>
+#endif
+
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE
 #include <audio_opus_encode/example_audio_opus_encode.h>
 #endif
@@ -760,6 +764,10 @@ example_hilink();
 
 #if CONFIG_EXAMPLE_KVS_PRODUCER_MMF
 	example_kvs_producer_mmf();
+#endif
+
+#if CONFIG_EXAMPLE_KVS_WEBRTC_PRODUCER_MMF
+	example_kvs_webrtc_producer_mmf();
 #endif
 
 #if CONFIG_EXAMPLE_AUDIO_OPUS_ENCODE

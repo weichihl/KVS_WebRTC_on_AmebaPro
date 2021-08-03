@@ -365,8 +365,11 @@ int kvs_webrtc_handle(void* p, void* input, void* output)
 
         video_buf.output_size = input_item->size;
         memcpy(video_buf.output_buffer, (uint8_t*)input_item->data_addr, video_buf.output_size);
-
-        xQueueSend( kvsWebrtcVideoQueue, &video_buf, 0xFFFFFFFF);
+        
+        if (uxQueueSpacesAvailable(kvsWebrtcVideoQueue) != 0)
+            xQueueSend( kvsWebrtcVideoQueue, &video_buf, 0);
+        else
+            free(video_buf.output_buffer);
     }
     else if (input_item->type == AV_CODEC_ID_PCMU)
     {
@@ -378,7 +381,10 @@ int kvs_webrtc_handle(void* p, void* input, void* output)
 
         audio_buf.timestamp = xTaskGetTickCount();
 
-        xQueueSend( kvsWebrtcAudioQueue, &audio_buf, 0xFFFFFFFF);
+        if (uxQueueSpacesAvailable(kvsWebrtcAudioQueue) != 0)
+            xQueueSend( kvsWebrtcAudioQueue, &audio_buf, 0);
+        else
+            free(audio_buf.data_buf);
     }
 
     return 0;
@@ -391,7 +397,7 @@ int kvs_webrtc_control(void *p, int cmd, int arg)
     switch(cmd){
 
     case CMD_KVS_WEBRTC_SET_APPLY:
-        if( xTaskCreate(kvs_webrtc_thread, ((const char*)"kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS){
+        if( xTaskCreate(kvs_webrtc_thread, ((const char*)"kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 3, NULL) != pdPASS){
             printf("\n\r%s xTaskCreate(kvs_webrtc_thread) failed", __FUNCTION__);
         }
         break;

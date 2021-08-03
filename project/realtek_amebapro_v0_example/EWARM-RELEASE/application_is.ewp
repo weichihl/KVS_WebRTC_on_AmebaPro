@@ -6496,6 +6496,9 @@
                 <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_webrtc_mmf\example_kvs_webrtc_mmf.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\example\kvs_webrtc_producer_mmf\example_kvs_webrtc_producer_mmf.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\example\isp\example_mask.c</name>
             </file>
             <file>
