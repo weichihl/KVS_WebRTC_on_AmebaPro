@@ -1,0 +1,1 @@
+git clone --recurse-submodules -b amebaPro-5.2h-202107.00-LTS https://github.com/ambiot/amazon-freertos.git amazon-freertos-202107.00

@@ -3123,6 +3123,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_webrtc_pic.a</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\..\component\soc\realtek\8195b\misc\bsp\lib\common\IAR\lib_webrtc_producer_c.a</name>
@@ -4306,82 +4309,97 @@
                         <group>
                             <name>http_demo_helpers</name>
                             <file>
-                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\http_demo_helpers\http_demo_utils.c</name>
+                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\http_demo_helpers\http_demo_utils.c</name>
                             </file>
                         </group>
                         <group>
                             <name>mqtt_demo_helpers</name>
                             <file>
-                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\mqtt_demo_helpers\mqtt_demo_helpers.c</name>
+                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\mqtt_demo_helpers\mqtt_demo_helpers.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>mqtt_subscription_manager</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\mqtt_subscription_manager\mqtt_subscription_manager.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>ota_demo_helpers</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\ota_demo_helpers\ota_application_version.c</name>
                             </file>
                         </group>
                         <group>
                             <name>pkcs11_helpers</name>
                             <file>
-                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\pkcs11_helpers\pkcs11_helpers.c</name>
+                                <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\pkcs11_helpers\pkcs11_helpers.c</name>
                             </file>
                         </group>
                     </group>
                     <group>
                         <name>coreHTTP</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreHTTP\http_demo_mutual_auth.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\coreHTTP\http_demo_mutual_auth.c</name>
                         </file>
                         <file>
                             <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\JPEG_snapshot_s3_upload_example\http_demo_s3_upload.c</name>
+                            <excluded>
+                                <configuration>Debug</configuration>
+                            </excluded>
                         </file>
                     </group>
                     <group>
                         <name>coreMQTT</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\coreMQTT\mqtt_demo_mutual_auth.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\coreMQTT\mqtt_demo_mutual_auth.c</name>
                         </file>
                     </group>
                     <group>
                         <name>demo_runner</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\demo_runner\aws_demo.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\demo_runner\aws_demo.c</name>
                         </file>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\demo_runner\aws_demo_version.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\demo_runner\iot_demo_freertos.c</name>
                         </file>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\demo_runner\iot_demo_freertos.c</name>
-                        </file>
-                        <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\demo_runner\iot_demo_runner.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\demo_runner\iot_demo_runner.c</name>
                         </file>
                     </group>
                     <group>
                         <name>dev_mode_key_provisioning</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\dev_mode_key_provisioning\src\aws_dev_mode_key_provisioning.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\dev_mode_key_provisioning\src\aws_dev_mode_key_provisioning.c</name>
                         </file>
                     </group>
                     <group>
                         <name>device_shadow_for_aws</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\device_shadow_for_aws\shadow_demo_main.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\device_shadow_for_aws\shadow_demo_main.c</name>
                         </file>
                     </group>
                     <group>
                         <name>network_manager</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\network_manager\aws_iot_demo_network.c</name>
-                        </file>
-                        <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\network_manager\aws_iot_network_manager.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\network_manager\aws_iot_network_manager.c</name>
                         </file>
                     </group>
                     <group>
                         <name>ota</name>
                         <file>
-                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\ota\aws_iot_ota_update_demo.c</name>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\ota\aws_iot_ota_update_demo.c</name>
+                            <excluded>
+                                <configuration>Debug</configuration>
+                            </excluded>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\ota\ota_demo_core_mqtt\ota_demo_core_mqtt.c</name>
                         </file>
                     </group>
                 </group>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_demos\application_code\aws_main.c</name>
+                    <name>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\vendors\realtek\boards\amebaPro\aws_demos\application_code\aws_main.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\component\common\example\amazon_freertos\example_amazon_freertos.c</name>
@@ -4649,57 +4667,66 @@
                                 <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include\portable\realtek\rtl8195</state>
                                 <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\FreeRTOS-Plus-POSIX\include</state>
                                 <state>$PROJ_DIR$\..\..\..\component\os\freertos\freertos_v10.0.0\portable\posix\lib\include\private</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\tests\include______</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_tests\config_files______</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\utils\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\logging\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\wifi\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\unity\src</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\unity\extras\fixture\src</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\common\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\platform\freertos\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\platform\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\secure_sockets\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\common\include\private</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\pkcs11\corePKCS11\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\pkcs11\corePKCS11\source\dependency\3rdparty\pkcs11</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\common\include\private</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\common\include\private</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\backoff_algorithm\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreHTTP\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreHTTP\source\interface</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\abstractions\transport\secure_sockets</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreMQTT\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\jsmn</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_utils</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls_config______</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\mbedtls\include______</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\crypto\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\dev_mode_key_provisioning\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\aws\defender\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\mqtt\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\serializer\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\aws\shadow\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\mqtt\test\access</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreHTTP\source\dependency\3rdparty\http_parser</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\https\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\https\test\access</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\mqtt\src</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\c_sdk\standard\mqtt\test\mock</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\3rdparty\tinycbor\src</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\src</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\standard\tls\include</state>
-                                <state>$PROJ_DIR$\..\..\..\common\application\amazon\amazon-freertos-202012.00\demos\common\pkcs11_helpers</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\pkcs11_helpers</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\network_manager</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\vendors\realtek\boards\amebaPro\aws_demos\config_files</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\http_demo_helpers</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\device_shadow_for_aws\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\coreJSON\source\include</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\demos\common\mqtt_demo_helpers</state>
-                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202012.00\libraries\freertos_plus\aws\ota\test</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\tests\include______</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\vendors\realtek\boards\amebaPro\aws_tests\config_files______</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\standard\utils\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\logging\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\wifi\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\unity\src</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\unity\extras\fixture\src</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\common\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\platform\freertos\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\platform\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\secure_sockets\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\common\include\private</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\pkcs11\corePKCS11\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\pkcs11\corePKCS11\source\dependency\3rdparty\pkcs11</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\common\include\private</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\common\include\private</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\backoff_algorithm\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreHTTP\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreHTTP\source\interface</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\transport\secure_sockets</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreMQTT\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\jsmn</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\aws\ota\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\mbedtls_utils</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\mbedtls_config______</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\mbedtls\include______</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\standard\crypto\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\dev_mode_key_provisioning\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\aws\defender\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\mqtt\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\serializer\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\aws\shadow\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\mqtt\test\access</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreHTTP\source\dependency\3rdparty\http_parser</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\https\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\https\test\access</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\mqtt\src</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\c_sdk\standard\mqtt\test\mock</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\3rdparty\tinycbor\src</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\aws\ota\src</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\standard\tls\include</state>
+                                <state>$PROJ_DIR$\..\..\..\common\application\amazon\amazon-freertos-202107.00\demos\common\pkcs11_helpers</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\pkcs11_helpers</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\network_manager</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\vendors\realtek\boards\amebaPro\aws_demos\config_files</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\http_demo_helpers</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\device_shadow_for_aws\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreJSON\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\mqtt_demo_helpers</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\freertos_plus\aws\ota\test</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\platform\include\platform</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\abstractions\mqtt_agent\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\coreMQTT-Agent\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\demos\common\mqtt_subscription_manager</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\ota_for_aws\source\include</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\ota_for_aws\source</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\ota_for_aws\source\portable</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\libraries\ota_for_aws\source\portable\os</state>
+                                <state>$PROJ_DIR$\..\..\..\component\common\application\amazon\amazon-freertos-202107.00\vendors\realtek\boards\amebaPro\ports\ota</state>
                             </option>
                             <option>
                                 <name>CCStdIncCheck</name>
