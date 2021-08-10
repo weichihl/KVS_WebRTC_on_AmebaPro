@@ -19,12 +19,11 @@
 #include "h264_encoder.h"
 #include "isp_api.h"
 #include "h264_api.h"
-#include "mmf2_dbg.h"
 #include "sensor.h"
 
 #if ENABLE_AUDIO_TRACK
 #include "audio_api.h"
-#include "module_aac.h"
+#include "faac.h"
 #include "faac_api.h"
 #endif /* ENABLE_AUDIO_TRACK */
 
@@ -462,6 +461,7 @@ static void audio_thread(void *param)
     uint8_t *pAudioFrame = NULL;
     DataFrameIn_t xDataFrameIn = {0};
     Kvs_t *pKvs = (Kvs_t *)param;
+    size_t uMemTotal = 0;
 
     vTaskDelay( 2000 / portTICK_PERIOD_MS );
 
@@ -519,8 +519,12 @@ static void audio_thread(void *param)
         xDataFrameIn.pData = (char *)pAacFrame;
         xDataFrameIn.uDataLen = xFrameSize;
         free(pAudioFrame);
-
-        if (pKvs->xStreamHandle != NULL)
+        
+        if (Kvs_streamMemStatTotal(pKvs->xStreamHandle, &uMemTotal) != 0)
+        {
+            printf("Failed to get stream mem state\r\n");
+        }
+        else if ( (pKvs->xStreamHandle != NULL) && (uMemTotal < STREAM_MAX_BUFFERING_SIZE))
         {
             Kvs_streamAddDataFrame(pKvs->xStreamHandle, &xDataFrameIn);
         }
@@ -856,6 +860,8 @@ void Kvs_run(Kvs_t *pKvs)
                 printf("End of PUT MEDIA\r\n");
                 break;
             }
+            
+            Kvs_putMediaFinish(pKvs->xPutMediaHandle);
 
             sleepInMs(100); /* Wait for retry */
         }
