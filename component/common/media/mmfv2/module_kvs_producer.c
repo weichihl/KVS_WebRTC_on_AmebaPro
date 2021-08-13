@@ -30,6 +30,13 @@
 #include "isp_api.h"
 #include "h264_api.h"
 #include "sensor.h"
+#include "avcodec.h"
+
+#if ENABLE_AUDIO_TRACK
+#include "audio_api.h"
+#include "faac.h"
+#include "faac_api.h"
+#endif /* ENABLE_AUDIO_TRACK */
 
 /* Headers for KVS */
 #include "kvs/port.h"
@@ -141,6 +148,28 @@ static void sendVideoFrame(VIDEO_BUFFER *pBuffer, Kvs_t *pKvs)
     }
 }
 
+#if ENABLE_AUDIO_TRACK
+int KvsAudioInitTrackInfo(Kvs_t *pKvs)
+{
+    int res = ERRNO_NONE;
+    uint8_t *pCodecPrivateData = NULL;
+    uint32_t uCodecPrivateDataLen = 0;
+
+    pKvs->pAudioTrackInfo = (AudioTrackInfo_t *)malloc(sizeof(AudioTrackInfo_t));
+    memset(pKvs->pAudioTrackInfo, 0, sizeof(AudioTrackInfo_t));
+    pKvs->pAudioTrackInfo->pTrackName = AUDIO_NAME;
+    pKvs->pAudioTrackInfo->pCodecName = AUDIO_CODEC_NAME;
+    pKvs->pAudioTrackInfo->uFrequency = AUDIO_SAMPLING_RATE;
+    pKvs->pAudioTrackInfo->uChannelNumber = AUDIO_CHANNEL_NUMBER;
+
+    if (Mkv_generateAacCodecPrivateData(AAC_LC, AUDIO_SAMPLING_RATE, AUDIO_CHANNEL_NUMBER, &pCodecPrivateData, &uCodecPrivateDataLen) == 0)
+    {
+        pKvs->pAudioTrackInfo->pCodecPrivate = pCodecPrivateData;
+        pKvs->pAudioTrackInfo->uCodecPrivateLen = (uint32_t)uCodecPrivateDataLen;
+    }
+}
+#endif
+
 static int kvsInitialize(Kvs_t *pKvs)
 {
     int res = ERRNO_NONE;
@@ -169,6 +198,15 @@ static int kvsInitialize(Kvs_t *pKvs)
 
         pKvs->xPutMediaPara.pcStreamName = pcStreamName;
         pKvs->xPutMediaPara.xTimecodeType = TIMECODE_TYPE_ABSOLUTE;
+        
+#if ENABLE_IOT_CREDENTIAL
+        pKvs->xIotCredentialReq.pCredentialHost = CREDENTIALS_HOST;
+        pKvs->xIotCredentialReq.pRoleAlias = ROLE_ALIAS;
+        pKvs->xIotCredentialReq.pThingName = THING_NAME;
+        pKvs->xIotCredentialReq.pRootCA = ROOT_CA;
+        pKvs->xIotCredentialReq.pCertificate = CERTIFICATE;
+        pKvs->xIotCredentialReq.pPrivateKey = PRIVATE_KEY;
+#endif
     }
 
     return res;
@@ -286,7 +324,11 @@ static int putMediaSendData(Kvs_t *pKvs)
     uint8_t *pMkvHeader = NULL;
     size_t uMkvHeaderLen = 0;
 
-    if (Kvs_streamAvailOnTrack(pKvs->xStreamHandle, TRACK_VIDEO))
+    if (Kvs_streamAvailOnTrack(pKvs->xStreamHandle, TRACK_VIDEO)
+#if ENABLE_AUDIO_TRACK
+           && Kvs_streamAvailOnTrack(pKvs->xStreamHandle, TRACK_AUDIO)
+#endif
+    )
     {
         if ((xDataFrameHandle = Kvs_streamPop(pKvs->xStreamHandle)) == NULL)
         {
@@ -371,25 +413,49 @@ static int putMedia(Kvs_t *pKvs)
     return res;
 }
 
-u8 can_put_media = 0;
+u8 initCamera_done = 0;
 
 static int initCamera(Kvs_t *pKvs)
 {
     int res = ERRNO_NONE;
     
-    can_put_media = 1;
+    initCamera_done = 1;
     
-    while (pKvs->pVideoTrackInfo == NULL)
-    {
+    while (pKvs->pVideoTrackInfo == NULL){
         sleepInMs(50);
     }
+
     return res;
 }
+
+#if ENABLE_AUDIO_TRACK
+u8 initAudio_done = 0;
+
+static int initAudio(Kvs_t *pKvs)
+{
+    int res = ERRNO_NONE;
+
+    KvsAudioInitTrackInfo(pKvs); // Initialize audio track info
+
+    while (pKvs->pAudioTrackInfo == NULL){
+        sleepInMs(50);
+    }
+
+    initAudio_done = 1;
+
+    return res;
+}
+#endif /* ENABLE_AUDIO_TRACK */
 
 void Kvs_run(Kvs_t *pKvs)
 {
     int res = ERRNO_NONE;
     unsigned int uHttpStatusCode = 0;
+
+#if ENABLE_IOT_CREDENTIAL
+    IotCredentialToken_t *pToken = NULL;
+#endif /* ENABLE_IOT_CREDENTIAL */
+    
     if (kvsInitialize(pKvs) != 0)
     {
         printf("Failed to initialize KVS\r\n");
@@ -400,6 +466,13 @@ void Kvs_run(Kvs_t *pKvs)
         printf("Failed to init camera\r\n");
         res = ERRNO_FAIL;
     }
+#if ENABLE_AUDIO_TRACK
+    else if (initAudio(pKvs) != 0)
+    {
+        printf("Failed to init audio\r\n");
+        res = ERRNO_FAIL;
+    }
+#endif /* ENABLE_AUDIO_TRACK */
     else if ((pKvs->xStreamHandle = Kvs_streamCreate(pKvs->pVideoTrackInfo, pKvs->pAudioTrackInfo)) == NULL)
     {
         printf("Failed to create stream\r\n");
@@ -409,6 +482,20 @@ void Kvs_run(Kvs_t *pKvs)
     {
         while (1)
         {
+#if ENABLE_IOT_CREDENTIAL
+            Iot_credentialTerminate(pToken);
+            if ((pToken = Iot_getCredential(&(pKvs->xIotCredentialReq))) == NULL)
+            {
+                printf("Failed to get Iot credential\r\n");
+                break;
+            }
+            else
+            {
+                pKvs->xServicePara.pcAccessKey = pToken->pAccessKeyId;
+                pKvs->xServicePara.pcSecretKey = pToken->pSecretAccessKey;
+                pKvs->xServicePara.pcToken = pToken->pSessionToken;
+            }
+#endif
             if (setupDataEndpoint(pKvs) != ERRNO_NONE)
             {
                 printf("Failed to get PUT MEDIA endpoint");
@@ -471,49 +558,88 @@ u32 t2 = 0;
 int kvs_producer_handle(void* p, void* input, void* output)
 {
     kvs_producer_ctx_t *ctx = (kvs_producer_ctx_t*)p;
-
-    VIDEO_BUFFER video_buf;
-
     mm_queue_item_t* input_item = (mm_queue_item_t*)input;
+    
+    VIDEO_BUFFER video_buf;
+    Kvs_t* pKvs = &xKvs;
 
-    if (can_put_media)
+    if (input_item->type == AV_CODEC_ID_H264)
     {
-        video_buf.output_buffer_size = VIDEO_OUTPUT_BUFFER_SIZE;
-        video_buf.output_size = input_item->size;
-
-        //printf("\n\rH264 size: %d",video_buf.output_size);
-
-        video_buf.output_buffer = malloc(VIDEO_OUTPUT_BUFFER_SIZE);
-        memcpy(video_buf.output_buffer, (uint8_t*)input_item->data_addr, video_buf.output_size);
-
-        Kvs_t* pKvs = &xKvs;
-        
-        if (start_recording)
+        if (initCamera_done)
         {
-            sendVideoFrame(&video_buf, pKvs);
-            t2 = xTaskGetTickCountFromISR();
-            //printf("sendVideoFrame: %d\r\n", (t2-t1));
-            t1 = t2;
-        }
-        else
-        {
-            if (h264_is_i_frame(video_buf.output_buffer))
+            video_buf.output_buffer_size = VIDEO_OUTPUT_BUFFER_SIZE;
+            video_buf.output_size = input_item->size;
+
+            //printf("\n\rH264 size: %d",video_buf.output_size);
+
+            video_buf.output_buffer = malloc(VIDEO_OUTPUT_BUFFER_SIZE);
+            memcpy(video_buf.output_buffer, (uint8_t*)input_item->data_addr, video_buf.output_size);
+
+            
+            
+            if (start_recording)
             {
-                start_recording = 1;
-                if (pKvs->pVideoTrackInfo == NULL)
-                {
-                    KvsVideoInitTrackInfo(&video_buf, pKvs);
-                }
                 sendVideoFrame(&video_buf, pKvs);
+                t2 = xTaskGetTickCountFromISR();
+                //printf("sendVideoFrame: %d\r\n", (t2-t1));
+                t1 = t2;
             }
             else
             {
-                if (video_buf.output_buffer != NULL)
-                    free(video_buf.output_buffer);
+                if (h264_is_i_frame(video_buf.output_buffer))
+                {
+                    start_recording = 1;
+                    if (pKvs->pVideoTrackInfo == NULL)
+                    {
+                        KvsVideoInitTrackInfo(&video_buf, pKvs);
+                    }
+                    sendVideoFrame(&video_buf, pKvs);
+                }
+                else
+                {
+                    if (video_buf.output_buffer != NULL)
+                        free(video_buf.output_buffer);
+                }
             }
         }
     }
-		
+#if ENABLE_AUDIO_TRACK
+    else if (input_item->type == AV_CODEC_ID_MP4A_LATM)
+    {
+        if (initAudio_done)
+        {
+            uint8_t *pAacFrame = NULL;
+            pAacFrame = (uint8_t *)malloc(input_item->size);
+            memcpy(pAacFrame, (uint8_t*)input_item->data_addr, input_item->size);
+
+            DataFrameIn_t xDataFrameIn = {0};
+            memset(&xDataFrameIn, 0, sizeof(DataFrameIn_t));
+            xDataFrameIn.bIsKeyFrame = false;
+            xDataFrameIn.uTimestampMs = getEpochTimestampInMs();
+            xDataFrameIn.xTrackType = TRACK_AUDIO;
+
+            xDataFrameIn.xClusterType = MKV_SIMPLE_BLOCK;
+
+            xDataFrameIn.pData = (char *)pAacFrame;
+            xDataFrameIn.uDataLen = input_item->size;
+            
+            size_t uMemTotal = 0;
+            if (Kvs_streamMemStatTotal(pKvs->xStreamHandle, &uMemTotal) != 0)
+            {
+                printf("Failed to get stream mem state\r\n");
+            }
+            else if ( (pKvs->xStreamHandle != NULL) && (uMemTotal < STREAM_MAX_BUFFERING_SIZE))
+            {
+                Kvs_streamAddDataFrame(pKvs->xStreamHandle, &xDataFrameIn);
+            }
+            else
+            {
+                free(xDataFrameIn.pData);
+            }
+        }
+    }
+#endif
+    
     return 0;
 }
 

@@ -11,8 +11,15 @@
 #include "kvs/restapi.h"
 #include "kvs/stream.h"
 
+#if ENABLE_IOT_CREDENTIAL
+#include "kvs/iot_credential_provider.h"
+#endif /* ENABLE_IOT_CREDENTIAL */
+
 typedef struct Kvs
 {
+#if ENABLE_IOT_CREDENTIAL
+    IotCredentialRequest_t xIotCredentialReq;
+#endif
     KvsServiceParameter_t xServicePara;
     KvsDescribeStreamParameter_t xDescPara;
     KvsCreateStreamParameter_t xCreatePara;
