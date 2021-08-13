@@ -717,6 +717,8 @@ CleanUp:
     return retStatus;
 }
 
+#include "../../../../lib_amazon/amazon-kinesis-video-streams-producer-embedded-c/src/include/kvs/iot_credential_provider.h"
+
 STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE roleType, BOOL trickleIce, BOOL useTurn,
                                  PSampleConfiguration* ppSampleConfiguration)
 {
@@ -760,9 +762,48 @@ STATUS createSampleConfiguration(PCHAR channelName, SIGNALING_CHANNEL_ROLE_TYPE 
     logLevel = KVS_WEBRTC_LOG_LEVEL;
 
     SET_LOGGER_LOG_LEVEL(logLevel);
+    
+    
+    IotCredentialRequest_t xIotCredentialReq;
+    
+    xIotCredentialReq.pCredentialHost = KVS_WEBRTC_IOT_CREDENTIAL_ENDPOINT;
+    xIotCredentialReq.pRoleAlias = KVS_WEBRTC_ROLE_ALIAS;
+    xIotCredentialReq.pThingName = KVS_WEBRTC_THING_NAME;
+    xIotCredentialReq.pRootCA = KVS_WEBRTC_ROOT_CA;
+    xIotCredentialReq.pCertificate = KVS_WEBRTC_CERTIFICATE;
+    xIotCredentialReq.pPrivateKey = KVS_WEBRTC_PRIVATE_KEY;
+    
+    IotCredentialToken_t *pToken = NULL;
+    Iot_credentialTerminate(pToken);
+    
+    if ((pToken = Iot_getCredential(&xIotCredentialReq)) == NULL)
+    {
+        printf("Failed to get Iot credential\r\n");
+    }
+    else
+    {
+        pAccessKey = pToken->pAccessKeyId;
+        pSecretKey = pToken->pSecretAccessKey;
+        pSessionToken = pToken->pSessionToken;
+        printf("Get pAccessKey: %s\r\n", pAccessKey);
+        printf("Get pSecretKey: %s\r\n", pSecretKey);
+    }
+    
 
+#if ENABLE_KVS_WEBRTC_IOT_CREDENTIAL
+    CHK_STATUS(
+         createLwsIotCredentialProvider(
+             KVS_WEBRTC_IOT_CREDENTIAL_ENDPOINT,  // IoT credentials endpoint
+             KVS_WEBRTC_CERTIFICATE,  // path to iot certificate
+             KVS_WEBRTC_PRIVATE_KEY, // path to iot private key
+             TEMP_CERT_PATH, // path to CA cert
+             KVS_WEBRTC_ROLE_ALIAS, // IoT role alias
+             channelName, // iot thing name, recommended to be same as your channel name
+             &pSampleConfiguration->pCredentialProvider));
+#else
     CHK_STATUS(
         createStaticCredentialProvider(pAccessKey, 0, pSecretKey, 0, pSessionToken, 0, MAX_UINT64, &pSampleConfiguration->pCredentialProvider));
+#endif
 
     pSampleConfiguration->mediaSenderTid = INVALID_TID_VALUE;
     pSampleConfiguration->signalingClientHandle = INVALID_SIGNALING_CLIENT_HANDLE_VALUE;
@@ -1010,8 +1051,12 @@ STATUS freeSampleConfiguration(PSampleConfiguration* ppSampleConfiguration)
         CVAR_FREE(pSampleConfiguration->cvar);
     }
 
+#if ENABLE_KVS_WEBRTC_IOT_CREDENTIAL
+    freeIotCredentialProvider(&pSampleConfiguration->pCredentialProvider);
+#else
     freeStaticCredentialProvider(&pSampleConfiguration->pCredentialProvider);
-
+#endif
+    
     if (pSampleConfiguration->iceCandidatePairStatsTimerId != MAX_UINT32) {
         CHK_STATUS(timerQueueCancelTimer(pSampleConfiguration->timerQueueHandle, pSampleConfiguration->iceCandidatePairStatsTimerId,
                                          (UINT64) pSampleConfiguration));
