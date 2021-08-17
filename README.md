@@ -42,7 +42,7 @@ You can review the [ChangeLog](https://github.com/HungTseLee/KVS_WebRTC_on_Ameba
     <td width=50%><img src="photo/face_detection.jpg" valign="middle" alt="test image size" height=233px width=400px/></td>
     <td align=Left width=50%>
       1. Stream live video from AmebaPro to KVS<BR><BR>2. AI face detection by using AWS Rekognition API<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_Producer_Getting_Started_Guide_v1.2.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
     </td>
@@ -56,7 +56,7 @@ You can review the [ChangeLog](https://github.com/HungTseLee/KVS_WebRTC_on_Ameba
     <td width=50%><img src="photo/p2p.jpg" valign="middle" alt="test image size" height=206px width=400px/></td>
     <td align=Left width=50%>
       1. AmebaPro start a signaling channel, as a master<BR><BR>2. Browser run as a viewer (client)<BR><BR>3. Start a P2P connection<BR><BR>&nbsp; :point_right: &nbsp;
-      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_WebRTC_Getting_Started_Guide_v1.1.pdf">
+      <a href="https://github.com/HungTseLee/KVS_WebRTC_on_AmebaPro/blob/main/AmebaPro_Amazon_KVS_WebRTC_Getting_Started_Guide_v1.2.pdf">
         <img src="https://img.shields.io/badge/-Getting%20Started-green" valign="middle" height=25px width=120px/>
       </a>
     </td>
