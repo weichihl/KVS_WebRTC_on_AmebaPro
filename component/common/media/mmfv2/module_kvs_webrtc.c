@@ -50,6 +50,7 @@ extern int max_skb_buf_num;
 
 static xQueueHandle kvsWebrtcVideoQueue;
 static xQueueHandle kvsWebrtcAudioQueue;
+xQueueHandle audio_queue_recv;
 
 PVOID sendVideoPackets(PVOID args)
 {
@@ -194,6 +195,50 @@ CleanUp:
     return (PVOID)(ULONG_PTR) retStatus;
 }
 
+#ifdef ENABLE_AUDIO_SENDRECV  
+PVOID sampleReceiveAudioFrame(PVOID args)
+{
+    STATUS retStatus = STATUS_SUCCESS;
+    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) args;
+    if (pSampleStreamingSession == NULL) {
+        printf("[KVS Master] sampleReceiveAudioFrame(): operation returned status code: 0x%08x \n", STATUS_NULL_ARG);
+        goto CleanUp;
+    }
+
+    retStatus = transceiverOnFrame(pSampleStreamingSession->pAudioRtcRtpTransceiver, (UINT64) pSampleStreamingSession, sampleFrameHandler);
+    if (retStatus != STATUS_SUCCESS) {
+        printf("[KVS Master] transceiverOnFrame(): operation returned status code: 0x%08x \n", retStatus);
+        goto CleanUp;
+    }
+    
+    while (!ATOMIC_LOAD_BOOL(&pSampleStreamingSession->terminateFlag)) 
+    {
+        vTaskDelay(100);
+    }
+
+CleanUp:
+
+    return (PVOID)(ULONG_PTR) retStatus;
+}
+
+VOID sampleFrameHandler(UINT64 customData, PFrame pFrame)
+{
+    UNUSED_PARAM(customData);
+    DLOGV("Frame received. TrackId: %" PRIu64 ", Size: %u, Flags %u", pFrame->trackId, pFrame->size, pFrame->flags);   
+
+    if( xQueueSendFromISR(audio_queue_recv, (void *)pFrame->frameData, NULL) != pdTRUE){
+        printf("\n\rAudio_sound queue full.\n\r");
+    }
+
+    PSampleStreamingSession pSampleStreamingSession = (PSampleStreamingSession) customData;
+    if (pSampleStreamingSession->firstFrame) {
+        pSampleStreamingSession->firstFrame = FALSE;
+        pSampleStreamingSession->startUpLatency = (GETTIME() - pSampleStreamingSession->offerReceiveTime) / HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
+        printf("Start up latency from offer to first frame: %" PRIu64 "ms\n", pSampleStreamingSession->startUpLatency);
+    }
+}
+#endif /* ENABLE_AUDIO_SENDRECV */
+
 UCHAR wifi_ip[16];
 UCHAR* ameba_get_ip(void){
     extern struct netif xnetif[NET_IF_NUM];
@@ -261,6 +306,9 @@ static void kvs_webrtc_thread( void * param )
     // Set the video handlers
     pSampleConfiguration->videoSource = sendVideoPackets;
     pSampleConfiguration->audioSource = sendAudioPackets;
+#ifdef ENABLE_AUDIO_SENDRECV    
+    pSampleConfiguration->receiveAudioVideoSource = sampleReceiveAudioFrame;
+#endif
     pSampleConfiguration->mediaType = SAMPLE_STREAMING_AUDIO_VIDEO;
 
     printf("[KVS Master] Finished setting audio and video handlers\n\r");
@@ -397,7 +445,7 @@ int kvs_webrtc_control(void *p, int cmd, int arg)
     switch(cmd){
 
     case CMD_KVS_WEBRTC_SET_APPLY:
-        if( xTaskCreate(kvs_webrtc_thread, ((const char*)"kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 3, NULL) != pdPASS){
+        if( xTaskCreate(kvs_webrtc_thread, ((const char*)"kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS){
             printf("\n\r%s xTaskCreate(kvs_webrtc_thread) failed", __FUNCTION__);
         }
         break;
@@ -424,6 +472,12 @@ void* kvs_webrtc_create(void* parent)
 
     kvsWebrtcAudioQueue = xQueueCreate( KVS_QUEUE_DEPTH, sizeof( audio_buf_t ) );
     xQueueReset(kvsWebrtcAudioQueue);
+    
+#if ( defined(ENABLE_AUDIO_SENDRECV) && ( AUDIO_G711_MULAW || AUDIO_G711_ALAW ) )
+    //Create a queue to receive the G711 audio frame from viewer
+    audio_queue_recv = xQueueCreate( KVS_QUEUE_DEPTH, AUDIO_G711_FRAME_SIZE);
+    xQueueReset(audio_queue_recv);
+#endif
 
     printf("kvs_webrtc_create...\r\n");
 

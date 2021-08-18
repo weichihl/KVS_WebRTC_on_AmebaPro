@@ -3302,6 +3302,9 @@
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_kvs_webrtc.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_kvs_webrtc_audio.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\..\..\component\common\media\mmfv2\module_mp4.c</name>
             </file>
             <file>

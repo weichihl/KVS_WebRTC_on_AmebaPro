@@ -349,6 +349,7 @@ SRC_C += ../../../component/common/media/mmfv2/module_httpfs.c
 SRC_C += ../../../component/common/media/mmfv2/module_dup.c
 SRC_C += ../../../component/common/media/mmfv2/module_kvs_producer.c
 SRC_C += ../../../component/common/media/mmfv2/module_kvs_webrtc.c
+SRC_C += ../../../component/common/media/mmfv2/module_kvs_webrtc_audio.c
 
 #mmfv2_example
 SRC_C += ../../../component/common/example/media_framework/mmf2_example_2way_audio_init.c
