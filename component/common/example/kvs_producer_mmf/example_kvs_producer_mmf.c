@@ -9,6 +9,7 @@
 #include "example_kvs_producer_mmf.h"
 #include "../media_framework/example_media_framework.h"
 #include "module_kvs_producer.h"
+#include "../kvs_producer/sample_config.h"
 
 mm_context_t* kvs_producer_v1_ctx       = NULL;
 mm_siso_t* siso_h264_kvs_v1             = NULL;
@@ -19,8 +20,8 @@ mm_miso_t* miso_h264_aac_kvs_v1_a1      = NULL;
 */
 
 /* set the video parameter here, it will overwrite the setting in sample_config.h */
-#define PRODUCER_MMF_VIDEO_WIDTH      1280
-#define PRODUCER_MMF_VIDEO_HEIGHT     720
+#define PRODUCER_MMF_VIDEO_WIDTH      1920
+#define PRODUCER_MMF_VIDEO_HEIGHT     1080
 #define PRODUCER_MMF_VIDEO_BPS        1*1024*1024
 #define PRODUCER_MMF_VIDEO_FPS        30
 
