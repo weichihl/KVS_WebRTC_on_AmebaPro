@@ -52,6 +52,10 @@ static xQueueHandle kvsWebrtcVideoQueue;
 static xQueueHandle kvsWebrtcAudioQueue;
 xQueueHandle audio_queue_recv;
 
+int kvsWebrtcModule_video_H;
+int kvsWebrtcModule_video_W;
+int kvsWebrtcModule_video_bps;
+
 PVOID sendVideoPackets(PVOID args)
 {
     STATUS retStatus = STATUS_SUCCESS;
@@ -97,9 +101,9 @@ PVOID sendVideoPackets(PVOID args)
         //printf("video timestamp = %llu\n\r", frame.presentationTs);
 
         // based on bitrate of samples/h264SampleFrames/frame-*
-        encoderStats.width = KVS_VIDEO_WIDTH;
-        encoderStats.height = KVS_VIDEO_HEIGHT;
-        encoderStats.targetBitrate = KVS_WEBRTC_BITRATE;
+        encoderStats.width = kvsWebrtcModule_video_W;
+        encoderStats.height = kvsWebrtcModule_video_H;
+        encoderStats.targetBitrate = kvsWebrtcModule_video_bps;
 
         /* wait for skb resource release */
         if((skbdata_used_num > (max_skb_buf_num - 5)) || (skbbuf_used_num > (max_local_skb_num - 5))){
@@ -211,10 +215,10 @@ PVOID sampleReceiveAudioFrame(PVOID args)
         goto CleanUp;
     }
     
-    while (!ATOMIC_LOAD_BOOL(&pSampleStreamingSession->terminateFlag)) 
-    {
-        vTaskDelay(100);
-    }
+    //while (!ATOMIC_LOAD_BOOL(&pSampleStreamingSession->terminateFlag)) 
+    //{
+    //    vTaskDelay(1000);
+    //}
 
 CleanUp:
 
@@ -448,6 +452,15 @@ int kvs_webrtc_control(void *p, int cmd, int arg)
         if( xTaskCreate(kvs_webrtc_thread, ((const char*)"kvs_webrtc_thread"), STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS){
             printf("\n\r%s xTaskCreate(kvs_webrtc_thread) failed", __FUNCTION__);
         }
+        break;
+    case CMD_KVS_WEBRTC_SET_VIDEO_HEIGHT:
+        kvsWebrtcModule_video_H = (int)arg;
+        break;
+    case CMD_KVS_WEBRTC_SET_VIDEO_WIDTH:
+        kvsWebrtcModule_video_W = (int)arg;
+        break;
+    case CMD_KVS_WEBRTC_SET_VIDEO_BPS:
+        kvsWebrtcModule_video_bps = (int)arg;
         break;
     }
     return 0;

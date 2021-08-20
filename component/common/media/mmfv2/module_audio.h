@@ -4,7 +4,7 @@
 #include "mmf2_module.h"
 #include "audio_api.h"
 
-#define ENABLE_SPEEX_AEC 1
+#define ENABLE_SPEEX_AEC 0
 
 #define CMD_AUDIO_SET_PARAMS     	MM_MODULE_CMD(0x00)  // set parameter
 #define CMD_AUDIO_GET_PARAMS     	MM_MODULE_CMD(0x01)  // get parameter

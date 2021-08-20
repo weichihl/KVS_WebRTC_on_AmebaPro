@@ -16,7 +16,7 @@
 #define STREAM_MAX_BUFFERING_SIZE       (1 * 1024 * 1024)
 
 /* KVS optional configuration */
-#define ENABLE_AUDIO_TRACK              1
+#define ENABLE_AUDIO_TRACK              0
 #define ENABLE_IOT_CREDENTIAL           0
 
 /* Video configuration */
@@ -28,8 +28,8 @@
     #define VIDEO_HEIGHT    VIDEO_1440SQR_HEIGHT
     #define VIDEO_WIDTH     VIDEO_1440SQR_WIDTH
 #else
-    #define VIDEO_HEIGHT    VIDEO_720P_HEIGHT   //VIDEO_1080P_HEIGHT
-    #define VIDEO_WIDTH     VIDEO_720P_WIDTH    //VIDEO_1080P_WIDTH
+    #define VIDEO_HEIGHT    VIDEO_1080P_HEIGHT   //VIDEO_720P_HEIGHT
+    #define VIDEO_WIDTH     VIDEO_1080P_WIDTH    //VIDEO_720P_WIDTH
 #endif
 #define VIDEO_NAME                          "my video"
 

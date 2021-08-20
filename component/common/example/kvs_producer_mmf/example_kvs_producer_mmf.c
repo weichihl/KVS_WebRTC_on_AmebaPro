@@ -9,52 +9,61 @@
 #include "example_kvs_producer_mmf.h"
 #include "../media_framework/example_media_framework.h"
 #include "module_kvs_producer.h"
-#include "../kvs_producer/sample_config.h"
 
 mm_context_t* kvs_producer_v1_ctx       = NULL;
 mm_siso_t* siso_h264_kvs_v1             = NULL;
 mm_miso_t* miso_h264_aac_kvs_v1_a1      = NULL;
 
+/*
+ * !!!! Please set your AWS key, KVS_STREAM_NAME, AWS_KVS_REGION, ENABLE_AUDIO_TRACK and ENABLE_IOT_CREDENTIAL in sample_config.h !!!!
+*/
+
+/* set the video parameter here, it will overwrite the setting in sample_config.h */
+#define PRODUCER_MMF_VIDEO_WIDTH      1280
+#define PRODUCER_MMF_VIDEO_HEIGHT     720
+#define PRODUCER_MMF_VIDEO_BPS        1*1024*1024
+#define PRODUCER_MMF_VIDEO_FPS        30
+
 isp_params_t kvs_isp_params = {
-	.width    = VIDEO_WIDTH, 
-	.height   = VIDEO_HEIGHT,
-	.fps      = 30,
-	.slot_num = V1_HW_SLOT,
-	.buff_num = V1_SW_SLOT,
-	.format   = ISP_FORMAT_YUV420_SEMIPLANAR
+    .width    = PRODUCER_MMF_VIDEO_WIDTH, 
+    .height   = PRODUCER_MMF_VIDEO_HEIGHT,
+    .fps      = PRODUCER_MMF_VIDEO_FPS,
+    .slot_num = V1_HW_SLOT,
+    .buff_num = V1_SW_SLOT,
+    .format   = ISP_FORMAT_YUV420_SEMIPLANAR
 };
 
 h264_params_t kvs_h264_params = {
-	.width          = VIDEO_WIDTH,
-	.height         = VIDEO_HEIGHT,
-	.bps            = 1*1024*1024,
-	.fps            = 30,
-	.gop            = 30,
-	.rc_mode        = V1_H264_RCMODE,
-        .rotation       = 0,
-	.mem_total_size = V1_BUFFER_SIZE,
-	.mem_block_size = V1_BLOCK_SIZE,
-	.mem_frame_size = V1_FRAME_SIZE,
-	.input_type     = ISP_FORMAT_YUV420_SEMIPLANAR
+    .width          = PRODUCER_MMF_VIDEO_WIDTH,
+    .height         = PRODUCER_MMF_VIDEO_HEIGHT,
+    .bps            = PRODUCER_MMF_VIDEO_BPS,
+    .fps            = PRODUCER_MMF_VIDEO_FPS,
+    .gop            = PRODUCER_MMF_VIDEO_FPS,
+    .rc_mode        = V1_H264_RCMODE,
+    .rotation       = 0,
+    .mem_total_size = V1_BUFFER_SIZE,
+    .mem_block_size = V1_BLOCK_SIZE,
+    .mem_frame_size = V1_FRAME_SIZE,
+    .input_type     = ISP_FORMAT_YUV420_SEMIPLANAR
 };
 
 #if ENABLE_AUDIO_TRACK
 aac_params_t kvs_aac_params = {
-	.sample_rate = AUDIO_SAMPLING_RATE,
-	.channel = AUDIO_CHANNEL_NUMBER,
-	.bit_length = FAAC_INPUT_16BIT,
-	.output_format = 0,   //Bitstream output format (0 = Raw; 1 = ADTS)
-	.mpeg_version = MPEG4,
-	.mem_total_size = 10*1024,
-	.mem_block_size = 128,
-	.mem_frame_size = 1024
+    .sample_rate = AUDIO_SAMPLING_RATE,
+    .channel = AUDIO_CHANNEL_NUMBER,
+    .bit_length = FAAC_INPUT_16BIT,
+    .output_format = 0,   //Bitstream output format (0 = Raw; 1 = ADTS)
+    .mpeg_version = MPEG4,
+    .mem_total_size = 10*1024,
+    .mem_block_size = 128,
+    .mem_frame_size = 1024
 };
 #endif
 
 void example_kvs_producer_mmf_thread(void *param)
 {
 #if ISP_BOOT_MODE_ENABLE == 0
-	common_init();
+    common_init();
 #endif
 
     isp_v1_ctx = mm_module_open(&isp_module);
@@ -117,6 +126,8 @@ void example_kvs_producer_mmf_thread(void *param)
     
     kvs_producer_v1_ctx = mm_module_open(&kvs_producer_module);
     if(kvs_producer_v1_ctx){
+        mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_VIDEO_HEIGHT, PRODUCER_MMF_VIDEO_HEIGHT);
+        mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_VIDEO_WIDTH, PRODUCER_MMF_VIDEO_WIDTH);
         mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_APPLY, 0);
     }else{
         rt_printf("KVS open fail\n\r");

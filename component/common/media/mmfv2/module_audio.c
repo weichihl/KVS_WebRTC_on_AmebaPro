@@ -490,8 +490,8 @@ audio_control_fail:
 	return -1;
 }
 
-int module_audio_ns = 1;
-int module_audio_agc = 1;
+int module_audio_ns = 0;
+int module_audio_agc = 0;
 int audio_handle(void* p, void* input, void* output)
 {
 	//audio_ctx_t* ctx = (audio_ctx_t*)p;

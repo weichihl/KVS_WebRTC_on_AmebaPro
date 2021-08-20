@@ -15,6 +15,40 @@ mm_context_t* kvs_webrtc_v1_a1_ctx      = NULL;
 mm_context_t* kvs_producer_v1_ctx       = NULL;
 mm_mimo_t* mimo_1v_1a_webrtc_producer   = NULL;
 
+/*
+ * !!!! Please set your AWS key and channel_name in example_kvs_webrtc.h for webrtc !!!!
+ * !!!! Please set your AWS key, KVS_STREAM_NAME, AWS_KVS_REGION and ENABLE_IOT_CREDENTIAL in sample_config.h for producer !!!!
+*/
+
+/* set the video parameter here, it will overwrite the setting in example_kvs_webrtc.h and sample_config.h */
+#define WEBRTC_PRODUCER_MMF_VIDEO_WIDTH      1280
+#define WEBRTC_PRODUCER_MMF_VIDEO_HEIGHT     720
+#define WEBRTC_PRODUCER_MMF_VIDEO_BPS        256*1024
+#define WEBRTC_PRODUCER_MMF_VIDEO_FPS        15
+
+static isp_params_t isp_kvs_webrtc_params = {
+	.width    = WEBRTC_PRODUCER_MMF_VIDEO_WIDTH, 
+	.height   = WEBRTC_PRODUCER_MMF_VIDEO_HEIGHT,
+	.fps      = WEBRTC_PRODUCER_MMF_VIDEO_FPS,
+	.slot_num = V1_HW_SLOT,
+	.buff_num = V1_SW_SLOT,
+	.format   = ISP_FORMAT_YUV420_SEMIPLANAR
+};
+
+static h264_params_t h264_kvs_webrtc_params = {
+	.width          = WEBRTC_PRODUCER_MMF_VIDEO_WIDTH,
+	.height         = WEBRTC_PRODUCER_MMF_VIDEO_HEIGHT,
+	.bps            = WEBRTC_PRODUCER_MMF_VIDEO_BPS,
+	.fps            = WEBRTC_PRODUCER_MMF_VIDEO_FPS,
+	.gop            = WEBRTC_PRODUCER_MMF_VIDEO_FPS,
+	.rc_mode        = V1_H264_RCMODE,
+    .rotation       = 0,
+	.mem_total_size = V1_BUFFER_SIZE,
+	.mem_block_size = V1_BLOCK_SIZE,
+	.mem_frame_size = V1_FRAME_SIZE,
+	.input_type     = ISP_FORMAT_YUV420_SEMIPLANAR
+};
+
 void example_kvs_webrtc_producer_mmf_thread(void *param)
 {
 #if ISP_BOOT_MODE_ENABLE == 0
@@ -35,7 +69,6 @@ void example_kvs_webrtc_producer_mmf_thread(void *param)
     h264_v1_ctx = mm_module_open(&h264_module);
     if(h264_v1_ctx){
         mm_module_ctrl(h264_v1_ctx, CMD_H264_SET_PARAMS, (int)&h264_v1_params);
-        mm_module_ctrl(h264_v1_ctx, CMD_H264_BITRATE, (int)KVS_WEBRTC_BITRATE);
         mm_module_ctrl(h264_v1_ctx, MM_CMD_SET_QUEUE_LEN, V1_H264_QUEUE_LEN);
         mm_module_ctrl(h264_v1_ctx, MM_CMD_INIT_QUEUE_ITEMS, MMQI_FLAG_DYNAMIC);
         mm_module_ctrl(h264_v1_ctx, CMD_H264_INIT_MEM_POOL, 0);
@@ -65,10 +98,13 @@ void example_kvs_webrtc_producer_mmf_thread(void *param)
     }else{
         rt_printf("G711 open fail\n\r");
         goto example_kvs_webrtc_producer_mmf;
-    }	
+    }
 
     kvs_webrtc_v1_a1_ctx = mm_module_open(&kvs_webrtc_module);
     if(kvs_webrtc_v1_a1_ctx){
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_HEIGHT, WEBRTC_PRODUCER_MMF_VIDEO_HEIGHT);
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_WIDTH, WEBRTC_PRODUCER_MMF_VIDEO_WIDTH);
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_BPS, WEBRTC_PRODUCER_MMF_VIDEO_BPS);
         mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_APPLY, 0);
     }else{
         rt_printf("KVS open fail\n\r");
@@ -77,6 +113,8 @@ void example_kvs_webrtc_producer_mmf_thread(void *param)
 
     kvs_producer_v1_ctx = mm_module_open(&kvs_producer_module);
     if(kvs_producer_v1_ctx){
+        mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_VIDEO_HEIGHT, WEBRTC_PRODUCER_MMF_VIDEO_HEIGHT);
+        mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_VIDEO_WIDTH, WEBRTC_PRODUCER_MMF_VIDEO_WIDTH);
         mm_module_ctrl(kvs_producer_v1_ctx, CMD_KVS_PRODUCER_SET_APPLY, 0);
     }else{
         rt_printf("KVS open fail\n\r");

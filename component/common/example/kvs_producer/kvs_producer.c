@@ -117,7 +117,7 @@ void isp_frame_cb(void* p)
         is_output_ready = xQueueReceiveFromISR(ctx->output_recycle, &buf, &xTaskWokenByReceive) == pdTRUE;
     }else{
         info->isp_overflow_flag = 0;
-        ISP_DBG_INFO("isp overflow = %d\r\n",cfg->isp_id);
+        //ISP_DBG_INFO("isp overflow = %d\r\n", cfg->isp_id);
     }
     
     if(is_output_ready){

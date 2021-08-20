@@ -48,6 +48,9 @@
 #define ERRNO_FAIL      __LINE__
 
 #define VIDEO_OUTPUT_BUFFER_SIZE    ( VIDEO_HEIGHT * VIDEO_WIDTH / 10 )
+   
+int kvsProducerModule_video_H;
+int kvsProducerModule_video_W;
 
 static void sleepInMs( uint32_t ms )
 {
@@ -82,8 +85,8 @@ int KvsVideoInitTrackInfo(VIDEO_BUFFER *pVideoBuf, Kvs_t *pKvs)
 
         pKvs->pVideoTrackInfo->pTrackName = VIDEO_NAME;
         pKvs->pVideoTrackInfo->pCodecName = VIDEO_CODEC_NAME;
-        pKvs->pVideoTrackInfo->uWidth = VIDEO_WIDTH;
-        pKvs->pVideoTrackInfo->uHeight = VIDEO_HEIGHT;
+        pKvs->pVideoTrackInfo->uWidth = kvsProducerModule_video_W;
+        pKvs->pVideoTrackInfo->uHeight = kvsProducerModule_video_H;
         pKvs->pVideoTrackInfo->pCodecPrivate = pVideoCpdData;
         pKvs->pVideoTrackInfo->uCodecPrivateLen = uCpdLen;
         printf("\r[Video resolution] w: %d h: %d\r\n", pKvs->pVideoTrackInfo->uWidth, pKvs->pVideoTrackInfo->uHeight);
@@ -653,7 +656,12 @@ int kvs_producer_control(void *p, int cmd, int arg)
         if( xTaskCreate(kvs_producer_thread, ((const char*)"kvs_producer_thread"), 4096, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS){
             printf("\n\r%s xTaskCreate(kvs_producer_thread) failed", __FUNCTION__);
         }
-
+        break;
+    case CMD_KVS_PRODUCER_SET_VIDEO_HEIGHT:
+        kvsProducerModule_video_H = (int)arg;
+        break;
+    case CMD_KVS_PRODUCER_SET_VIDEO_WIDTH:
+        kvsProducerModule_video_W = (int)arg;
         break;
     }
     return 0;

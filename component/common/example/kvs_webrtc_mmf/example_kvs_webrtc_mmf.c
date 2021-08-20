@@ -6,32 +6,40 @@
 #include "platform_opts.h"
 #if CONFIG_EXAMPLE_KVS_WEBRTC_MMF
 
-#include "example_kvs_webrtc_mmf.h"
 #include "../media_framework/example_media_framework.h"
 #include "module_kvs_webrtc.h"
 #include "module_kvs_webrtc_audio.h"
-#include "../kvs_webrtc/example_kvs_webrtc.h"
 
 mm_context_t* kvs_webrtc_v1_a1_ctx      = NULL;
 mm_context_t* kvs_webrtc_audio_ctx      = NULL;
 mm_miso_t* miso_h264_g711_kvs_v1_a1     = NULL;
 mm_siso_t* siso_webrtc_g711d            = NULL;
 
+/*
+ * !!!! Please set your AWS key and channel_name in example_kvs_webrtc.h !!!!
+*/
+
+/* set the video parameter here, it will overwrite the setting in example_kvs_webrtc.h */
+#define WEBRTC_MMF_VIDEO_WIDTH      1280
+#define WEBRTC_MMF_VIDEO_HEIGHT     720
+#define WEBRTC_MMF_VIDEO_BPS        512*1024
+#define WEBRTC_MMF_VIDEO_FPS        30
+
 isp_params_t isp_kvs_webrtc_params = {
-	.width    = KVS_VIDEO_WIDTH, 
-	.height   = KVS_VIDEO_HEIGHT,
-	.fps      = 30,
+	.width    = WEBRTC_MMF_VIDEO_WIDTH, 
+	.height   = WEBRTC_MMF_VIDEO_HEIGHT,
+	.fps      = WEBRTC_MMF_VIDEO_FPS,
 	.slot_num = V1_HW_SLOT,
 	.buff_num = V1_SW_SLOT,
 	.format   = ISP_FORMAT_YUV420_SEMIPLANAR
 };
 
 h264_params_t h264_kvs_webrtc_params = {
-	.width          = KVS_VIDEO_WIDTH,
-	.height         = KVS_VIDEO_HEIGHT,
-	.bps            = KVS_WEBRTC_BITRATE,
-	.fps            = 30,
-	.gop            = 30,
+	.width          = WEBRTC_MMF_VIDEO_WIDTH,
+	.height         = WEBRTC_MMF_VIDEO_HEIGHT,
+	.bps            = WEBRTC_MMF_VIDEO_BPS,
+	.fps            = WEBRTC_MMF_VIDEO_FPS,
+	.gop            = WEBRTC_MMF_VIDEO_FPS,
 	.rc_mode        = V1_H264_RCMODE,
     .rotation       = 0,
 	.mem_total_size = V1_BUFFER_SIZE,
@@ -90,10 +98,13 @@ void example_kvs_webrtc_mmf_thread(void *param)
     }else{
         rt_printf("G711 open fail\n\r");
         goto example_kvs_webrtc_mmf;
-    }	
+    }
 
     kvs_webrtc_v1_a1_ctx = mm_module_open(&kvs_webrtc_module);
     if(kvs_webrtc_v1_a1_ctx){
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_HEIGHT, WEBRTC_MMF_VIDEO_HEIGHT);
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_WIDTH, WEBRTC_MMF_VIDEO_WIDTH);
+        mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_VIDEO_BPS, WEBRTC_MMF_VIDEO_BPS);
         mm_module_ctrl(kvs_webrtc_v1_a1_ctx, CMD_KVS_WEBRTC_SET_APPLY, 0);
     }else{
         rt_printf("KVS open fail\n\r");
